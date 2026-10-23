@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F4E9A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="카미노">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%225%22%20fill%3D%22%231F4E9A%22/%3E%3Cpath%20d%3D%22M12%204%20C7%204%204.5%208%204.5%2011.5%20L12%2020%20L19.5%2011.5%20C19.5%208%2017%204%2012%204Z%22%20fill%3D%22%23F2B705%22/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}img{max-width:100%}</style>
+<title>카미노 스페인어</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Jua&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: 순례자 여권(크레덴시알) — 좁은 세로 단, 위 탭, 단어마다 세요(도장)가 찍히고 산티아고까지 km가 줄어드는 구조 */
+:root{
+  --paper:#EEF0EA; --card:#FFFFFF; --ink:#1B2A3F; --muted:#5F6A72; --line:#D7DBD2;
+  --accent:#1F4E9A; --accent-soft:#DDE6F4; --on-accent:#FFFFFF;
+  --arrow:#B07D00; --arrow-soft:#FBEFC8; --stamp:#B4442F;
+  --masc:#2F68B8; --fem:#C2415A;
+  --good:#23845A; --good-soft:#DDF2E7; --bad:#C2413A; --bad-soft:#F8E0DE;
+  --sans:"Jua","Gaegu",system-ui,sans-serif;
+  --hand:"Gaegu","Jua",cursive;
+  --mono:"IBM Plex Mono",ui-monospace,"Jua",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11171F; --card:#1B2430; --ink:#E8ECEF; --muted:#9CA6AE; --line:#2D3946;
+  --accent:#86A9E6; --accent-soft:#24344F; --on-accent:#11171F;
+  --arrow:#F2C230; --arrow-soft:#3A3219; --stamp:#EE7D66;
+  --masc:#7FA8E8; --fem:#F08AA0;
+  --good:#5CC48A; --good-soft:#173A2B; --bad:#F0756A; --bad-soft:#3F2023; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11171F; --card:#1B2430; --ink:#E8ECEF; --muted:#9CA6AE; --line:#2D3946;
+  --accent:#86A9E6; --accent-soft:#24344F; --on-accent:#11171F;
+  --arrow:#F2C230; --arrow-soft:#3A3219; --stamp:#EE7D66;
+  --masc:#7FA8E8; --fem:#F08AA0;
+  --good:#5CC48A; --good-soft:#173A2B; --bad:#F0756A; --bad-soft:#3F2023; color-scheme:dark}
+
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.45;-webkit-tap-highlight-color:transparent}
+.app{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 40px;display:flex;flex-direction:column;gap:14px}
+button{font-family:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.crest{width:38px;height:38px;border-radius:10px;background:var(--accent);display:grid;place-items:center}
+.crest svg{width:24px;height:24px}
+.brand h1{margin:0;font-size:24px;font-weight:400}
+.brand small{display:block;color:var(--muted);font-size:12px;margin-top:-2px}
+.iconbtn{height:38px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-size:13px;color:var(--muted)}
+.tgl{display:inline-flex;align-items:center;gap:7px;color:var(--ink)}
+.tgl .sw{position:relative;width:34px;height:20px;border-radius:99px;background:var(--line);transition:background .15s;flex:none}
+.tgl .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.25);transition:left .15s}
+.tgl[aria-checked="true"] .sw{background:var(--good)}
+.tgl[aria-checked="true"] .sw::after{left:16px}
+.tgl .st{font-family:var(--mono);font-size:10px;min-width:20px;color:var(--muted)}
+.tgl[aria-checked="true"] .st{color:var(--good)}
+.tgl{flex:none;white-space:nowrap;padding:0 8px;gap:6px}
+.tgl .lb{white-space:nowrap;font-size:13px}
+.top{flex-wrap:wrap;row-gap:8px}
+.top>div:last-child{flex:none}
+@media (max-width:420px){.tgl .st{display:none}.tgl{padding:0 7px}.brand small{display:none}}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px}
+.tabs button{padding:9px 4px;border-radius:10px;font-size:15px;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--on-accent)}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.label{font-size:12px;color:var(--muted);letter-spacing:.06em}
+
+/* 순례길 진행 */
+.route{display:flex;flex-direction:column;gap:10px}
+.route-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.route-name{font-size:22px}
+.track{position:relative;height:34px;margin:4px 6px 0}
+.track .ln{position:absolute;left:0;right:0;top:12px;height:4px;border-radius:2px;background:var(--line)}
+.track .done{position:absolute;left:0;top:12px;height:4px;border-radius:2px;background:var(--arrow);transition:width .6s}
+.track .town{position:absolute;top:8px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--card);border:2px solid var(--line)}
+.track .town.on{border-color:var(--arrow);background:var(--arrow)}
+.track .town span{position:absolute;top:15px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);white-space:nowrap}
+.track .me{position:absolute;top:-6px;margin-left:-9px;width:18px;height:18px;transition:left .6s}
+.track .town:first-of-type span{left:0;transform:none}
+.track .town.last span{left:auto;right:0;transform:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--paper);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px}
+.stat b{font-weight:400;font-size:22px}
+.stat span{font-size:12px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);font-size:14px;color:var(--muted)}
+.chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.chip .num{font-size:11px;opacity:.75;margin-left:3px}
+.modes{display:flex;flex-direction:column;gap:8px}
+.mode{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;transition:transform .12s,border-color .12s}
+.mode:hover{border-color:var(--accent);transform:translateY(-1px)}
+.mode:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.mode .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:14px;background:var(--accent-soft);color:var(--accent)}
+.mode.hero{border:2px solid var(--accent)}
+.mode.hero .ic{background:var(--accent);color:var(--on-accent)}
+.mode h3{margin:0;font-weight:400;font-size:18px}
+.mode p{margin:0;color:var(--muted);font-family:var(--hand);font-size:15px;line-height:1.2}
+.mode .side{font-size:13px;color:var(--muted);text-align:right}
+.tag{font-size:11px;padding:2px 7px;border-radius:99px;background:var(--arrow-soft);color:var(--arrow)}
+
+/* 성별 */
+.art{font-size:.8em;margin-right:.2em}
+.art.m{color:var(--masc)}
+.art.f{color:var(--fem)}
+.gnote{font-size:12px;padding:1px 7px;border-radius:99px;border:1px solid currentColor}
+.gnote.m{color:var(--masc)}
+.gnote.f{color:var(--fem)}
+
+/* quiz */
+.qhead{display:flex;align-items:center;gap:10px}
+.qhead .bar{flex:1}
+.bar{height:10px;background:var(--accent-soft);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .5s}
+.quit{flex:none;display:inline-flex;align-items:center;gap:4px;font-size:14px;color:var(--ink);padding:7px 12px 7px 9px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);white-space:nowrap}
+.quit svg{width:16px;height:16px}
+.quit:hover{border-color:var(--bad);color:var(--bad)}
+.combo{min-width:66px;text-align:center;font-size:14px;padding:4px 8px;border-radius:99px;background:var(--arrow-soft);color:var(--arrow);transition:transform .15s}
+.combo.pop{transform:scale(1.25)}
+.prompt{text-align:center;padding:26px 16px 22px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
+.prompt .ask{color:var(--muted);font-size:15px}
+.prompt .big{font-size:38px;line-height:1.15;text-wrap:balance}
+.prompt .big.es{font-size:40px}
+.prompt .meta{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;align-items:center}
+.prompt .think{font-family:var(--hand);font-size:18px;color:var(--muted);margin-top:6px}
+.say{font-size:13px;padding:4px 12px;border-radius:99px;border:1px solid var(--accent);color:var(--accent);background:var(--card)}
+.lvdots{display:inline-flex;gap:3px;align-items:center}
+.lvdots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.lvdots i.on{background:var(--accent)}
+.again{position:absolute;top:10px;right:12px;font-size:12px;color:var(--stamp);border:1px dashed var(--stamp);border-radius:8px;padding:1px 6px;transform:rotate(4deg)}
+.judge{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.jb{border-radius:16px;padding:18px 10px;font-size:22px;display:flex;flex-direction:column;align-items:center;gap:2px;border:2px solid var(--line);background:var(--card);transition:transform .1s}
+.jb:active{transform:scale(.97)}
+.jb small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.jb.no{color:var(--bad);border-color:var(--bad)}
+.jb.yes{background:var(--good);border-color:var(--good);color:var(--card)}
+.row{display:flex;gap:8px}
+.row>*{flex:1}
+.btn{padding:13px 12px;border-radius:14px;font-size:17px;background:var(--accent);color:var(--on-accent)}
+.btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn.warn{background:var(--card);color:var(--bad);border:1px solid var(--bad)}
+.btn small{font-family:var(--mono);font-size:11px;opacity:.7}
+
+/* 답지 */
+.sheet{border-radius:18px;border:1px solid var(--line);background:var(--card);overflow:hidden;animation:rise .25s ease-out}
+@keyframes rise{from{transform:translateY(8px);opacity:.4}to{transform:none;opacity:1}}
+.sheet-top{padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.sheet-top .who{font-size:15px;color:var(--muted)}
+.sheet-top .ans{font-size:32px;color:var(--accent);line-height:1.1}
+.sheet-top .pr{font-size:15px;color:var(--muted)}
+.verdict{margin-left:auto;font-size:13px;padding:4px 10px;border-radius:99px;white-space:nowrap}
+.verdict.good{background:var(--good-soft);color:var(--good)}
+.verdict.bad{background:var(--bad-soft);color:var(--bad)}
+.sheet-body{padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.sec b{display:block;font-weight:400;font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:2px}
+.sec p{margin:0;font-size:16px;line-height:1.5}
+.sec.memo{background:var(--arrow-soft);border-radius:12px;padding:10px 12px}
+.sec.memo b{color:var(--arrow)}
+.sec.memo p{font-family:var(--hand);font-size:20px;line-height:1.3;color:var(--ink)}
+.memo-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:2px}
+.memo-h b{margin:0!important}
+.memo-btn{font-size:13px;padding:3px 10px;border-radius:99px;border:1px solid var(--arrow);color:var(--arrow);background:var(--card)}
+.memo-btn.solid{background:var(--arrow);color:var(--card)}
+.memo-ta{width:100%;box-sizing:border-box;font-family:var(--hand);font-size:19px;line-height:1.3;color:var(--ink);background:var(--card);
+  border:2px solid var(--arrow);border-radius:10px;padding:8px 10px;resize:vertical;min-height:72px}
+.memo-ta:focus-visible{outline:none;border-color:var(--accent)}
+.memo-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px}
+.memo-hint{font-size:11px;color:var(--muted);margin-left:auto}
+.newstamp{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--stamp)}
+
+/* result */
+.result{display:flex;flex-direction:column;gap:12px;text-align:center}
+.result .score{font-size:56px;line-height:1;color:var(--accent)}
+.misslist{display:flex;flex-direction:column;gap:6px;text-align:left}
+.miss{background:var(--paper);border-radius:12px;padding:8px 12px}
+.miss .t{font-family:var(--hand);font-size:16px;color:var(--muted);line-height:1.2}
+
+/* 크레덴시알 */
+.pp-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.slot{aspect-ratio:1;max-width:100%;border-radius:14px;border:1px dashed var(--line);background:var(--card);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;text-align:center}
+.slot .n{font-size:14px;line-height:1.1}
+.slot .k{font-size:11px;color:var(--muted);line-height:1.1}
+.slot .lvdots i{width:6px;height:6px}
+.sello{width:84px;height:84px;border-radius:50%;border:3px double var(--stamp);color:var(--stamp);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;line-height:1.05;text-align:center;font-size:12px;opacity:.92;padding:4px;box-sizing:border-box}
+.sello svg{width:20px;height:20px}
+.sello .sc{font-size:14px;word-break:keep-all}
+.sello .sd{font-family:var(--mono);font-size:8px;letter-spacing:.08em;border-top:1px solid currentColor;margin-top:2px;padding-top:1px}
+.sello.in{animation:stampin .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes stampin{0%{transform:scale(2.2) rotate(-25deg);opacity:0}100%{opacity:.92}}
+.cont-h{margin:6px 0 0;font-weight:400;font-size:16px;color:var(--muted)}
+
+/* 카드 */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.fc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;min-height:92px;text-align:left;display:flex;flex-direction:column;gap:4px;cursor:pointer}
+.fc.open{grid-column:1/-1;cursor:pointer}
+.fc .n{font-size:17px}
+.fc .c{font-size:22px;color:var(--accent)}
+.fc .c.hide{color:var(--muted);font-size:14px}
+.fc .t{font-size:14px;color:var(--muted);line-height:1.45}
+.fc .sec.memo{cursor:auto}
+.fc .sec.memo p{font-size:18px}
+.fc .head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.listenbtn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:18px 26px;border-radius:20px;background:var(--accent);color:var(--on-accent);font-size:15px;margin:6px 0}
+.listenbtn svg{width:46px;height:46px}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pcard{border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.pcard.on{border:2px solid var(--accent);background:var(--accent-soft)}
+.pcard .pes{font-size:22px;color:var(--accent);word-break:break-word}
+.pcard .pko{font-size:15px}
+.pcard .pr{font-size:13px;color:var(--muted)}
+.aud{display:flex;flex-wrap:nowrap;gap:6px;align-items:center;margin-top:6px}
+.aud .say{white-space:nowrap;flex:none}
+.say.native{text-decoration:none;display:inline-block;border-color:var(--arrow);color:var(--arrow)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));max-width:min(480px,calc(100% - 32px));background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:12px;font-size:14px;z-index:20;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#voiceSel{font-family:inherit;font-size:13px;padding:3px 6px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-width:100%}
+.surebtn{width:100%;padding:11px 12px;border-radius:14px;font-size:15px;border:1.5px dashed var(--accent);color:var(--accent);background:var(--card)}
+.surebtn small{font-family:var(--mono);font-size:11px;opacity:.7;margin-left:4px}
+.surebtn:hover{background:var(--accent-soft)}
+.surebadge{font-size:11px;padding:1px 7px;border-radius:99px;background:var(--accent-soft);color:var(--accent);vertical-align:2px}
+.fc.sure{border-color:var(--accent);border-style:dashed}
+.fc .surebtn{margin-top:4px;font-size:14px;padding:8px}
+.note-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.note-row:last-child{border-bottom:0}
+.note-row .x{font-family:var(--mono);font-size:13px;color:var(--bad)}
+.empty{text-align:center;color:var(--muted);font-family:var(--hand);font-size:19px;padding:24px 8px}
+.foot{text-align:center;font-size:12px;color:var(--muted)}
+.linkbtn{color:var(--muted);text-decoration:underline;font-size:12px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:380px){.prompt .big{font-size:30px}.prompt .big.es{font-size:32px}}
+</style>
+
+<div class="app" id="app">
+  <header class="top">
+    <div class="brand">
+      <div class="crest" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 C6 3 3 8 3 12 L12 21 L21 12 C21 8 18 3 12 3Z" fill="#F2B705"/><path d="M12 5v14M8 6.5 10.5 19M16 6.5 13.5 19M5 9.5 11 20M19 9.5 13 20" stroke="#1F4E9A" stroke-width="1.1" fill="none"/></svg></div>
+      <div><h1>카미노 스페인어</h1><small>순례길 따라 초급부터 고급까지</small></div>
+    </div>
+    <div style="display:flex;gap:6px"><button class="iconbtn tgl" id="autoBtn" role="switch" aria-label="자동발음"><span class="lb">자동발음</span><span class="sw" aria-hidden="true"></span><span class="st"></span></button><button class="iconbtn tgl" id="muteBtn" role="switch" aria-label="효과음"><span class="lb">효과음</span><span class="sw" aria-hidden="true"></span><span class="st"></span></button></div>
+  </header>
+  <nav class="tabs" id="tabs" role="tablist">
+    <button role="tab" data-tab="home" aria-selected="true">홈</button>
+    <button role="tab" data-tab="passport" aria-selected="false">크레덴시알</button>
+    <button role="tab" data-tab="cards" aria-selected="false">카드</button>
+    <button role="tab" data-tab="notes" aria-selected="false">오답노트</button>
+  </nav>
+  <main id="view"></main>
+</div>
+
+<script>
+/* [한국어 뜻, 스페인어, 한글 발음, 용법·예문, 암기법, 성(m/f)] */
+const RAW={
+'인사':[
+['안녕','hola','올라',"h는 소리 내지 않아요. 문장 앞엔 거꾸로 된 느낌표를 붙여요: ¡Hola!","손 흔들며 \"올라~\" 하고 반갑게."],
+['안녕하세요 (아침)','buenos días','부에노스 디아스','점심 먹기 전까지 쓰는 인사. bueno(좋은) + día(날).',"부에노스아이레스의 '부에노스'가 '좋은'. 좋은 날들 되세요."],
+['안녕하세요 (오후)','buenas tardes','부에나스 따르데스','점심 이후 해 질 때까지. 스페인은 점심이 2~3시라 오후가 길어요.',"tarde = '늦은'. 하루 중 늦은 때 = 오후."],
+['안녕하세요 (저녁) / 잘 자','buenas noches','부에나스 노체스','저녁 인사와 "잘 자요" 둘 다 이걸로 해요.',"noche ↔ 영어 night. 둘 다 n으로 시작하는 밤."],
+['고마워요','gracias','그라시아스','정말 고마울 땐 muchas gracias. 대답은 de nada.',"영어 grace(은혜, 감사 기도)와 같은 뿌리."],
+['천만에요','de nada','데 나다',"nada = 아무것도 아님. 직역하면 \"아무것도 아니에요\".","\"아무것도 아니다\"의 '나다'."],
+['실례해요 / 미안해요','perdón','뻬르돈','부딪쳤을 때, 길을 비켜 달라고 할 때, 점원을 부를 때.',"영어 pardon과 거의 같아요."],
+['네','sí','씨',"강세 표시가 있는 sí = 네, 없는 si = 만약.","\"씨익\" 웃으며 끄덕."],
+['부탁해요 / 주세요','por favor','뽀르 파보르','주문할 때 끝에 붙이면 공손해져요: Un café, por favor.',"영어 favor(호의). 호의를 위하여(por) = 부탁해요."],
+['잘 지내? / 어때?','¿qué tal?','께 딸','가볍게 안부 묻기. 대답은 bien(좋아).',"\"께딸?\" 케이크에 딸기 어때?"],
+['좋아 / 잘','bien','비엔','Estoy bien(나 잘 지내), muy bien(아주 좋아).',"빈틈없이 좋다 = 비엔."],
+['잘 가','adiós','아디오스','옛날엔 "신(Dios)께 맡긴다"는 뜻. 가벼운 작별은 hasta luego를 더 많이 써요.',"a + Dios = 신께. 신께 맡기고 안녕."],
+['또 봐요','hasta luego','아스따 루에고','hasta(~까지) + luego(나중에). h는 소리 안 나요.',"나중(luego)까지(hasta) 안녕 → 나중에 봐."],
+['만나서 반가워요','mucho gusto','무초 구스또','처음 만났을 때. 직역은 "많은 즐거움".',"영어 gusto(열정, 즐거움). 많이(mucho) 즐거워요."],
+['OK / 좋아요','vale','발레','스페인 본토에서 OK 대신 하루에 수십 번 듣는 말. 중남미에선 bueno를 더 써요.',"발레(ballet)처럼 가볍게 '발레!' 하면 OK."],
+],
+'숫자':[
+['1','uno','우노','남성명사 앞에선 un, 여성명사 앞에선 una: un café, una cerveza.',"카드게임 UNO: 마지막 1장 남으면 \"우노!\""],
+['2','dos','도스','dos cafés(커피 두 잔).',"영어 two와 같은 뿌리인 duo(듀오) = 둘."],
+['3','tres','뜨레스','tres días(3일).',"three, trio, 트레스. 전부 셋."],
+['4','cuatro','꾸아뜨로','cuatro personas(4명).',"쿼터(quarter) = 4분의 1. 꽈뜨로."],
+['5','cinco','씽꼬',"멕시코 축제 Cinco de Mayo = 5월 5일.","씽코 데 마요(5월 5일) 축제."],
+['6','seis','세이스','seis euros(6유로).',"six와 첫소리 s가 같아요."],
+['7','siete','씨에떼','siete días = 일주일.',"seven과 첫소리 s. 일주일 = 7일 = siete días."],
+['8','ocho','오초','ocho horas(8시간).',"옥타곤(octagon, 팔각형)·옥토퍼스(다리 8개) → 오초."],
+['9','nueve','누에베','nueve는 nuevo(새로운)와 한 글자 차이.',"nine과 같은 n. 누에베."],
+['10','diez','디에스','diez minutos(10분).',"데시(deci) = 10분의 1. d로 시작하는 10."],
+],
+'사람·가족':[
+['가족','familia','파밀리아','mi familia(나의 가족).',"영어 family와 거의 같아요.",'f'],
+['엄마 / 어머니','madre','마드레','일상에선 mamá(엄마)도 많이 써요.',"mother ≈ madre. 수도 마드리드와 헷갈리지 않게 '마드레'.",'f'],
+['아빠 / 아버지','padre','빠드레','padres는 "부모님". 신부님도 padre.',"father ≈ padre. 성당 신부님 = 파드레.",'m'],
+['형제 / 남자 형제','hermano','에르마노','여자 형제는 hermana. h는 소리 안 나요.',"끝이 -o면 남자, -a면 여자. hermano / hermana.",'m'],
+['친구 (남)','amigo','아미고','여자 친구는 amiga. mi amigo(내 친구).',"노래·영화에 단골로 나오는 \"아미고~\"",'m'],
+['남자 / 사람','hombre','옴브레','h는 소리 안 나요. ¡Hombre!는 "이 사람아!" 같은 감탄으로도 써요.',"human(인간)과 같은 라틴어 뿌리 homo.",'m'],
+['여자 / 아내','mujer','무헤르','j는 "ㅎ" 소리. mi mujer(내 아내).',"스페인어 j = ㅎ. 무제르 아니고 무헤르.",'f'],
+['아이 (남자아이)','niño','니뇨','여자아이는 niña. 기상현상 엘니뇨는 "아기 예수"에서 온 이름.',"엘니뇨 현상의 '니뇨' = 남자아이.",'m'],
+['사람','persona','뻬르소나','남자를 가리켜도 la persona(여성명사).',"영어 person 그대로.",'f'],
+['나','yo','요','동사 모양이 주어를 알려줘서 yo는 자주 생략해요.',"\"요! 나야 나.\""],
+],
+'음식·카페':[
+['물','agua','아구아',"여성명사지만 발음이 부딪혀서 el agua라고 해요. agua con gas = 탄산수.","아쿠아(aqua)리움 = 물.",'f'],
+['커피','café','까페','café con leche = 우유 넣은 커피(카페라테). café solo = 에스프레소.',"카페 그대로.",'m'],
+['우유','leche','레체','café con leche의 그 leche.',"이탈리아어 latte(라테)와 같은 뿌리.",'f'],
+['빵','pan','빤','바게트 같은 빵을 사러 panadería(빵집)에 가요.',"한국어 '빵'도 같은 뿌리(포르투갈어 pão → 일본어 → 한국어).",'m'],
+['맥주','cerveza','쎄르베사','스페인 바에선 생맥주를 una caña라고 주문해요.',"\"세르베사 서브(serve) 해 주세요.\"",'f'],
+['와인','vino','비노','vino tinto(레드), vino blanco(화이트).',"wine ↔ vino. 둘 다 v/w 소리.",'m'],
+['고기','carne','까르네','con carne = 고기를 넣은.',"칠리 콘 카르네(고기 넣은 칠리).",'f'],
+['생선 (요리용)','pescado','뻬스까도','살아 있는 물고기는 pez. 잡힌 생선은 pescado.',"물고기자리 Pisces와 같은 뿌리.",'m'],
+['닭고기','pollo','뽀요','ll은 "y" 소리라서 뽈로가 아니라 뽀요.',"스페인어 ll = y 소리: pollo = 뽀요.",'m'],
+['계산서','cuenta','꾸엔따','La cuenta, por favor. = 계산서 주세요.',"count(세다)와 같은 뿌리. 세어서 주는 종이.",'f'],
+['맛있는','rico','리꼬','음식이 맛있을 때 ¡Qué rico! 사람에게 쓰면 "부유한".',"리치(rich)한 맛 = rico."],
+['아침 식사','desayuno','데사유노','des(풀다) + ayuno(단식). 점심은 almuerzo, 저녁은 cena.',"영어 breakfast(break + fast)랑 똑같은 구조: 단식을 깨다.",'m'],
+],
+'장소·여행':[
+['화장실','baño','바뇨','¿Dónde está el baño? = 화장실 어디예요?',"ñ = 뇨. 목욕(bath)과 같은 뿌리.",'m'],
+['역','estación','에스따시온','estación de tren(기차역). -ción으로 끝나면 거의 여성명사.',"station 앞에 e를 붙인 꼴. 스페인어는 s+자음 앞에 e가 붙어요.",'f'],
+['공항','aeropuerto','아에로뿌에르또','aero(공중) + puerto(항구).',"air + port를 그대로 옮긴 말: 하늘의 항구.",'m'],
+['호텔','hotel','오뗄','h는 소리 안 나요. 순례자 숙소는 albergue.',"호텔에서 h만 빼면 '오텔'.",'m'],
+['거리 / 길','calle','까예','ll = y 소리. Calle Mayor = 큰길(중심가).',"캘리가 아니라 '까예'. ll은 언제나 y 소리.",'f'],
+['시장','mercado','메르까도','Mercado de San Miguel(마드리드의 유명한 시장).',"market ↔ mercado.",'m'],
+['해변','playa','쁠라야','ir a la playa = 해변에 가다.',"해변에서 논다(play) → playa.",'f'],
+['도시','ciudad','씨우다드','-dad로 끝나면 여성명사.',"city와 같은 라틴어 뿌리 civitas.",'f'],
+['집','casa','까사','en casa = 집에(서). Mi casa es tu casa. 우리 집이 네 집.',"카사블랑카 = 하얀(blanca) 집(casa).",'f'],
+['오른쪽','derecha','데레차','a la derecha = 오른쪽으로. derecho는 "곧장".',"direct·right(바른)처럼 '바른 쪽' = 오른쪽."],
+['왼쪽','izquierda','이스끼에르다','a la izquierda = 왼쪽으로.',"오른쪽 derecha를 먼저 외우고, 남은 긴 단어가 왼쪽."],
+['표 / 티켓','billete','비예떼','ll = y. 중남미에선 boleto. billete는 "지폐"도 돼요.',"bill(지폐) + 티켓 → 비예떼.",'m'],
+],
+'동사':[
+['~이다 (성질·정체)','ser','세르','Soy coreano. 나는 한국인이다. 잘 안 바뀌는 것에 써요.',"본질은 세다(강하다), 안 바뀐다 → ser."],
+['~있다 (상태·위치)','estar','에스따르','Estoy bien(나 잘 지내), Estoy en Busan(부산에 있어).',"state(상태)·station(위치) → estar. 바뀌는 상태와 위치."],
+['가지다','tener','떼네르','나이도 tener로 말해요: Tengo 40 años.',"maintain·contain의 -tain = 가지다."],
+['가다','ir','이르','Voy a Madrid. 모양이 불규칙해요(voy, vas, va).',"한국어 '이르다(도달하다)'와 소리가 같아요."],
+['원하다','querer','께레르','Quiero un café(커피 원해요). Te quiero는 "사랑해".',"퀘스트(quest)처럼 원하는 걸 찾아 나서다."],
+['먹다','comer','꼬메르','comida = 음식, 식사.',"comer 먹다 → comida 음식. 같은 집안 단어."],
+['마시다','beber','베베르','¿Qué quieres beber? 뭐 마실래?',"beverage(음료)와 같은 뿌리."],
+['말하다','hablar','아블라르','¿Hablas inglés? 영어 할 줄 알아? h는 소리 안 나요.',"blah blah(말 많음) → 아블라르."],
+['알다 (지식)','saber','사베르','No sé. 몰라요. 사람·장소를 알 때는 conocer.',"호모 사피엔스(지혜로운 사람)와 같은 뿌리."],
+['하다 / 만들다','hacer','아세르','날씨도 hace로 말해요: Hace calor(덥다).',"h가 소리 안 나서 '아세르'. '하다'의 h가 숨었다고 기억."],
+['보다','ver','베르','Nos vemos. 또 보자.',"video(라틴어로 '나는 본다')와 같은 뿌리."],
+['살다','vivir','비비르','Vivo en Busan. 나는 부산에 살아요.',"Viva!(만세, 살아라)와 같은 뿌리."],
+['좋아하다','gustar','구스따르','Me gusta el café = 커피가 나에게 좋다(주어가 커피).',"mucho gusto(만나서 반가워요)의 gusto = 즐거움."],
+['필요하다','necesitar','네세시따르','Necesito ayuda. 도움이 필요해요.',"necessary(필요한)와 같은 뿌리."],
+['이해하다','entender','엔뗀데르','No entiendo. 이해 못 했어요. 여행 필수 표현.',"마음을 그쪽으로 향하다(intend) → 이해하다."],
+],
+'형용사':[
+['큰','grande','그란데','명사 앞에 오면 gran으로 줄고 "위대한"이 돼요: gran hombre.',"스타벅스 그란데 사이즈."],
+['작은','pequeño','뻬께뇨','여성형은 pequeña.',"피콜로(piccolo, 작은 플루트) 계열의 '작은'."],
+['좋은','bueno','부에노','남성 단수 명사 앞에선 buen: buen día.',"부에노스아이레스 = 좋은 공기."],
+['나쁜','malo','말로','남성 단수 명사 앞에선 mal.',"말라리아 = mal aria(나쁜 공기)."],
+['뜨거운','caliente','깔리엔떼','날씨가 덥다는 Hace calor라고 해요.',"칼로리(calorie) = 열량. 칼로 시작하면 뜨거움."],
+['차가운','frío','프리오','Tengo frío. 추워요(추위를 가지고 있다).',"freezer(냉동고)의 fr."],
+['새로운','nuevo','누에보','여성형 nueva. Nueva York = 뉴욕.',"new ↔ nuevo, 뉴욕 = Nueva York."],
+['예쁜','bonito','보니또','중남미에선 lindo도 많이 써요.',"가쓰오부시 생선 '보니또'가 예쁘다고 상상."],
+['싼','barato','바라또','¡Qué barato! 정말 싸다!',"\"바로 사도 될 만큼 싸다\" → 바라또."],
+['비싼','caro','까로','¡Qué caro! 너무 비싸요! 흥정할 때 필수.',"\"카드로 긁어야 할 만큼 비싸\" → 까로."],
+],
+'시간':[
+['오늘','hoy','오이','h는 소리 안 나요. hoy es lunes = 오늘은 월요일.',"오늘 오이 하나 먹기 → hoy."],
+['내일','mañana','마냐나','la mañana는 "아침". 느긋한 "내일 하지 뭐" 문화의 상징 단어.',"\"마냐나~ 내일 하지 뭐.\""],
+['어제','ayer','아예르','ayer por la noche = 어젯밤.',"어제 = 아예르. 첫소리 '어/아'가 닮았어요."],
+['지금','ahora','아오라','ahora mismo = 지금 당장.',"\"아, 오라! 지금 와!\""],
+['월요일','lunes','루네스','요일은 소문자로 써요. luna(달)에서 왔어요.',"lunar(달) → 月요일. 한국어와 같은 원리."],
+['금요일','viernes','비에르네스','Venus(금성)에서 왔어요.',"Venus(금성) → 金요일. 역시 한국어와 같은 원리."],
+['주말','fin de semana','핀 데 세마나','fin(끝) + semana(주). el fin de semana.',"영화 끝의 FIN, 피날레 = 끝. 한 주의 끝.",'m'],
+['몇 시예요?','¿qué hora es?','께 오라 에스','대답: Es la una(1시), Son las dos(2시).',"hour ↔ hora, h는 소리 안 나요."],
+],
+'질문':[
+['무엇','¿qué?','께','¿Qué es esto? 이게 뭐예요?',"못 알아들었을 때 \"께?\" 하고 되묻기."],
+['어디','¿dónde?','돈데','¿Dónde está la estación? 역이 어디예요?',"\"돈 떼먹고 어디 갔어?\" → 돈데."],
+['얼마','¿cuánto?','꾸안또','¿Cuánto cuesta? 얼마예요?',"quantity(양) → 꾸안또."],
+['언제','¿cuándo?','꾸안도','¿Cuándo sale el tren? 기차 언제 출발해요?',"꾸안또(얼마)와 한 글자 차이. d는 day의 d → 언제."],
+['왜','¿por qué?','뽀르 께','띄어 쓰면 "왜?", 붙여 쓰면 porque "왜냐하면".',"por(때문에) + qué(무엇) = 무엇 때문에?"],
+['누구','¿quién?','끼엔','¿Quién es? 누구세요?',"\"끼인 사람 누구?\" → 끼엔."],
+['어떻게','¿cómo?','꼬모','¿Cómo estás? 어떻게 지내? ¿Cómo te llamas? 이름이 뭐야?(너를 어떻게 부르니?)',"꼬모(코모) 호수를 어떻게 가지?"],
+['어느 것','¿cuál?','꾸알','여러 개 중에 고를 때: ¿Cuál quieres? 어느 걸 원해?',"quality(질)를 따져 하나 고르기 → 꾸알."],
+],
+'회화 표현':[
+['이름이 뭐예요?','¿cómo te llamas?','꼬모 떼 야마스','대답은 Me llamo ○○. llamar = 부르다. 직역은 "너는 너를 어떻게 부르니?"',"llamar(부르다) → 전화하다도 llamar. 이름 = 부르는 말."],
+['저는 한국 사람이에요','soy coreano','소이 꼬레아노','여자는 coreana. 국적은 안 바뀌니까 ser(soy)를 써요.',"간장(soy) 아니고 soy = '나는 ~이다'."],
+['어디 출신이에요?','¿de dónde eres?','데 돈데 에레스','de(~로부터) + dónde(어디). 대답: Soy de Corea.',"어디(dónde)로부터(de) 왔니?"],
+['몇 살이에요?','¿cuántos años tienes?','꾸안또스 아뇨스 띠에네스','나이를 "가진다"고 말해요. 대답: Tengo 40 años.',"몇(cuántos) 해(años)를 가졌니(tienes)?"],
+['실례합니다 (부를 때)','disculpe','디스꿀뻬','점원이나 모르는 사람을 부를 때 perdón보다 공손해요.',"\"디스(this) 꿀팁 좀 물어볼게요\" 하며 부르기."],
+['천천히 말해 주세요','más despacio, por favor','마스 데스빠시오 뽀르 파보르','못 알아들었을 때 최고의 생존 표현.',"노래 Despacito(데스파시토) = 천천히."],
+['다시 말해 주시겠어요?','¿puede repetir?','뿌에데 레뻬띠르','usted(존댓말) 형태. 친구에겐 ¿puedes repetir?',"repeat ↔ repetir."],
+['무슨 뜻이에요?','¿qué significa?','께 시그니피까','¿Qué significa "vale"? = vale가 무슨 뜻이에요?',"signify(의미하다)와 같은 뿌리."],
+['잘 모르겠어요','no estoy seguro','노 에스또이 세구로','여자는 segura. seguro는 "확실한, 안전한, 보험".',"security(안전)·sure의 뿌리. 확신이 없다."],
+['상관없어요','me da igual','메 다 이구알','직역은 "나에게 똑같이 준다". 메뉴 고를 때 자주 써요.',"igual = equal. 다 똑같아요."],
+['물론이죠!','¡claro!','끌라로','¡Claro que sí! = 당연하지!',"clear(분명한) → 분명하지!"],
+['그렇군요','ya veo','야 베오','ver(보다)의 1인칭 veo. 영어 I see와 같은 쓰임.',"이제(ya) 본다(veo) = I see."],
+['정말?','¿en serio?','엔 세리오','놀라거나 믿기 어려울 때.',"serious? 진심이야?"],
+['축하해요!','¡felicidades!','펠리시다데스','생일, 결혼, 합격 다 이걸로. 생일 축하는 ¡Feliz cumpleaños!',"felicity(큰 행복)와 같은 뿌리."],
+['행운을 빌어요','¡buena suerte!','부에나 수에르떼','suerte = 운. 시험이나 면접 전에.',"좋은(buena) 운(suerte)이 쑥 들어오길."],
+['조심해요!','¡cuidado!','꾸이다도','경고 표지판에 자주 보여요.',"cuidado = care. 표지판의 ¡CUIDADO!"],
+['걱정 마','no te preocupes','노 떼 쁘레오꾸뻬스','존댓말은 No se preocupe.',"pre-occupy: 미리 마음을 차지하게 두지 마."],
+['배고파요','tengo hambre','뗑고 암브레','"배고픔을 가지고 있다". h는 소리 안 나요.',"tener + 명사로 몸 상태 말하기 시리즈 1: 배고픔."],
+['목말라요','tengo sed','뗑고 세드','sed = 갈증.',"물 없어서 sad(슬픈) → sed."],
+['졸려요','tengo sueño','뗑고 수에뇨','sueño = 잠, 꿈.',"꿈(sueño)을 가지고 있다 = 졸려요."],
+],
+'동사 더':[
+['할 수 있다','poder','뽀데르','¿Puedo pagar con tarjeta? 카드로 내도 돼요? o가 ue로 바뀌어요(puedo).',"power(힘)와 같은 뿌리. 힘이 있으면 할 수 있다."],
+['~해야 한다','tener que','떼네르 께','Tengo que trabajar. 일해야 해요.',"가지다(tener) + 할 것(que) = 해야 할 일을 가졌다."],
+['찾다','buscar','부스까르','Busco un hotel. 호텔을 찾고 있어요.',"버스(bus) 타고 찾으러 가다."],
+['기다리다 / 바라다','esperar','에스뻬라르','Espera un momento. 잠깐만 기다려. "바라다"도 같은 단어.',"esperanza(희망). 기다림 속엔 희망이 있다."],
+['열다','abrir','아브리르','¿A qué hora abre? 몇 시에 열어요?',"가게 문 표지판 ABIERTO(열림) / CERRADO(닫힘)."],
+['닫다','cerrar','쎄라르','가게 문의 CERRADO = 닫혔음.',"셔터 내리듯 '쎄라르'. ABIERTO ↔ CERRADO 짝."],
+['사다','comprar','꼼쁘라르','ir de compras = 쇼핑하러 가다.',"compare(비교)해 보고 산다."],
+['팔다','vender','벤데르','Se vende = 팝니다(매물 표시).',"vending machine(자판기) = 파는 기계."],
+['도착하다','llegar','예가르','¿A qué hora llega el tren? ll = y 소리.',"\"Yeah! 갔다!\" → 예가르, 도착."],
+['나가다 / 출발하다','salir','살리르','출구 표지판은 SALIDA.',"공항 표지판 SALIDA = 출구."],
+['들어가다','entrar','엔뜨라르','입구 표지판은 ENTRADA.',"enter ↔ entrar. 입구 ENTRADA."],
+['일하다','trabajar','뜨라바하르','j = ㅎ 소리. trabajo = 일, 직장.',"\"트러블(trouble) 많은 일\" → 뜨라바하르."],
+['공부하다','estudiar','에스뚜디아르','Estudio español. 스페인어 공부해요.',"study 앞에 e를 붙인 꼴."],
+['생각하다','pensar','뻰사르','Pienso que sí. 그런 것 같아요. e가 ie로 바뀌어요.',"pensive(생각에 잠긴). 펜(pen) 들고 생각."],
+['기억하다','recordar','레꼬르다르','No recuerdo. 기억이 안 나요.',"record(기록)해 두면 기억한다."],
+['잊다','olvidar','올비다르','¡No lo olvides! 잊지 마!',"올(all) 비다 → 머리가 다 비면 잊는다."],
+['도와주다','ayudar','아유다르','¡Ayuda! 도와줘요! ¿Me puede ayudar? 도와주실 수 있어요?',"\"아유~ 내가 도와줄게\" → 아유다르."],
+],
+'감정·상태':[
+['피곤한','cansado','깐사도','Estoy cansado(a). 바뀌는 상태라 estar와 함께 써요.',"\"can't, 사도 못 할 만큼 지쳤다\" → 깐사도."],
+['행복한','feliz','펠리스','캐럴 Feliz Navidad = 메리 크리스마스.',"펠리스 나비다~ 캐럴."],
+['슬픈','triste','뜨리스떼','Estoy triste. 슬퍼요.',"트리(tree) 아래 혼자 슬프게 → 뜨리스떼."],
+['화난','enfadado','엔파다도','스페인 표현. 중남미에선 enojado.',"화가 파도처럼 밀려온다 → 엔파다도."],
+['기쁜 / 만족한','contento','꼰뗀또','Estoy muy contento. 정말 기뻐요.',"content(만족한)와 같은 단어."],
+['걱정되는','preocupado','쁘레오꾸빠도','no te preocupes(걱정 마)와 같은 집안 단어.',"pre-occupied: 걱정이 마음을 차지한."],
+['아픈','enfermo','엔페르모','Estoy enfermo. 아파요. 간호사는 enfermero/enfermera.',"infirmary(양호실)와 같은 뿌리."],
+['바쁜','ocupado','오꾸빠도','화장실 "사용 중"도 OCUPADO.',"occupied(차지된) = 바쁜, 사용 중."],
+['친절한','amable','아마블레','Muy amable. "정말 친절하시네요"는 고맙다는 인사로도 써요.',"amiable(상냥한), amor(사랑)."],
+['재미있는','divertido','디베르띠도','즐거운 일에. "흥미로운"은 interesante.',"divert(기분 전환) → 즐거운."],
+['지루한','aburrido','아부리도','Estoy aburrido = 지루해. Soy aburrido = 나는 지루한 사람. ser/estar로 뜻이 갈려요.',"하품하며 \"아~ 부리도\"."],
+['배부른 / 가득 찬','lleno','예노','Estoy lleno. 배불러요. ll = y 소리.',"full ↔ lleno. ll은 y: 예노."],
+],
+'생활':[
+['일 / 직장','trabajo','뜨라바호','¿En qué trabajas? 무슨 일 해요?',"trabajar(일하다)의 명사.",'m'],
+['약국','farmacia','파르마시아','초록색 십자가 간판. 약사는 farmacéutico.',"pharmacy의 ph가 f로 바뀐 꼴.",'f'],
+['병원','hospital','오스삐딸','h는 소리 안 나요.',"hospital에서 h만 빼고 읽기.",'m'],
+['약','medicamento','메디까멘또','일상에선 medicina, 알약은 pastilla.',"medicine과 같은 뿌리.",'m'],
+['의사','médico','메디꼬','여자 의사는 médica. doctor도 써요.',"medical(의료의)과 같은 뿌리.",'m'],
+['돈','dinero','디네로','No tengo dinero. 돈이 없어요.',"고대 로마 은화 데나리우스(denarius).",'m'],
+['카드','tarjeta','따르헤따','Con tarjeta, por favor. 카드로 할게요. j = ㅎ.',"j는 ㅎ: \"따르릉, 헤헤, 카드 결제\".",'f'],
+['날씨 / 시간','tiempo','띠엠뽀','¿Qué tiempo hace? 날씨 어때요? "시간"도 같은 단어.',"음악의 템포(tempo) = 시간, 빠르기.",'m'],
+['비','lluvia','유비아','Llueve. 비가 와요. ll = y.',"\"유비아\" → 우비(雨비) 챙겨.",'f'],
+['휴대폰','móvil','모빌','중남미에선 celular.',"mobile 그대로.",'m'],
+['열쇠','llave','야베','la llave de la habitación = 방 열쇠.',"ll = y: \"야, 배(문) 열어\" → 야베.",'f'],
+['방','habitación','아비따시온','호텔 방. h는 소리 안 나요.',"habitat(사는 곳) → 방.",'f'],
+['주 (일주일)','semana','세마나','esta semana = 이번 주.',"fin de semana(주말)의 그 semana.",'f'],
+['년 / 해','año','아뇨','¡Feliz Año Nuevo! 새해 복 많이. ñ를 꼭 지켜야 해요(ano는 전혀 다른 뜻).',"ñ 빠뜨리면 큰일 나는 단어 1위.",'m'],
+],
+'연결어':[
+['그리고','y','이','i나 hi로 시작하는 단어 앞에선 e로 바뀌어요: España e Italia.',"y = 이. 이거'이' 저거."],
+['하지만','pero','뻬로','r이 하나. rr 두 개인 perro는 "개".',"r 하나면 '하지만', rr 둘이면 멍멍(perro)."],
+['또는','o','오','¿Café o té? 커피 아니면 차?',"영어 or의 o."],
+['왜냐하면','porque','뽀르께','붙여 쓰면 "왜냐하면". ¿Por qué?(왜?)에 porque로 대답.',"띄어 물으면 왜?, 붙여 답하면 왜냐하면."],
+['그럼 / 그래서','entonces','엔똔세스','대화 시작할 때 "그럼…"으로도 자주 써요.',"\"and then\" = 엔똔세스."],
+['항상','siempre','씨엠쁘레','Siempre tomo café. 저는 항상 커피를 마셔요.',"미 해병대 구호 Semper Fi(항상 충성)와 같은 뿌리."],
+['절대 ~ 않다','nunca','눈까','Nunca como carne. 고기를 절대 안 먹어요.',"눈 깜짝(눈까)도 안 함 = 절대 안 해."],
+['자주','a menudo','아 메누도','Vengo aquí a menudo. 여기 자주 와요.',"메뉴(menu)를 자주 들여다보다."],
+['벌써 / 이미','ya','야','¡Ya está! 다 됐다! Ya no = 이제 더는 아니다.',"\"야! 벌써 끝났어.\""],
+['아직','todavía','또다비아','Todavía no. 아직이요.',"토닥토닥, 아직이야 → 또다비아."],
+['매우','muy','무이','muy bien, muy caro. 형용사·부사 앞에 써요.',"muy는 형용사 앞, mucho는 명사 앞."],
+['많이 / 많은','mucho','무초','mucho gusto, muchas gracias. 명사 성·수에 맞춰 바뀌어요.',"mucho gusto의 그 mucho."],
+['조금','un poco','운 뽀꼬','Hablo un poco de español. 스페인어 조금 해요.',"음악 용어 poco a poco(조금씩)."],
+],
+'과거·미래':[
+['나는 갔다 / ~였다','fui','푸이','ser(이다)와 ir(가다)의 과거형이 똑같아요. Fui a Madrid. 마드리드에 갔다.',"휙(fui) 갔다 왔다."],
+['나는 먹었다','comí','꼬미','-er 동사 과거 1인칭은 끝이 -í.',"comer → comí. 끝 í에 힘."],
+['나는 말했다','hablé','아블레','-ar 동사 과거 1인칭은 끝이 -é.',"hablar → hablé. -ar은 é로."],
+['나는 ~할 거야','voy a + 동사원형','보이 아','Voy a comer. 먹을 거예요. 가장 쉬운 미래 표현.',"영어 be going to = voy a. 구조가 똑같아요."],
+['어제 뭐 했어?','¿qué hiciste ayer?','께 이시스떼 아예르','hacer(하다)의 과거 "너는 했다" = hiciste.',"hacer → hice(나), hiciste(너)."],
+['(오늘) ~했어요','he + 과거분사','에','He comido. 먹었어요. 스페인 본토에선 오늘 일에 이 형태를 자주 써요.',"영어 I have eaten = He comido. 구조 똑같음."],
+['~하는 중이에요','estoy + -ando/-iendo','에스또이','Estoy comiendo. 먹는 중이에요.',"영어 -ing = 스페인어 -ando / -iendo."],
+['(옛날에) ~하곤 했다','-aba / -ía','아바 / 이아','Cuando era niño, jugaba al fútbol. 어릴 때 축구를 하곤 했다.',"ABBA 노래 듣던 시절 = 옛날 습관은 -aba."],
+['(옛날에) ~이었다','era','에라','Era niño. 꼬마였어요. ser의 불완료과거.',"\"에라~ 옛날 얘기다.\""],
+['내일 비가 올 거예요','mañana va a llover','마냐나 바 아 요베르','ir a + 동사원형 미래. llover = 비가 오다.',"lluvia(비) → llover(비가 오다)."],
+['지난주','la semana pasada','라 세마나 빠사다','다음 주는 la semana que viene(오는 주).',"pass(지나가다) → pasada."],
+['다음번에','la próxima vez','라 쁘록시마 베스','vez = 번, 회. otra vez = 한 번 더.',"proximity(가까움): 가장 가까운 번."],
+],
+'여행 상황':[
+['예약했어요','tengo una reserva','뗑고 우나 레세르바','호텔이나 식당에 도착했을 때.',"reservation ↔ reserva."],
+['메뉴판 주세요','la carta, por favor','라 까르따 뽀르 파보르','스페인에서 메뉴판은 carta. menú del día는 "오늘의 정식".',"카드(card)처럼 펼치는 carta."],
+['뭘 추천하세요?','¿qué me recomienda?','께 메 레꼬미엔다','식당에서 고민될 때 최고의 질문.',"recommend ↔ recomendar."],
+['카드로 내도 돼요?','¿puedo pagar con tarjeta?','뿌에도 빠가르 꼰 따르헤따','pagar = 지불하다. 현금은 en efectivo.',"pay ↔ pagar."],
+['~에 어떻게 가요?','¿cómo llego a...?','꼬모 예고 아','¿Cómo llego a la estación? 역에 어떻게 가요?',"어떻게(cómo) 도착해요(llego)?"],
+['여기서 멀어요?','¿está lejos de aquí?','에스따 레호스 데 아끼','lejos = 먼, cerca = 가까운.',"cerca는 circle(원) 안 = 가까움. lejos는 그 반대."],
+['여기','aquí','아끼','저기는 allí. Aquí está. 여기 있어요.',"\"아끼(아끼는 건) 여기 둬.\""],
+['길을 잃었어요','estoy perdido','에스또이 뻬르디도','여자는 perdida. perder = 잃다.',"perdón(미안해요)과 닮은 소리: 잃어버려서 죄송."],
+['~ 있어요?','¿hay...?','아이','¿Hay wifi? 와이파이 있어요? h는 소리 안 나요.',"\"아이(hay)~ 있어요?\" 하고 물어보기."],
+['얼마나 걸려요?','¿cuánto tarda?','꾸안또 따르다','tardar = 시간이 걸리다.',"tarde(늦은)와 같은 뿌리. 얼마나 늦어지나?"],
+['한 잔 더 / 하나 더','otro, por favor','오뜨로 뽀르 파보르','여성명사면 otra: Otra cerveza.',"other ↔ otro."],
+['건배!','¡salud!','살루드','"건강"이라는 뜻. 재채기한 사람에게도 ¡Salud!',"salute(경례) → 건강을 위하여."],
+],
+};
+/* 기존 주제에 5개씩 추가 (뒤에 붙여서 기존 기록 키가 바뀌지 않게) */
+const EXTRA={
+'인사':[
+['좋은 하루 보내요','que tengas un buen día','께 뗑가스 운 부엔 디아','헤어질 때 인사. 존댓말은 que tenga un buen día.',"영어 have a good day를 그대로 옮긴 꼴."],
+['어서 오세요','bienvenido','비엔베니도','여자에겐 bienvenida, 여럿이면 bienvenidos.',"bien(잘) + venido(왔다) = 잘 왔어요. welcome과 같은 구조."],
+['잘 지내세요? (존댓말)','¿cómo está usted?','꼬모 에스따 우스뗃','처음 보는 어른·손님에게. 친구에겐 ¿cómo estás?',"usted = 당신(존댓말). 웃으며(우스) 정중하게."],
+['정말 죄송해요','lo siento','로 시엔또','진심으로 사과할 때. 직역 "그것을 느낀다". perdón보다 무거워요.',"sentir(느끼다) → sentimental. 미안함을 느껴요."],
+['잘 자','que duermas bien','께 두에르마스 비엔','dormir(자다)에서 왔어요. 가볍게 buenas noches도 OK.',"dormitory(기숙사) = 자는 곳."],
+],
+'숫자':[
+['11','once','온세','11~15는 따로 외워요: once, doce, trece, catorce, quince.',"영어 once(한 번)와 철자는 같지만 뜻은 11."],
+['15','quince','낀세','중남미의 15살 성인식 파티가 quinceañera.',"킨세아녜라 = 15살 파티."],
+['20','veinte','베인떼','21부터는 붙여 써요: veintiuno, veintidós.',"프랑스어 vingt(20)과 닮은 v."],
+['100','cien','씨엔','딱 100일 때 cien, 101부터는 ciento uno.',"century(100년), cent(100분의 1)."],
+['1000','mil','밀','dos mil = 2000. 백만은 un millón.',"밀레니엄(millennium) = 1000년."],
+],
+'사람·가족':[
+['부모님','padres','빠드레스','padre(아버지)의 복수형이 "부모님"이에요.',"아빠 둘이 아니라 부모님. padre + s.",'m'],
+['아들','hijo','이호','딸은 hija. h는 소리 없고 j는 ㅎ.',"h 묵음 + j는 ㅎ → 이호.",'m'],
+['할머니','abuela','아부엘라','할아버지는 abuelo.',"\"아부~ 엘라\" 하고 할머니 부르는 소리.",'f'],
+['남편','esposo','에스뽀소','아내는 esposa.',"spouse(배우자) ↔ esposo.",'m'],
+['이웃','vecino','베씨노','여자 이웃은 vecina.',"vicinity(근처)와 같은 뿌리. 근처 사는 사람.",'m'],
+],
+'음식·카페':[
+['차 (마시는 차)','té','떼','té verde = 녹차. 강세 없는 te는 "너를".',"tea ↔ té.",'m'],
+['과일','fruta','프루따','frutería = 과일 가게.',"fruit ↔ fruta.",'f'],
+['달걀','huevo','우에보','huevos fritos = 달걀 프라이. h는 소리 안 나요.',"라틴어 ovum(알) → 우에보.",'m'],
+['식당','restaurante','레스따우란떼','순례길에선 menú del peregrino(순례자 정식)를 파는 식당이 많아요.',"restaurant 끝에 e만 붙였어요.",'m'],
+['디저트','postre','뽀스뜨레','오늘의 정식은 primer plato, segundo plato, postre 순서.',"post(뒤에) = 식사 뒤에 나오는 것.",'m'],
+],
+'장소·여행':[
+['박물관','museo','무세오','Museo del Prado = 마드리드 프라도 미술관.',"museum ↔ museo.",'m'],
+['성당 / 교회','iglesia','이글레시아','순례길 마을마다 하나씩 있어요.',"가수 훌리오 이글레시아스 = '교회들'.",'f'],
+['광장','plaza','쁠라사','Plaza Mayor = 중앙 광장.',"스페인 마을 한가운데엔 늘 plaza.",'f'],
+['다리 (건너는)','puente','뿌엔떼','순례길 마을 Puente la Reina = 여왕의 다리.',"pontoon(부교)·프랑스어 pont와 같은 뿌리.",'m'],
+['산','montaña','몬따냐','ñ는 냐 소리.',"mountain ↔ montaña.",'f'],
+],
+'동사':[
+['오다','venir','베니르','¿Vienes? 너 올래? e가 ie로 바뀌어요.',"bienvenido(어서 오세요)의 venido."],
+['자다','dormir','도르미르','Duermo ocho horas. o가 ue로 바뀌어요.',"dormitory = 자는 곳."],
+['쓰다 (글)','escribir','에스끄리비르','Escribo un correo. 메일을 써요.',"script(대본) 앞에 e."],
+['읽다','leer','레에르','Leo un libro. 책을 읽어요.',"lecture(강의)는 원래 '읽기'."],
+['주다','dar','다르','¿Me da un café? 커피 한 잔 주실래요? 1인칭은 doy.',"donate(기부하다)의 d."],
+],
+'형용사':[
+['쉬운','fácil','파씰','Es fácil. 쉬워요.',"facilitate(쉽게 하다)와 같은 뿌리."],
+['어려운','difícil','디피씰','El español no es difícil. 스페인어 안 어려워요.',"difficult ↔ difícil."],
+['빠른','rápido','라삐도','"빨리!"라고 할 때도 ¡Rápido!',"rapid ↔ rápido."],
+['느린','lento','렌또','음악 기호 렌토 = 느리게.',"음악 시간에 배운 lento."],
+['깨끗한','limpio','림삐오','반대말 더러운은 sucio.',"테두리(rim)까지 삐까뻔쩍 → 림삐오."],
+],
+'시간':[
+['일요일','domingo','도밍고','주님(Dominus)의 날. 대부분 가게가 쉬어요.',"주님의 날 → 도밍고."],
+['토요일','sábado','사바도','안식일 Sabbath에서 왔어요.',"Sabbath(안식일) → sábado."],
+['아침 / 오전','la mañana','라 마냐나','por la mañana = 아침에. 관사 없이 mañana만 쓰면 "내일".',"la가 붙으면 아침, 혼자면 내일."],
+['밤','la noche','라 노체','esta noche = 오늘 밤.',"buenas noches의 그 noche."],
+['매일','cada día','까다 디아','cada = 매, 각각. todos los días도 같은 뜻.',"cada = each. 각각의 날 = 매일."],
+],
+'질문':[
+['몇 개 / 몇 명','¿cuántos?','꾸안또스','여성명사면 cuántas: ¿Cuántas personas?',"cuánto(얼마)에 복수 s."],
+['어디로','¿adónde?','아돈데','방향을 물을 때: ¿Adónde vas? 어디 가?',"a(~로) + dónde(어디)."],
+['무엇을 드릴까요?','¿qué desea?','께 데세아','가게 점원이 손님에게 하는 말.',"desire ↔ desear."],
+['몇 시에?','¿a qué hora?','아 께 오라','¿A qué hora abre? 몇 시에 열어요?',"a(~에) + qué hora(몇 시)."],
+['무슨 일이야?','¿qué pasa?','께 빠사','친구끼리 "무슨 일이야? / 뭐 해?"',"pasar(일어나다) → what's happening?"],
+],
+'회화 표현':[
+['괜찮아? (걱정)','¿estás bien?','에스따스 비엔','넘어진 사람에게. 대답은 Sí, estoy bien.',"좋은(bien) 상태(estar)야?"],
+['저도요','yo también','요 땀비엔','부정문에 맞장구칠 땐 yo tampoco(저도 아니에요).',"긍정엔 también(m), 부정엔 tampoco(p)."],
+['잠깐만요','un momento','운 모멘또','전화나 가게에서 기다려 달라고 할 때.',"moment 그대로."],
+['별일 아니에요','no pasa nada','노 빠사 나다','"괜찮아, 아무 일 없어". 스페인에서 정말 자주 들어요.',"아무것도(nada) 일어나지 않아(no pasa)."],
+['재밌게 보내!','¡que lo pases bien!','께 로 빠세스 비엔','여행이나 파티 가는 사람에게.',"잘(bien) 보내라(pases)."],
+],
+'동사 더':[
+['배우다','aprender','아쁘렌데르','Aprendo español. 스페인어 배워요.',"apprentice(견습생) = 배우는 사람."],
+['가르치다 / 보여주다','enseñar','엔세냐르','Te enseño. 가르쳐 줄게. "보여주다"도 같은 단어.',"seña(표시)를 보여주며 가르치다."],
+['놀다 / (운동을) 하다','jugar','후가르','juego = 놀이, 게임. 악기 연주는 tocar.',"j는 ㅎ. 저글링(juggling)하며 논다."],
+['여행하다','viajar','비아하르','viaje = 여행. ¡Buen viaje! 좋은 여행 되세요.',"via(길) → voyage."],
+['사용하다','usar','우사르','¿Puedo usar el baño? 화장실 써도 돼요?',"use ↔ usar."],
+],
+'감정·상태':[
+['긴장한','nervioso','네르비오소','Estoy nervioso. 떨려요.',"nervous ↔ nervioso."],
+['놀란','sorprendido','소르쁘렌디도','sorpresa = 깜짝 선물, 놀라움.',"surprise ↔ sorprendido."],
+['부끄러운','avergonzado','아베르곤사도','embarazada는 "임신한"이라서 헷갈리면 큰일 나요.',"embarrassed를 embarazada로 말하면 '임신했어요'. 진짜는 avergonzado."],
+['무서워요','tengo miedo','뗑고 미에도','"두려움을 가지고 있다".',"tener + 명사 시리즈: 무서움(miedo)."],
+['혼자인 / 외로운','solo','솔로','café solo는 우유 없는 에스프레소.',"솔로(solo) 그대로."],
+],
+'생활':[
+['가격','precio','쁘레시오','¿Cuál es el precio? 가격이 얼마예요?',"price ↔ precio.",'m'],
+['슈퍼마켓','supermercado','수뻬르메르까도','mercado(시장)에 super가 붙었어요.',"super + mercado.",'m'],
+['우체국','correos','꼬레오스','이메일은 correo electrónico(전자 우편).',"correo = 우편. 메일도 전자 우편.",'m'],
+['빨래방','lavandería','라반데리아','순례자 숙소엔 빨래 공간이 꼭 있어요. lavar = 씻다.',"라벤더(lavender)의 lav = 씻다.",'f'],
+['쓰레기','basura','바수라','tirar la basura = 쓰레기를 버리다.',"바스러진 쓰레기 → 바수라.",'f'],
+],
+'연결어':[
+['아마도','quizás','끼사스','tal vez도 같은 뜻.',"노래 \"Quizás, quizás, quizás\"."],
+['그렇지만 (격식)','sin embargo','신 엠바르고','글이나 격식 있는 말에서 "그러나".',"embargo(금지) 없이(sin) → 그럼에도."],
+['게다가','además','아데마스','Es barato y además rico. 싸고 게다가 맛있어.',"más(더)를 덧붙이다."],
+['예를 들어','por ejemplo','뽀르 에헴쁠로','j는 ㅎ 소리.',"example ↔ ejemplo."],
+['마침내','por fin','뽀르 핀','기다리던 일이 이뤄졌을 때 ¡Por fin!',"영화 끝 FIN → 드디어 끝."],
+],
+'과거·미래':[
+['나는 가졌다 / 있었다','tuve','뚜베','tener의 과거. Tuve un problema. 문제가 있었어요.',"tener → tuve. 불규칙이라 통째로."],
+['나는 했다','hice','이세','hacer의 과거 1인칭. 너는 hiciste.',"hacer → hice → hiciste."],
+['~할 것이다 (미래형)','comeré, iré','꼬메레, 이레','동사원형에 -é를 붙이면 미래형: comeré(먹을 것이다), iré(갈 것이다).',"미래형 = 원형 그대로 + é."],
+['~하고 싶어요 (공손)','me gustaría','메 구스따리아','원형 + -ía는 조건형. 공손한 부탁에 필수.',"I would like = me gustaría."],
+['방금 ~했다','acabo de + 동사원형','아까보 데','Acabo de llegar. 방금 도착했어요.',"acabar(끝내다): 막 끝냈다 = 방금."],
+],
+'여행 상황':[
+['영수증 주세요','el recibo, por favor','엘 레시보 뽀르 파보르','스페인에선 el ticket이라고도 해요.',"receipt ↔ recibo."],
+['왕복표','billete de ida y vuelta','비예떼 데 이다 이 부엘따','ida(가기) + vuelta(돌아오기). 편도는 solo ida.',"ir(가다) → ida, volver(돌아오다) → vuelta."],
+['살려 주세요! (긴급)','¡socorro!','소꼬로','위급할 때. 일반적인 도움 요청은 ¡Ayuda!',"SOS의 S → socorro."],
+['사진 좀 찍어 주실래요?','¿me puede sacar una foto?','메 뿌에데 사까르 우나 포또','sacar = 꺼내다, (사진을) 찍다.',"사진을 싹(sacar) 찍어 주세요."],
+['너무 비싸요','es demasiado caro','에스 데마시아도 까로','demasiado = 너무, 지나치게.',"과하다 = demasiado."],
+],
+};
+Object.keys(EXTRA).forEach(ct=>RAW[ct].push(...EXTRA[ct]));
+
+/* 고급 */
+Object.assign(RAW,{
+'접속법':[
+['~하길 바라요','espero que + 접속법','에스뻬로 께','Espero que estés bien. 잘 지내길 바라. 바람·감정 뒤엔 접속법이 와요.',"바람(espero)은 접속법을 부르는 신호."],
+['네가 ~하길 원해','quiero que vengas','끼에로 께 벵가스','주어가 바뀌면 que + 접속법. 내가 오고 싶으면 Quiero venir.',"내가 원하고 '네가' 온다 → 주어가 둘이면 접속법."],
+['~인지 의심스러워요','dudo que sea verdad','두도 께 세아 베르닫','의심·부정 뒤엔 접속법(sea).',"doubt ↔ dudar. 확실치 않으면 접속법."],
+['~하기 전에','antes de que llegues','안떼스 데 께 예게스','antes de que 뒤엔 항상 접속법.',"아직 안 일어난 일 = 접속법."],
+['~할 때 (앞으로)','cuando llegues','꾸안도 예게스','미래 일이면 cuando + 접속법, 습관이면 직설법(cuando llego).',"아직 안 온 '때' = 접속법."],
+['~하는 게 중요해요','es importante que','에스 임뽀르딴떼 께','Es importante que descanses. 쉬는 게 중요해.',"es + 판단 형용사 + que → 접속법."],
+['~해서 기뻐요','me alegra que','메 알레그라 께','Me alegra que estés aquí. 네가 여기 있어서 기뻐.',"alegre(기쁜). 감정 뒤엔 접속법."],
+['~일지도 몰라요','puede que','뿌에데 께','Puede que llueva. 비가 올지도 몰라.',"가능(puede)일 뿐 확실치 않으니 접속법."],
+['~하면 좋겠다 (간절히)','ojalá','오할라','Ojalá haga sol. 해가 났으면! 아랍어 "신의 뜻이라면"에서 왔어요.',"인샬라(insha'Allah) → 오할라."],
+['~하도록','para que','빠라 께','Te lo digo para que lo sepas. 네가 알도록 말하는 거야.',"목적(para)의 결과는 아직 → 접속법."],
+['~라고 생각 안 해요','no creo que','노 끄레오 께','creo que(생각해) 뒤는 직설법, no creo que 뒤는 접속법.',"믿음을 부정하면 확실성이 사라져 접속법."],
+['설령 ~하더라도','aunque llueva','아운께 유에바','aunque + 접속법 = 설령 ~하더라도. 사실이면 직설법.',"although ↔ aunque. 가정이면 접속법."],
+['~하세요 (존댓말 명령)','hable, coma','아블레, 꼬마','usted 명령은 접속법 모양: Hable más despacio.',"공손한 명령 = 접속법을 빌려 쓴다."],
+['~하지 마','no hables','노 아블레스','tú 부정 명령도 접속법: No comas eso. 그거 먹지 마.',"'하지 마'엔 무조건 접속법."],
+['~할 수 있는 사람을 찾아요','busco a alguien que hable inglés','부스꼬 아 알기엔 께 아블레 잉글레스','있는지 모르는 대상을 설명할 땐 접속법.',"있을지 없을지 모르는 사람 = 접속법."],
+],
+'조건·가정':[
+['시간 있으면 갈게','si tengo tiempo, voy','시 뗑고 띠엠뽀 보이','실제로 가능한 조건은 si + 현재형.',"현실 조건 = 현재 + 현재."],
+['돈이 있다면 여행할 텐데','si tuviera dinero, viajaría','시 뚜비에라 디네로 비아하리아','비현실 가정: si + 접속법 과거(-ra), 결과는 조건형(-ría).',"si -ra → -ría 공식."],
+['알았더라면 왔을 텐데','si hubiera sabido, habría venido','시 우비에라 사비도 아브리아 베니도','과거 사실의 반대를 가정.',"hubiera + habría = 지난 일 후회 세트."],
+['내가 너라면','yo que tú','요 께 뚜','Yo que tú, iría. 내가 너라면 갈 거야.',"'나라면 너' → 내가 너라면."],
+['~해 주실 수 있을까요?','¿podría...?','뽀드리아','¿Podría ayudarme? poder의 조건형으로 공손하게.',"can → could = puede → podría."],
+['~하는 게 좋겠어','deberías','데베리아스','Deberías descansar. 쉬는 게 좋겠어.',"should = deberías. debt(빚)처럼 해야 할 것."],
+['아마 ~였을 거예요','serían las diez','세리안 라스 디에스','조건형으로 과거를 추측: 아마 10시쯤이었을 거야.',"-ría는 '아마 그랬을걸' 느낌도."],
+['아마 ~일 거예요','estará en casa','에스따라 엔 까사','미래형으로 현재를 추측: 아마 집에 있을 거야.',"미래형 = '아마 ~일걸' 추측 모드."],
+['~하는 동안 / ~하는 한','mientras','미엔뜨라스','Mientras como, leo. 먹는 동안 읽어요.',"mientras = while."],
+['~한다면 (조건부로)','con tal de que','꼰 딸 데 께','Voy con tal de que vengas. 네가 온다면 갈게. 뒤에 접속법.',"그런(tal) 조건과 함께(con)."],
+['~하지 않는 한','a menos que','아 메노스 께','A menos que llueva, saldremos. 비가 오지 않는 한 나갈 거야.',"menos(덜) → unless."],
+['안 그러면','si no','시 노','Date prisa; si no, perderás el tren. 서둘러, 안 그러면 기차 놓쳐.',"si + no. 붙여 쓴 sino(오히려)와 구분."],
+['~했으면 좋았을걸','ojalá hubiera','오할라 우비에라','Ojalá hubiera estudiado más. 더 공부했으면 좋았을걸.',"ojalá + hubiera = 과거 후회."],
+['~라면 어떨까?','¿y si...?','이 시','¿Y si vamos mañana? 내일 가면 어때?',"what if = ¿y si?"],
+['어쨌든','de todas formas','데 또다스 포르마스','de todos modos도 같은 뜻.',"모든(todas) 형태(formas)로 → 어떻게 되든."],
+],
+'관용 표현':[
+['식은 죽 먹기','ser pan comido','세르 빤 꼬미도','Es pan comido. "이미 먹은 빵이다" = 아주 쉽다.',"이미 먹은 빵 = 끝난 일 = 쉬움."],
+['멍때리다','estar en las nubes','에스따르 엔 라스 누베스','"구름 속에 있다" = 딴생각하다.',"구름(nubes) 위를 걷는 몽상가."],
+['비가 억수같이 와요','llueve a cántaros','유에베 아 깐따로스','cántaro = 물항아리.',"항아리째 들이붓는 비."],
+['엄청 비싸다','costar un ojo de la cara','꼬스따르 운 오호 데 라 까라','"얼굴의 눈 하나 값이 든다".',"영어 cost an arm and a leg와 같은 과장."],
+['거침없이 말하다','no tener pelos en la lengua','노 떼네르 뻴로스 엔 라 렝구아','"혀에 털이 없다".',"혀에 걸릴 털이 없으니 술술."],
+['전혀 신경 안 써','me importa un pepino','메 임뽀르따 운 뻬삐노','"오이 하나만큼 중요하다". 가벼운 말투.',"오이(pepino) 하나 값어치도 없다."],
+['운이 좋다','tener buena estrella','떼네르 부에나 에스뜨레야','"좋은 별을 가졌다".',"좋은 별(estrella) 아래 태어났다."],
+['일석이조','matar dos pájaros de un tiro','마따르 도스 빠하로스 데 운 띠로','"한 방에 새 두 마리를 잡다".',"영어 kill two birds with one stone."],
+['말이 많다','hablar por los codos','아블라르 뽀르 로스 꼬도스','"팔꿈치로도 말한다".',"팔꿈치(codos)까지 동원해서 떠든다."],
+['완전 녹초예요','estoy hecho polvo','에스또이 에초 뽈보','"가루가 됐다". 여자는 hecha polvo.',"몸이 가루(polvo)가 됐다."],
+['일찍 일어나는 새가 벌레를 잡는다','a quien madruga, Dios le ayuda','아 끼엔 마드루가 디오스 레 아유다','madrugar = 새벽에 일어나다.',"일찍 일어나는 자를 신이 돕는다."],
+['천 리 길도 한 걸음부터','poco a poco se va lejos','뽀꼬 아 뽀꼬 세 바 레호스','"조금씩 가면 멀리 간다". 순례길에 딱 맞는 말.',"799km도 poco a poco."],
+['실수하다 (말실수)','meter la pata','메떼르 라 빠따','"다리를 집어넣다".',"발(pata)을 잘못 디뎠다 = 실수."],
+['늦어도 안 하는 것보다 낫다','más vale tarde que nunca','마스 발레 따르데 께 눈까','지각한 사람에게 웃으며.',"늦게(tarde) > 절대 안 함(nunca)."],
+['직접 봐야 믿지','ver para creer','베르 빠라 끄레에르','놀라운 일에 감탄으로도 써요.',"보고(ver) 나서 믿는다(creer)."],
+],
+'의견·토론':[
+['제 생각엔','en mi opinión','엔 미 오삐니온','의견을 꺼낼 때.',"opinion ↔ opinión."],
+['동의해요','estoy de acuerdo','에스또이 데 아꾸에르도','반대는 No estoy de acuerdo.',"accord(합의) ↔ acuerdo."],
+['네 말이 맞아','tienes razón','띠에네스 라손','"이유를 가지고 있다".',"reason ↔ razón."],
+['한편으로는… 다른 한편으로는','por un lado... por otro','뽀르 운 라도 뽀르 오뜨로','장단점을 비교할 때.',"lado = side."],
+['사실은','en realidad','엔 레알리닫','actualmente는 "현재"라는 뜻이니 주의.',"in reality = en realidad. actual 함정 조심."],
+['제가 보기엔','a mi parecer','아 미 빠레세르','parecer = ~처럼 보이다.',"appear ↔ parecer."],
+['~에 따르면','según','세군','según el médico = 의사 말로는.',"누군가의 말을 따라가면 según."],
+['요약하면','en resumen','엔 레수멘','발표나 글 마무리에.',"résumé(요약) ↔ resumen."],
+['경우에 따라 달라요','depende','데뻰데','¿Te gusta? — Depende. 좋아? 경우에 따라.',"depend ↔ depende."],
+['말도 안 돼!','¡qué va!','께 바','"무슨 소리야!" 강한 부정. 스페인 구어.',"\"께 바!\" 가긴 뭘 가 = 말도 안 돼."],
+['~라고 확신해요','estoy seguro de que','에스또이 세구로 데 께','확신 뒤엔 직설법.',"seguro = sure."],
+['문제는 ~라는 거예요','el problema es que','엘 쁘로블레마 에스 께','problema는 -a로 끝나도 남성명사.',"-ma로 끝나는 그리스어 출신은 남성: el problema, el tema."],
+['솔직히 말하면','la verdad es que','라 베르닫 에스 께','대화에서 아주 자주 쓰는 쿠션 말.',"verdad = 진실(verity)."],
+['바로 그거예요','eso es','에소 에스','맞장구칠 때.',"That's it = eso es."],
+['결론적으로','en conclusión','엔 꼰끌루시온','발표나 토론을 마무리할 때. 말로는 en fin도 자주 써요.',"conclusion ↔ conclusión."],
+],
+'격식·업무':[
+['~님께 (편지 첫머리)','estimado/a','에스띠마도','Estimado señor García: 처럼 써요.',"esteem(존경) ↔ estimado."],
+['드림 (편지 맺음)','atentamente','아뗀따멘떼','공식 이메일 맺음말.',"attentive(주의 깊은) → 정중히."],
+['첨부해 드립니다','le adjunto','레 아훈또','Le adjunto el documento. 서류를 첨부합니다.',"adjunct(부가물) ↔ adjunto."],
+['회의','reunión','레우니온','Tengo una reunión. 회의가 있어요.',"reunion(다시 모임)."],
+['마감일','fecha límite','페차 리미떼','fecha = 날짜.',"limit date."],
+['연락드리겠습니다','me pondré en contacto','메 뽄드레 엔 꼰딱또','poner(두다)의 미래형 pondré.',"contact ↔ contacto."],
+['답장 기다리겠습니다','quedo a la espera de su respuesta','께도 아 라 에스뻬라 데 수 레스뿌에스따','이메일 맺음말 단골.',"esperar(기다리다) + respuesta(response)."],
+['불편을 드려 죄송합니다','disculpe las molestias','디스꿀뻬 라스 몰레스띠아스','공사장 안내판에도 자주 보여요.',"molest(괴롭히다) ↔ molestia(불편)."],
+['가능한 한 빨리','lo antes posible','로 안떼스 뽀시블레','Le responderé lo antes posible. 가능한 한 빨리 답드리겠습니다.',"as soon as possible."],
+['성함이 어떻게 되세요?','¿me dice su nombre?','메 디세 수 놈브레','전화나 접수처에서.',"name ↔ nombre."],
+['예약 (진료)','cita','씨따','cita médica = 진료 예약. 데이트도 cita.',"시간을 딱(씨따) 정한 약속.",'f'],
+['계약','contrato','꼰뜨라또','firmar un contrato = 계약서에 서명하다.',"contract ↔ contrato.",'m'],
+['처방전','receta','레쎄따','요리 레시피도 receta.',"recipe(요리법)와 같은 단어.",'f'],
+['부작용','efectos secundarios','에펙또스 세꾼다리오스','약 설명서에 꼭 나오는 말.',"secondary effects = 두 번째 효과.",'m'],
+['하루 세 번','tres veces al día','뜨레스 베세스 알 디아','vez(번)의 복수는 veces.',"vez → veces, z가 c로 바뀌어요."],
+],
+});
+const CATS=Object.keys(RAW);
+const MID=new Set(['회화 표현','동사 더','감정·상태','생활','연결어','과거·미래','여행 상황']);
+const ADV=new Set(['접속법','조건·가정','관용 표현','의견·토론','격식·업무']);
+const lvlOf=ct=>ADV.has(ct)?'고급':MID.has(ct)?'중급':'초급';
+const W=[];CATS.forEach((ct,ci)=>RAW[ct].forEach((r,i)=>W.push({k:ci+'-'+i,ct,lvl:lvlOf(ct),ko:r[0],es:r[1],pr:r[2],b:r[3],m:r[4],g:r[5]||''})));
+/* 단어 / 문장·표현 구분: 명사이거나 띄어쓰기 없는 한 단어면 단어, 나머지는 문장·표현 */
+W.forEach(x=>{x.kind=(x.g||!/\s/.test(x.es.replace(/[¿?¡!]/g,'').trim()))?'단어':'문장'});
+const BY=Object.fromEntries(W.map(x=>[x.k,x]));
+const TOTAL=W.length, KM=799;
+const TOWNS=[[0,'생장'],[68,'팜플로나'],[280,'부르고스'],[460,'레온'],[690,'사리아'],[799,'산티아고']];
+const GOAL=20;
+const N=()=>[10,20,30].includes(S.round)?S.round:30;
+const EL_EXCEPT=new Set(['agua']);
+const art=x=>x.g?(x.g==='f'&&!EL_EXCEPT.has(x.es)?'la':'el'):'';
+const esHTML=x=>x.g?`<span class="art ${x.g}">${art(x)}</span>${esc(x.es)}`:esc(x.es);
+const gTag=x=>x.g?`<span class="gnote ${x.g}">${x.g==='m'?'남성명사':'여성명사'}</span>`:'';
+
+/* ---------- 저장 ---------- */
+const KEY='camino-espanol-v1';
+function blank(){return {lv:{},wr:{},stampAt:{},memo:{},sure:{},due:{},pw:{},level:'전체',xp:0,streak:0,lastDay:'',today:'',todayN:0,mute:false,auto:true,filter:'전체'}}
+let S=blank();
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(blank(),JSON.parse(r))}catch(e){}
+S.mute=false;S.auto=true; // 열 때마다 소리·자동발음은 켜진 상태로 시작
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const day=(d=new Date())=>d.toLocaleDateString('sv');
+const yday=()=>{const y=new Date();y.setDate(y.getDate()-1);return day(y)};
+function touchDay(){const t=day();if(S.today!==t){S.today=t;S.todayN=0}}
+function markPlayed(){const t=day();if(S.lastDay===t)return;S.streak=(S.lastDay===yday())?S.streak+1:1;S.lastDay=t}
+touchDay();
+const lv=k=>S.lv[k]||0;
+
+/* ---------- 소리 ---------- */
+let AC=null;
+function tone(fr,dur,type='sine',when=0,vol=.12){if(S.mute)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+  const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+when;o.type=type;o.frequency.value=fr;
+  g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+dur)}catch(e){}}
+const sfx={ok(c){const b=520+Math.min(c,10)*30;tone(b,.12,'triangle');tone(b*1.5,.16,'triangle',.08)},
+  no(){tone(200,.22,'sawtooth',0,.06)},flip(){tone(420,.06,'sine',0,.06)},
+  stamp(){tone(90,.18,'square',0,.15);tone(660,.2,'triangle',.12);tone(880,.3,'triangle',.22)}};
+const canSpeak=(()=>{try{return 'speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined'}catch(e){return false}})();
+let esVoice=null,esVoices=[],voicesReady=false;
+/* 기기에 깔린 스페인어 음성만 골라 씀. 스페인어 음성이 없으면 한국어 음성이 스페인어를 읽어 발음이 엉망이 되므로 읽지 않음 */
+function pickVoice(){try{const vs=speechSynthesis.getVoices();if(!vs.length)return;voicesReady=true;
+  esVoices=vs.filter(v=>/^es([-_]|$)/i.test(v.lang));
+  const score=v=>(/^es[-_]ES/i.test(v.lang)?4:0)+(/natural|neural|premium|enhanced|고음질|향상/i.test(v.name)?4:0)+(/google/i.test(v.name)?3:0)+(/mónica|monica|jorge|elvira|álvaro|alvaro|helena|lucía|lucia/i.test(v.name)?1:0);
+  esVoice=esVoices.find(v=>v.name===S.voice)||esVoices.slice().sort((a,b)=>score(b)-score(a))[0]||null;
+  const el=document.getElementById('voiceInfo');if(el)el.innerHTML=voiceInfoHTML()}catch(e){}}
+if(canSpeak){pickVoice();try{speechSynthesis.addEventListener?speechSynthesis.addEventListener('voiceschanged',pickVoice):speechSynthesis.onvoiceschanged=pickVoice}catch(e){}}
+/* 한글 설명·문법 기호를 빼고 스페인어만 읽기 */
+function cleanEs(t){return String(t).replace(/[ㄱ-ㆎ가-힣]+/g,' ').replace(/\+/g,' ').replace(/\/a\b/g,'')
+  .replace(/(^|\s)-/g,'$1').replace(/\s*\/\s*/g,', ').replace(/\.\.\.|…/g,'').replace(/[¿?¡!()]/g,'').replace(/\s+/g,' ').replace(/^[,\s]+|[,\s]+$/g,'').trim()}
+let voiceWarned=false;
+function sayNow(t){if(!canSpeak)return;try{if(!esVoice)pickVoice();
+  if(voicesReady&&!esVoice){if(!voiceWarned){voiceWarned=true;toast('이 기기에 스페인어 음성이 없어서 읽지 않았어요. 홈 화면 안내를 확인해 주세요.')}return}
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(cleanEs(t));u.lang=esVoice?esVoice.lang:'es-ES';if(esVoice)u.voice=esVoice;u.rate=S.slow?.75:1;speechSynthesis.speak(u)}catch(e){}}
+function speak(x){sayNow((x.g?art(x)+' ':'')+x.es)}
+function toast(m){let t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t)}
+  t.textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>{t.hidden=true},4200)}
+function voiceInfoHTML(){if(!canSpeak)return '이 브라우저는 음성 읽기를 지원하지 않아서 발음은 한글 표기로만 보여요.';
+  if(!voicesReady)return '음성을 불러오는 중이에요.';
+  if(!esVoices.length)return `<b style="font-weight:400;color:var(--bad)">이 기기에 스페인어 음성이 없어요.</b> 그래서 듣기를 꺼 두었어요. 스페인어 음성을 설치한 뒤 다시 열어 주세요.<br>· 안드로이드: 설정 → 일반(또는 접근성) → 텍스트 음성 변환(TTS) → Google 음성 엔진 → 음성 데이터 설치 → 스페인어(스페인)<br>· 아이폰: 설정 → 손쉬운 사용 → 읽기 및 말하기 → 음성 → 스페인어 → 스페인어(스페인) 음성 내려받기`;
+  return `발음 음성: <select id="voiceSel" aria-label="스페인어 음성 고르기">${esVoices.map(v=>`<option value="${esc(v.name)}"${esVoice&&v.name===esVoice.name?' selected':''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('')}</select> <button class="say" id="voiceTest">들어보기</button>
+    <button class="say" id="slowBtn">${S.slow?'천천히':'보통 속도'}</button><br>기계 음성이라 원어민과 억양이 다를 수 있어요. 답지의 <b style="font-weight:400">원어민 녹음</b> 버튼을 누르면 실제 원어민이 녹음한 발음을 들을 수 있어요.`}
+document.addEventListener('change',e=>{if(e.target.id==='voiceSel'){S.voice=e.target.value;save();pickVoice();sayNow('Hola, buenos días')}});
+document.addEventListener('click',e=>{if(e.target.id==='voiceTest')sayNow('Hola, buenos días. ¿Qué tal?');
+  if(e.target.id==='slowBtn'){S.slow=!S.slow;save();e.target.textContent=S.slow?'천천히':'보통 속도';sayNow('Hola, buenos días')}});
+/* 원어민 녹음: Forvo (실제 사람이 녹음한 발음 사전) */
+function forvoWord(t){const c=cleanEs(t).split(',')[0].trim().toLowerCase();return c}
+const nativeBtn=t=>{const w=forvoWord(t);return w?`<a class="say native" href="https://forvo.com/word/${encodeURIComponent(w)}/#es" target="_blank" rel="noopener">원어민 녹음</a>`:''};
+const sayBtn=x=>canSpeak?`<button class="say" data-say="${x.k}">듣기</button>`:'';
+
+/* ---------- 유틸 ---------- */
+const $=s=>document.querySelector(s);
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const dots=n=>`<span class="lvdots" aria-label="숙련도 ${n}/5">${[1,2,3,4,5].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</span>`;
+const mult=c=>c>=10?3:c>=5?2:c>=3?1.5:1;
+const isSure=x=>!!(S.sure&&S.sure[x.k]);
+const inLevel=x=>S.level==='전체'||x.lvl===S.level;
+const topics=()=>Array.isArray(S.topics)?S.topics:[];
+const inKind=x=>!S.kind||S.kind==='전체'||x.kind===S.kind;
+const inFilter=x=>inLevel(x)&&inKind(x)&&(!topics().length||topics().includes(x.ct));
+const live=x=>inFilter(x)&&!isSure(x);
+function setSure(x,on){S.sure=S.sure||{};if(on){S.sure[x.k]=1;if(lv(x.k)<5){S.lv[x.k]=5;S.stampAt[x.k]=day();return true}}else{delete S.sure[x.k];S.lv[x.k]=Math.min(lv(x.k),4)}return false}
+const stamps=()=>W.filter(x=>lv(x.k)>=5).length;
+const kmNow=()=>Math.round(stamps()/TOTAL*KM);
+function townOf(km){let t=TOWNS[0];TOWNS.forEach(x=>{if(km>=x[0])t=x});const i=TOWNS.indexOf(t);return {at:t[1],next:TOWNS[i+1]||null}}
+const SHELL=`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 C6 3 3 8 3 12 L12 21 L21 12 C21 8 18 3 12 3Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 5v14M8.5 6.5 11 19M15.5 6.5 13 19" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>`;
+
+/* ---------- 암기법 편집 ---------- */
+const memoOf=x=>(S.memo&&S.memo[x.k])||x.m;
+function memoBlock(x){const mine=!!(S.memo&&S.memo[x.k]);
+  return `<div class="sec memo" data-mk="${x.k}"><div class="memo-h"><b>암기법${mine?' · 내가 고친 것':''}</b><button class="memo-btn" data-act="edit">수정</button></div><p>${esc(memoOf(x))}</p></div>`}
+function memoEditor(x){const mine=!!(S.memo&&S.memo[x.k]);
+  return `<div class="sec memo" data-mk="${x.k}"><div class="memo-h"><b>암기법 고치기</b></div>
+    <textarea class="memo-ta" id="memo-${x.k}" rows="3" aria-label="${esc(x.es)} 암기법">${esc(memoOf(x))}</textarea>
+    <div class="memo-row"><button class="memo-btn solid" data-act="save">저장</button>${mine?'<button class="memo-btn" data-act="reset">원래대로</button>':''}<button class="memo-btn" data-act="cancel">취소</button>
+    <span class="memo-hint">Enter 저장 · Shift+Enter 줄바꿈</span></div></div>`}
+function memoAct(btn){const box=btn.closest('[data-mk]'),x=BY[box.dataset.mk],act=btn.dataset.act;
+  if(act==='edit'){box.outerHTML=memoEditor(x);const ta=document.getElementById('memo-'+x.k);ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);return}
+  if(act==='save'){const v=box.querySelector('textarea').value.trim();if(v&&v!==x.m)S.memo[x.k]=v;else delete S.memo[x.k];save()}
+  if(act==='reset'){delete S.memo[x.k];save()}
+  box.outerHTML=memoBlock(x)}
+document.addEventListener('click',e=>{
+  const s=e.target.closest('[data-say]');if(s){e.stopPropagation();speak(BY[s.dataset.say]);return}
+  const st=e.target.closest('[data-sayt]');if(st){e.stopPropagation();speakText(st.dataset.sayt);return}
+  const b=e.target.closest('[data-act]');if(b&&b.closest('[data-mk]')){e.stopPropagation();memoAct(b)}},true);
+document.addEventListener('keydown',e=>{if(e.target.classList&&e.target.classList.contains('memo-ta')){e.stopPropagation();
+  if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();memoAct(e.target.closest('[data-mk]').querySelector('[data-act="save"]'))}
+  else if(e.key==='Escape'){memoAct(e.target.closest('[data-mk]').querySelector('[data-act="cancel"]'))}}},true);
+
+/* ---------- 문제 고르기 ----------
+   rec: 스페인어 → 뜻 떠올리기 (처음 배울 때)
+   pro: 한국어 → 스페인어 떠올리기 (익숙해지면) */
+function dir(k){const l=lv(k);if(l<=1)return 'rec';if(l===2)return Math.random()<.5?'rec':'pro';return Math.random()<.8?'pro':'rec'}
+function buildSmart(){
+  const pool=W.filter(live);
+  const due=pool.filter(isDue).sort((a,b)=>dueOf(a).localeCompare(dueOf(b))||lv(a.k)-lv(b.k));
+  const fresh=pool.filter(x=>lv(x.k)===0);
+  const learning=pool.filter(x=>lv(x.k)>=1&&lv(x.k)<5&&!isDue(x)).sort((a,b)=>(lv(a.k)-lv(b.k))+(Math.random()-.5)*1.6-((S.wr[a.k]||0)-(S.wr[b.k]||0))*.3);
+  const done=shuffle(pool.filter(x=>lv(x.k)>=5&&!isDue(x)));
+  const ROUND=N(),newCap=Math.ceil(ROUND/3);
+  const nNew=Math.min(newCap,fresh.length);
+  let out=due.slice(0,ROUND-nNew);
+  out.push(...fresh.slice(0,Math.min(nNew,ROUND-out.length)));
+  out.push(...learning.slice(0,Math.max(0,ROUND-out.length)));
+  out.push(...fresh.slice(nNew,nNew+Math.max(0,ROUND-out.length)));
+  out.push(...done.slice(0,Math.max(0,ROUND-out.length)));
+  if(out.length<ROUND)out.push(...shuffle(pool.filter(x=>!out.includes(x))).slice(0,ROUND-out.length));
+  return shuffle(out).map(x=>({k:x.k,d:dir(x.k)}))}
+const noneLeft=()=>!W.some(live);
+function buildSpeak(){const pool=W.filter(live).filter(x=>lv(x.k)>=1);const src=pool.length>=5?pool:W.filter(live);
+  return shuffle(src.slice()).slice(0,N()).map(x=>({k:x.k,d:'pro'}))}
+function buildWrong(){return W.filter(x=>(S.wr[x.k]||0)>0&&!isSure(x)).sort((a,b)=>S.wr[b.k]-S.wr[a.k]).slice(0,N()).map(x=>({k:x.k,d:'pro'}))}
+
+
+/* ---------- 헷갈리는 짝 ---------- */
+const PAIRS=[
+{a:['pero','하지만','뻬로'],b:['perro','개','뻬르로'],t:'r 하나는 가볍게 튕기고, rr은 혀를 굴려요. 잘못 말하면 "하지만"이 "개"가 돼요.'},
+{a:['ser','~이다 (본질·정체)','세르'],b:['estar','~이다 (상태·위치)','에스따르'],t:'Soy aburrido = 나는 지루한 사람. Estoy aburrido = 나 지금 지루해. 안 바뀌면 ser, 바뀌면 estar.'},
+{a:['mañana','내일','마냐나'],b:['la mañana','아침, 오전','라 마냐나'],t:'관사 없이 혼자면 "내일", la가 붙으면 "아침". mañana por la mañana = 내일 아침.'},
+{a:['embarazada','임신한','엠바라사다'],b:['avergonzado','부끄러운','아베르곤사도'],t:'영어 embarrassed를 떠올려 embarazada라고 하면 "임신했어요"가 돼요.'},
+{a:['cansado','피곤한','깐사도'],b:['casado','결혼한','까사도'],t:'n 하나 차이. Estoy cansado(피곤해) / Estoy casado(결혼했어).'},
+{a:['hambre','배고픔','암브레'],b:['hombre','남자','옴브레'],t:'Tengo hambre = 배고파요. a와 o 한 글자 차이로 "남자"가 돼요.'},
+{a:['pescado','생선','뻬스까도'],b:['pecado','죄','뻬까도'],t:'s 하나 차이. 식당에선 꼭 pescado.'},
+{a:['sí','네','씨'],b:['si','만약','씨'],t:'소리는 같고 강세 표시만 달라요. sí = 네, si = 만약(Si tengo tiempo…).'},
+{a:['té','차 (마시는 차)','떼'],b:['te','너를, 너에게','떼'],t:'강세 표시가 있으면 마시는 차. Te quiero의 te는 "너를".'},
+{a:['¿por qué?','왜?','뽀르 께'],b:['porque','왜냐하면','뽀르께'],t:'띄어 쓰고 강세가 있으면 질문 "왜?", 붙여 쓰면 대답 "왜냐하면".'},
+{a:['saber','(지식·방법을) 알다','사베르'],b:['conocer','(사람·장소를) 알다','꼬노세르'],t:'No sé nadar. 수영할 줄 몰라요. / Conozco Madrid. 마드리드 가 봤어요.'},
+{a:['pedir','주문하다, 부탁하다','뻬디르'],b:['preguntar','질문하다','쁘레군따르'],t:'물건이나 도움을 달라면 pedir, 정보를 물으면 preguntar.'},
+{a:['llevar','가져가다, 입다','예바르'],b:['traer','가져오다','뜨라에르'],t:'나에게서 멀어지면 llevar, 나에게 오면 traer. 포장 주문은 para llevar.'},
+{a:['actualmente','현재, 요즘','악뚜알멘떼'],b:['en realidad','사실은','엔 레알리닫'],t:'영어 actually를 떠올려 actualmente라고 하면 "요즘"이 돼요.'},
+{a:['éxito','성공','엑시또'],b:['salida','출구','살리다'],t:'exit처럼 생겼지만 éxito는 "성공". 출구 표지판은 SALIDA.'},
+{a:['constipado','감기 걸린','꼰스띠빠도'],b:['estreñido','변비인','에스뜨레뇨도'],t:'영어 constipated(변비)와 달리 스페인어 constipado는 "감기 걸린"이에요.'},
+{a:['sopa','수프','소빠'],b:['jabón','비누','하본'],t:'soap(비누)처럼 생긴 sopa는 먹는 수프. 비누는 jabón.'},
+{a:['carpeta','서류철, 폴더','까르뻬따'],b:['alfombra','카펫','알폼브라'],t:'carpet처럼 생겼지만 carpeta는 서류철. 카펫은 alfombra.'},
+{a:['caro','비싼','까로'],b:['carro','자동차 (중남미)','까르로'],t:'r 하나 = 비싼, rr = 자동차(중남미). 스페인에선 차를 coche라고 해요.'},
+{a:['tarde','오후, 늦게','따르데'],b:['temprano','일찍','뗌쁘라노'],t:'Llego tarde = 늦게 도착해요. buenas tardes의 tarde는 "오후".'},
+];
+function speakText(t){sayNow(t)}
+const sayT=t=>canSpeak?`<button class="say" data-sayt="${esc(t)}">듣기</button>`:'';
+function buildPairs(){const n=Math.min(N(),PAIRS.length);const pw=S.pw||{};
+  return PAIRS.map((p,i)=>({i,w:(pw[i]||0)+Math.random()*1.5})).sort((a,b)=>b.w-a.w).slice(0,n).sort(()=>Math.random()-.5).map(o=>({pair:o.i,side:Math.random()<.5?'a':'b'}))}
+
+/* ---------- 간격 반복 ---------- */
+const IV={0:1,1:1,2:3,3:7,4:14,5:30};
+const addDays=n=>{const d=new Date();d.setDate(d.getDate()+n);return day(d)};
+const dueOf=x=>(S.due&&S.due[x.k])||'';
+const isDue=x=>lv(x.k)>=1&&dueOf(x)<=day();
+function schedule(x){S.due=S.due||{};S.due[x.k]=addDays(IV[lv(x.k)]||1)}
+function buildReview(){return W.filter(live).filter(isDue).sort((a,b)=>dueOf(a).localeCompare(dueOf(b))||lv(a.k)-lv(b.k)).slice(0,N()).map(x=>({k:x.k,d:dir(x.k)}))}
+function buildListen(){const heard=W.filter(live).filter(x=>lv(x.k)>=1);const src=heard.length>=5?heard:W.filter(live);
+  return shuffle(src.slice()).slice(0,N()).map(x=>({k:x.k,d:'listen'}))}
+
+/* ---------- 라운드 ---------- */
+let R=null;
+function startRound(kind){
+  const q=({speak:buildSpeak,wrong:buildWrong,review:buildReview,listen:buildListen,pairs:buildPairs}[kind]||buildSmart)();
+  if(!q.length){home();return}
+  R={kind,q,i:0,score:0,combo:0,best:0,right:0,asked:0,ups:new Set(),newStamps:[],miss:[],requeued:new Set(),sureList:[],phase:'ask',knew:false,sure:false};
+  $('#tabs').hidden=true;try{history.pushState({camino:'round'},'')}catch(e){}renderAsk()}
+/* 폰의 뒤로가기 = 그만하기 */
+window.addEventListener('popstate',()=>{if(R)quit()});
+const cur=()=>R.q[R.i];
+function head(){return `<div class="qhead"><button class="quit" id="quitBtn" aria-label="그만하고 결과 보기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>그만하기</button>
+  <div class="bar"><i style="width:${R.i/R.q.length*100}%"></i></div><span class="num" style="font-size:14px;color:var(--muted)">${R.i+1}/${R.q.length}</span>
+  <span class="combo num" id="combo">${R.combo>=2?R.combo+'콤보':'×'+mult(R.combo)}</span></div>`}
+function promptCard(it,x){
+  if(it.pair!=null){const p=PAIRS[it.pair],w=p[it.side];
+    return `<div class="panel prompt">${it.again?'<span class="again">한 번 더!</span>':''}
+    <div class="ask">이 말은 무슨 뜻일까? 짝꿍과 헷갈리지 않게!</div>
+    <div class="big es">${esc(w[0])}</div>
+    <div class="meta"><span class="tag">헷갈리는 짝</span>${sayT(w[0])}</div>
+    ${R.phase==='ask'?'<div class="think">뜻을 떠올려 보세요</div>':''}</div>`}
+  if(it.d==='listen')return `<div class="panel prompt">${it.again?'<span class="again">한 번 더!</span>':''}
+    <div class="ask">잘 듣고 무슨 뜻인지 떠올려 보세요</div>
+    <button class="listenbtn" data-say="${x.k}" aria-label="다시 듣기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg><span>다시 듣기</span></button>
+    <div class="meta"><span class="tag">${x.lvl} · ${x.ct}</span>${dots(lv(x.k))}</div>
+    ${R.phase==='ask'?'<div class="think">글자 없이 소리만으로!</div>':''}</div>`;
+  const rec=it.d==='rec';
+  return `<div class="panel prompt">${it.again?'<span class="again">한 번 더!</span>':''}
+    <div class="ask">${rec?'이 말은 무슨 뜻일까?':'스페인어로 어떻게 말할까?'}</div>
+    <div class="big${rec?' es':''}">${rec?esHTML(x):esc(x.ko)}</div>
+    <div class="meta"><span class="tag">${x.lvl} · ${x.ct} · ${x.kind==='단어'?'단어':'문장'}</span>${dots(lv(x.k))}${rec?sayBtn(x):gTag(x)}</div>
+    ${R.phase==='ask'?`<div class="think">${rec?'뜻을 떠올려 보세요':'소리 내서 말해 보세요'}</div>`:''}</div>`}
+
+function renderAsk(){
+  const it=cur(),x=it.pair!=null?null:BY[it.k];R.phase='ask';R.knew=false;
+  $('#view').innerHTML=`<section style="display:flex;flex-direction:column;gap:12px">${head()}${promptCard(it,x)}
+    <div class="judge"><button class="jb no" id="noBtn">모른다<small>← 또는 1</small></button>
+    <button class="jb yes" id="yesBtn">안다<small style="color:inherit;opacity:.8">→ 또는 2</small></button></div>
+    ${it.pair!=null?'':'<button class="surebtn" id="sureBtn">확실히 알아요 · 다시 안 나와도 돼요 <small class="num">3</small></button>'}</section>`;
+  $('#quitBtn').onclick=quit;$('#noBtn').onclick=()=>reveal(false);$('#yesBtn').onclick=()=>reveal(true);const sb=$('#sureBtn');if(sb)sb.onclick=()=>reveal(true,true);
+  if(it.pair!=null){if(S.auto)speakText(PAIRS[it.pair][it.side][0])}
+  else if(it.d==='listen')speak(x);
+  else if(it.d==='rec'&&S.auto)speak(x)}
+
+function reveal(knew,sure){
+  if(R.phase!=='ask')return;const it=cur();if(it.pair!=null)sure=false;
+  R.phase='reveal';R.knew=knew;R.sure=!!sure;sfx.flip();
+  if(it.pair!=null)return revealPair(it,knew);
+  const x=BY[it.k],rec=it.d!=='pro';
+  $('#view').innerHTML=`<section style="display:flex;flex-direction:column;gap:12px">${head()}
+    <div class="sheet">
+      <div class="sheet-top"><div style="min-width:0;flex:1">
+          <div class="who">${it.d==='listen'?'들은 말: '+esHTML(x):rec?esHTML(x)+' 의 뜻':esc(x.ko)+' 는 스페인어로'}</div>
+          <div class="ans">${rec?esc(x.ko):esHTML(x)}</div>
+          <div class="pr">발음 [${esc(x.pr)}] ${gTag(x)}</div><div class="aud">${sayBtn(x)}${nativeBtn(x.es)}</div></div>
+        <span class="verdict ${knew?'good':'bad'}">${sure?'확실히 앎 · 다시 안 나와요':knew?'안다고 함':'모른다고 함'}</span></div>
+      <div class="sheet-body">
+        <div class="sec"><b>쓰임새</b><p>${esc(x.b)}</p></div>
+        ${memoBlock(x)}
+      </div></div>
+    <div class="row">${knew?`<button class="btn warn" id="oopsBtn">앗, 틀렸어요 <small>X</small></button><button class="btn" id="nextBtn">${sure?'맞아요 · 다음':'맞았어요 · 다음'} <small>Enter</small></button>`
+      :`<button class="btn" id="nextBtn">외웠어요 · 다음 <small>Enter</small></button>`}</div>
+    ${knew&&!sure?'<button class="surebtn" id="sureBtn2">이건 확실히 알아요 · 다시 안 나오게 <small class="num">3</small></button>':''}</section>`;
+  $('#quitBtn').onclick=quit;
+  $('#nextBtn').onclick=()=>commit(R.knew,R.sure);
+  const o=$('#oopsBtn');if(o)o.onclick=()=>commit(false);
+  const s2=$('#sureBtn2');if(s2)s2.onclick=()=>commit(true,true);
+  $('#nextBtn').focus({preventScroll:true});
+  if(!rec&&S.auto)speak(x)}
+function revealPair(it,knew){const p=PAIRS[it.pair];const box=(w,on)=>`<div class="pcard${on?' on':''}"><div class="pes">${esc(w[0])}</div><div class="pko">${esc(w[1])}</div><div class="pr">[${esc(w[2])}]</div><div class="aud">${sayT(w[0])}${nativeBtn(w[0])}</div></div>`;
+  $('#view').innerHTML=`<section style="display:flex;flex-direction:column;gap:12px">${head()}
+    <div class="sheet"><div class="sheet-top"><div style="min-width:0;flex:1"><div class="who">${esc(p[it.side][0])} 의 뜻</div><div class="ans">${esc(p[it.side][1])}</div></div>
+      <span class="verdict ${knew?'good':'bad'}">${knew?'안다고 함':'모른다고 함'}</span></div>
+    <div class="sheet-body"><div class="pairs">${box(p.a,it.side==='a')}${box(p.b,it.side==='b')}</div>
+      <div class="sec memo"><b>구별법</b><p>${esc(p.t)}</p></div></div></div>
+    <div class="row">${knew?`<button class="btn warn" id="oopsBtn">앗, 틀렸어요 <small>X</small></button><button class="btn" id="nextBtn">맞았어요 · 다음 <small>Enter</small></button>`
+      :`<button class="btn" id="nextBtn">외웠어요 · 다음 <small>Enter</small></button>`}</div></section>`;
+  $('#quitBtn').onclick=quit;$('#nextBtn').onclick=()=>commit(R.knew,false);const o=$('#oopsBtn');if(o)o.onclick=()=>commit(false);
+  $('#nextBtn').focus({preventScroll:true})}
+
+function commit(ok,sure){
+  if(R.phase!=='reveal')return;R.phase='done';
+  const it=cur();touchDay();markPlayed();R.asked++;
+  if(it.pair!=null){
+    if(ok){R.combo++;R.best=Math.max(R.best,R.combo);R.right++;S.todayN++;const gain=Math.round(10*mult(R.combo));R.score+=gain;S.xp+=gain;sfx.ok(R.combo)}
+    else{R.combo=0;sfx.no();S.pw=S.pw||{};S.pw[it.pair]=(S.pw[it.pair]||0)+1;const id='p'+it.pair;if(!R.miss.includes(id))R.miss.push(id);
+      if(!R.requeued.has(id)){R.requeued.add(id);R.q.push({pair:it.pair,side:it.side==='a'?'b':'a',again:true})}}
+    save();advance();return}
+  const x=BY[it.k];
+  let gotStamp=false;
+  if(ok&&sure){R.combo++;R.best=Math.max(R.best,R.combo);R.right++;S.todayN++;
+    const gain=Math.round(10*mult(R.combo));R.score+=gain;S.xp+=gain;sfx.ok(R.combo);
+    R.sureList.push(x.k);R.q=R.q.filter((q,j)=>j<=R.i||q.k!==x.k);
+    if(setSure(x,true)){gotStamp=true;R.newStamps.push(x.k)}}
+  else if(ok){R.combo++;R.best=Math.max(R.best,R.combo);R.right++;S.todayN++;
+    const gain=Math.round(10*mult(R.combo));R.score+=gain;S.xp+=gain;sfx.ok(R.combo);
+    if(!R.ups.has(x.k)&&!it.again){const before=lv(x.k),nl=Math.min(5,before+1);
+      // 도장(5단계)은 한국어 → 스페인어로 떠올려서 맞혀야만
+      if(nl===5&&it.d!=='pro'){}else if(nl>before){S.lv[x.k]=nl;R.ups.add(x.k);if(nl===5){gotStamp=true;S.stampAt[x.k]=day();R.newStamps.push(x.k)}}}
+    schedule(x)}
+  else{R.combo=0;sfx.no();S.wr[x.k]=(S.wr[x.k]||0)+1;S.lv[x.k]=Math.max(0,lv(x.k)-2);
+    if(!R.miss.includes(x.k))R.miss.push(x.k);
+    if(!R.requeued.has(x.k)){R.requeued.add(x.k);R.q.push({k:x.k,d:it.d,again:true})}
+    S.due=S.due||{};S.due[x.k]=addDays(1)}
+  save();
+  if(gotStamp){sfx.stamp();
+    $('#view').innerHTML=`<section style="display:flex;flex-direction:column;gap:12px">${head()}
+      <div class="panel newstamp" style="padding:28px 16px">${selloHTML(x,true)}<div style="font-size:20px">${esc(x.es)} 세요(도장) 획득!</div>
+      <div style="font-size:14px;color:var(--muted)">산티아고까지 ${KM-kmNow()}km 남았어요</div></div>
+      <button class="btn" id="nextBtn">다음 <small>Enter</small></button></section>`;
+    R.phase='stamp';$('#quitBtn').onclick=quit;$('#nextBtn').onclick=advance;$('#nextBtn').focus({preventScroll:true});return}
+  advance()}
+function advance(){R.i++;if(R.i>=R.q.length)finish();else renderAsk();window.scrollTo(0,0)}
+function quit(){try{speechSynthesis.cancel()}catch(e){}R&&R.asked?finish():goHome()}
+
+function finish(){
+  const acc=R.asked?Math.round(R.right/R.asked*100):0;
+  const names={smart:'스마트 학습',speak:'말하기 연습',wrong:'오답 복습',review:'오늘의 복습',listen:'듣기 모드',pairs:'헷갈리는 짝 특훈'};
+  $('#view').innerHTML=`<section class="panel result">
+    <div class="label">${names[R.kind]} 결과</div>
+    <div class="score num">${R.score}</div><div style="color:var(--muted)">점</div>
+    <div class="stats"><div class="stat"><b class="num">${acc}%</b><span>안다 비율</span></div>
+      <div class="stat"><b class="num">${R.best}</b><span>최고 콤보</span></div>
+      <div class="stat"><b class="num">${R.ups.size+R.sureList.length}</b><span>숙련도 상승</span></div></div>
+    ${R.sureList.length?`<div style="font-size:14px;color:var(--muted)">"확실히 알아요"로 뺀 표현 ${R.sureList.length}개는 다시 나오지 않아요. 카드 탭에서 되돌릴 수 있어요.</div>`:''}
+    ${R.newStamps.length?`<div><div class="label" style="margin-bottom:6px">새로 받은 세요</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${R.newStamps.map(k=>selloHTML(BY[k])).join('')}</div></div>`:''}
+    ${R.miss.length?`<div class="misslist"><div class="label">모른 표현 다시 보기</div>${R.miss.map(k=>{if(k[0]==='p'){const p=PAIRS[+k.slice(1)];return `<div class="miss">${esc(p.a[0])} = ${esc(p.a[1])} · ${esc(p.b[0])} = ${esc(p.b[1])}<div class="t">${esc(p.t)}</div></div>`}const x=BY[k];return `<div class="miss">${esHTML(x)} <span style="color:var(--muted)">[${esc(x.pr)}]</span> = ${esc(x.ko)}<div class="t">${esc(memoOf(x))}</div></div>`}).join('')}</div>`
+      :`<div class="empty" style="padding:6px">전부 알았어요. ¡Muy bien!</div>`}
+    <div class="row"><button class="btn ghost" id="homeBtn">홈으로</button><button class="btn" id="againBtn">한 판 더</button></div></section>`;
+  const kind=R.kind;R=null;
+  $('#homeBtn').onclick=goHome;$('#againBtn').onclick=()=>startRound((kind==='wrong'&&!buildWrong().length)||(kind==='review'&&!buildReview().length)?'smart':kind)}
+function levelChips(cur,attr){return ['전체','초급','중급','고급'].map(f=>`<button class="chip lvchip" ${attr}="${f}" aria-pressed="${cur===f}">${f}<span class="num">${f==='전체'?TOTAL:W.filter(x=>x.lvl===f).length}</span></button>`).join('')}
+const catsOf=l=>CATS.filter(c=>l==='전체'||lvlOf(c)===l);
+
+/* ---------- 화면 ---------- */
+function selloHTML(x,anim){const d=(S.stampAt[x.k]||day()).slice(2).replace(/-/g,'.');let h=0;for(const ch of x.k)h=h*31+ch.charCodeAt(0);const r=(Math.abs(h)%24)-12;
+  return `<div class="sello${anim?' in':''}" style="transform:rotate(${r}deg)">${SHELL}<span class="sc">${esc(x.es.replace(/[¿?¡!]/g,''))}</span><span class="sd">${d}</span></div>`}
+function goHome(){R=null;setTab('home')}
+function setTab(t){$('#tabs').hidden=false;document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+  ({home,passport,cards,notes})[t]();window.scrollTo(0,0)}
+
+function trackHTML(km){const pct=km/KM*100;
+  return `<div class="track" aria-label="순례길 ${km}km 진행"><div class="ln"></div><div class="done" style="width:${pct}%"></div>
+    ${TOWNS.map((t,i)=>`<div class="town${km>=t[0]?' on':''}${i===TOWNS.length-1?' last':''}" style="left:${t[0]/KM*100}%"><span>${t[1]}</span></div>`).join('')}
+    <svg class="me" style="left:${pct}%" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 C7 2 4 6 4 10 L12 20 L20 10 C20 6 17 2 12 2Z" fill="var(--arrow)" stroke="var(--card)" stroke-width="1.5"/></svg></div>`}
+
+function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x.k]||0)>0).length,st=stamps();
+  S.topics=topics().filter(t=>catsOf(S.level).includes(t));
+  const filters=['전체',...catsOf(S.level)];
+  const dueN=W.filter(live).filter(isDue).length;
+  const pool=W.filter(inFilter),pSt=pool.filter(x=>lv(x.k)>=5).length,sureN=W.filter(isSure).length,left=W.filter(live).length;
+  const streak=(S.lastDay===day()||S.lastDay===yday())?S.streak:0;
+  $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:14px">
+  <section class="panel route">
+    <div class="route-row"><div><div class="label">지금 위치</div><div class="route-name">${km>=KM?'산티아고 도착!':tw.at+' 근처'}</div></div>
+      <div class="num" style="color:var(--muted);text-align:right">${km} / ${KM}km</div></div>
+    ${trackHTML(km)}
+    <div style="font-size:13px;color:var(--muted);margin-top:8px">${tw.next?`표현 하나에 세요(도장)를 받을 때마다 약 ${(KM/TOTAL).toFixed(1)}km씩 나아가요. ${tw.next[1]}까지 ${tw.next[0]-km}km`:`${TOTAL}개 표현을 모두 익혔어요. ¡Buen Camino!`}</div>
+    <div class="stats">
+      <div class="stat"><b class="num">${st}<small style="font-size:13px;color:var(--muted)">/${TOTAL}</small></b><span>받은 세요</span></div>
+      <div class="stat"><b class="num">${Math.min(S.todayN,999)}<small style="font-size:13px;color:var(--muted)">/${GOAL}</small></b><span>오늘 안 개수${S.todayN>=GOAL?' · 달성':''}</span></div>
+      <div class="stat"><b class="num">${streak}</b><span>연속 학습일</span></div>
+    </div>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:8px">
+    <div class="label">단계</div>
+    <div class="chips">${levelChips(S.level,'data-l')}</div>
+    <div class="label" style="margin-top:4px">종류</div>
+    <div class="chips">${[['전체','전체'],['단어','단어'],['문장','문장·표현']].map(([v,t])=>`<button class="chip" data-kind="${v}" aria-pressed="${(S.kind||'전체')===v}">${t}<span class="num">${W.filter(x=>inLevel(x)&&(v==='전체'||x.kind===v)).length}</span></button>`).join('')}</div>
+    <div class="label" style="margin-top:4px">주제 <span style="letter-spacing:0">· 여러 개 골라서 묶을 수 있어요</span></div>
+    <div class="chips">${filters.map(f=>`<button class="chip" data-f="${f}" aria-pressed="${f==='전체'?!topics().length:topics().includes(f)}">${f}<span class="num">${W.filter(x=>inLevel(x)&&inKind(x)&&(f==='전체'||x.ct===f)).length}</span></button>`).join('')}</div>
+    <div class="label" style="margin-top:4px">한 판 문제 수</div>
+    <div class="chips">${[10,20,30].map(n=>`<button class="chip" data-n="${n}" aria-pressed="${N()===n}">${n}문제</button>`).join('')}</div>
+    <div style="font-size:13px;color:var(--muted)">이 범위에서 아직 공부할 표현 <span class="num">${pool.filter(x=>!isSure(x)).length}</span>개${sureN?` · 확실히 알아서 뺀 표현 <span class="num">${sureN}</span>개`:''}</div>
+  </section>
+  <section class="modes">
+    <button class="mode hero" data-m="smart"><span class="ic">학습</span><div><h3>스마트 학습 <span class="tag">${N()}문제</span></h3><p>복습할 때가 된 표현 먼저, 그다음 새 표현. 처음엔 뜻 떠올리기, 익숙해지면 거꾸로 말하기</p></div><span class="side num">${pSt}/${pool.length}</span></button>
+    <button class="mode" data-m="review" ${dueN?'':'disabled'}><span class="ic">복습</span><div><h3>오늘의 복습 <span class="tag">${dueN}개</span></h3><p>${dueN?'잊어버리기 직전인 표현만 골라서':'오늘 복습할 표현을 다 끝냈어요'}</p></div><span class="side"></span></button>
+    <button class="mode" data-m="listen" ${canSpeak?'':'disabled'}><span class="ic">듣기</span><div><h3>듣기 모드</h3><p>${canSpeak?'글자 없이 발음만 듣고 뜻 떠올리기':'이 브라우저는 음성 읽기를 지원하지 않아요'}</p></div><span class="side"></span></button>
+    <button class="mode" data-m="pairs"><span class="ic">짝</span><div><h3>헷갈리는 짝 특훈 <span class="tag">${PAIRS.length}쌍</span></h3><p>pero·perro, ser·estar처럼 틀리기 쉬운 짝 비교</p></div><span class="side"></span></button>
+    <button class="mode" data-m="speak"><span class="ic">말하기</span><div><h3>말하기 연습</h3><p>한국어를 보고 스페인어로 소리 내서 말해 보기</p></div><span class="side"></span></button>
+    <button class="mode" data-m="wrong" ${wn?'':'disabled'}><span class="ic">오답</span><div><h3>오답 복습</h3><p>${wn?'자주 모른 표현부터 다시':'아직 모른 표현이 없어요'}</p></div><span class="side num">${wn}개</span></button>
+  </section>
+  <section class="panel" style="font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:6px">
+    <div class="label">이렇게 공부해요</div>
+    <div>단어를 보고 머릿속으로 떠올린 뒤 <b style="font-weight:400;color:var(--good)">안다</b> / <b style="font-weight:400;color:var(--bad)">모른다</b>를 누르세요. 답지에서 발음과 쓰임새, 암기법을 보고, 안다고 했는데 틀렸으면 "앗, 틀렸어요"를 눌러요. 암기법은 "수정"으로 내 방식대로 바꿀 수 있어요.</div>
+    <div>이미 확실히 아는 표현은 "확실히 알아요"를 누르면 바로 세요를 받고 다시 나오지 않아요. 카드 탭에서 언제든 되돌릴 수 있어요.</div>
+    <div>맞히면 점이 1개일 땐 1일 뒤, 2개는 3일, 3개는 1주, 4개는 2주, 도장 받은 뒤엔 한 달 뒤에 다시 나와요. 잊어버리기 직전에 다시 보면 가장 오래 기억돼요. 모르면 다음 날 다시 나와요.</div>
+    <div>맞힐 때마다 점이 하나씩 차요. 마지막 5번째 점은 한국어를 보고 스페인어를 떠올려 맞혀야 채워지고, 그때 크레덴시알에 세요가 찍혀요.</div>
+    <div>명사는 <span class="art m">el</span>(남성) · <span class="art f">la</span>(여성)를 색으로 구분해 두었어요. 단어와 함께 통째로 외우면 좋아요.</div>
+    <div id="voiceInfo" style="line-height:1.6">${voiceInfoHTML()}</div>
+  </section>
+  <div class="foot">기록은 이 브라우저에만 저장돼요 · <button class="linkbtn" id="moveBtn">기록 옮기기</button> · <button class="linkbtn" id="resetBtn">기록 초기화</button></div>
+  <section class="panel" id="movePanel" hidden style="display:flex;flex-direction:column;gap:8px">
+    <div class="label">기록 옮기기</div>
+    <div style="font-size:14px;color:var(--muted)">다른 주소나 다른 기기로 옮길 때 써요. ① 여기서 "기록 코드 복사"를 누르고 ② 새 곳에서 이 칸에 붙여넣은 뒤 "가져오기"를 누르세요. 숙련도, 도장, 복습 날짜, 고친 암기법이 모두 옮겨져요.</div>
+    <textarea id="moveTa" rows="4" class="memo-ta" style="font-family:var(--mono);font-size:12px;border-color:var(--line)" placeholder="여기에 기록 코드를 붙여넣으세요"></textarea>
+    <div class="row"><button class="btn ghost" id="copyRec">기록 코드 복사</button><button class="btn" id="loadRec">가져오기</button></div>
+    <div id="moveMsg" style="font-size:14px;min-height:1.2em"></div>
+  </section></div>`;
+  document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.level=b.dataset.l;S.topics=[];save();home()});
+  document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{const f=b.dataset.f,t=topics();S.topics=f==='전체'?[]:t.includes(f)?t.filter(x=>x!==f):[...t,f];save();home()});
+  document.querySelectorAll('[data-kind]').forEach(b=>b.onclick=()=>{S.kind=b.dataset.kind;save();home()});
+  document.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{S.round=+b.dataset.n;save();home()});
+  document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>startRound(b.dataset.m));
+  if(!pool.some(x=>!isSure(x)))document.querySelectorAll('.mode:not([data-m="pairs"])').forEach(b=>b.disabled=true);
+  $('#moveBtn').onclick=()=>{const pn=$('#movePanel');pn.hidden=!pn.hidden;if(!pn.hidden)pn.scrollIntoView({block:'nearest',behavior:'smooth'})};
+  $('#copyRec').onclick=()=>{const code='CAMINO1:'+btoa(unescape(encodeURIComponent(JSON.stringify(S))));const ta=$('#moveTa');ta.value=code;
+    const done=()=>{$('#moveMsg').textContent='복사했어요. 새 곳에서 붙여넣고 "가져오기"를 누르세요.'};
+    try{navigator.clipboard.writeText(code).then(done,()=>{ta.select();$('#moveMsg').textContent='칸 안의 코드를 길게 눌러 전체 복사해 주세요.'})}catch(e){ta.select();$('#moveMsg').textContent='칸 안의 코드를 길게 눌러 전체 복사해 주세요.'}};
+  $('#loadRec').onclick=()=>{const v=$('#moveTa').value.trim();const msg=$('#moveMsg');
+    try{if(!v.startsWith('CAMINO1:'))throw 0;const d=JSON.parse(decodeURIComponent(escape(atob(v.slice(8)))));if(!d||typeof d!=='object'||!d.lv)throw 0;
+      const b=$('#loadRec');if(!b.dataset.c){b.dataset.c=1;b.textContent='지금 기록을 덮어써요. 한 번 더 누르기';return}
+      S=Object.assign(blank(),d);S.mute=false;S.auto=true;touchDay();save();home();toast('기록을 가져왔어요.')}
+    catch(e){msg.textContent='기록 코드가 올바르지 않아요. "CAMINO1:"로 시작하는 코드를 통째로 붙여넣어 주세요.'}};
+  $('#resetBtn').onclick=()=>{const b=$('#resetBtn');if(b.dataset.c){const m=S.mute,a=S.auto,me=S.memo,lvSel=S.level;S=blank();S.mute=m;S.auto=a;S.memo=me;S.level=lvSel;touchDay();save();home()}else{b.dataset.c=1;b.textContent='정말 지울까요? 한 번 더 누르면 초기화 (고친 암기법은 남아요)'}}}
+
+function passport(){const st=stamps();
+  $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:12px">
+   <div class="pp-head"><div><div class="label">CREDENCIAL DEL PEREGRINO · 순례자 여권</div><div style="font-size:22px">세요 <span class="num">${st}</span> / ${TOTAL}</div></div>
+   <div class="bar" style="width:140px"><i style="width:${st/TOTAL*100}%;background:var(--stamp)"></i></div></div>
+   ${CATS.map(ct=>{const ws=W.filter(x=>x.ct===ct);return `<h2 class="cont-h">${lvlOf(ct)} · ${ct} <span class="num" style="font-size:13px">${ws.filter(x=>lv(x.k)>=5).length}/${ws.length}</span></h2>
+    <div class="grid">${ws.map(x=>lv(x.k)>=5?`<div class="slot" style="border-style:solid" title="${esc(x.es)} · ${esc(x.ko)}${isSure(x)?' · 확실히 앎':''}">${selloHTML(x)}</div>`
+      :`<div class="slot"><span class="n">${esc(x.ko)}</span>${dots(lv(x.k))}</div>`).join('')}</div>`}).join('')}</div>`}
+
+let cardFilter='전체',cardLevel='전체';
+function cards(){const fs=['전체',...catsOf(cardLevel),'확실히 앎'];
+  const list=W.filter(x=>cardFilter==='확실히 앎'?isSure(x):(cardLevel==='전체'||x.lvl===cardLevel)&&(cardFilter==='전체'||x.ct===cardFilter));
+  $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:12px">
+   <div class="chips">${levelChips(cardLevel,'data-cl')}</div>
+   <div class="chips">${fs.map(f=>`<button class="chip" data-f="${f}" aria-pressed="${cardFilter===f}">${f}${f==='확실히 앎'?`<span class="num">${W.filter(isSure).length}</span>`:''}</button>`).join('')}</div>
+   <div style="font-size:14px;color:var(--muted)">카드를 누르면 스페인어와 발음, 쓰임새, 암기법이 펼쳐져요. 암기법은 "수정"으로 바꿀 수 있어요.</div>
+   <div class="cards">${list.map(x=>`<div class="fc${isSure(x)?' sure':''}" role="button" tabindex="0" data-k="${x.k}">${fcInner(x,false)}</div>`).join('')}</div></div>`;
+  document.querySelectorAll('[data-cl]').forEach(b=>b.onclick=()=>{cardLevel=b.dataset.cl;cardFilter='전체';cards()});
+  document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{cardFilter=b.dataset.f;cards()});
+  if(!list.length)$('.cards').outerHTML='<div class="panel empty">아직 "확실히 알아요"로 뺀 표현이 없어요.</div>';
+  document.querySelectorAll('.fc').forEach(b=>{const tog=e=>{if(e.target.closest('.sec.memo')||e.target.closest('[data-say]')||e.target.closest('a'))return;
+    const sb=e.target.closest('[data-sure]');if(sb){const x=BY[b.dataset.k];setSure(x,!isSure(x));save();b.classList.toggle('sure',isSure(x));b.innerHTML=fcInner(x,true);return}const o=!b.classList.contains('open');b.classList.toggle('open',o);b.innerHTML=fcInner(BY[b.dataset.k],o);if(o&&S.auto)speak(BY[b.dataset.k])};
+    b.onclick=tog;b.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target===b){e.preventDefault();tog(e)}}})}
+function fcInner(x,o){const sb=isSure(x)?'<span class="surebadge">확실히 앎</span>':'';
+  return `<span class="n">${esc(x.ko)} ${sb}</span>${o?`<div class="head"><span class="c">${esHTML(x)}</span>${gTag(x)}</div><div class="aud">${sayBtn(x)}${nativeBtn(x.es)}</div>
+  <span class="t">발음 [${esc(x.pr)}]</span><span class="t">${esc(x.b)}</span>${memoBlock(x)}
+  <button class="surebtn" data-sure="1">${isSure(x)?'다시 나오게 하기':'확실히 알아요 · 다시 안 나오게'}</button>`:`<span class="c hide">눌러서 스페인어 보기</span>`}`}
+
+function notes(){const list=W.filter(x=>(S.wr[x.k]||0)>0).sort((a,b)=>S.wr[b.k]-S.wr[a.k]);
+  $('#view').innerHTML=list.length?`<div style="display:flex;flex-direction:column;gap:12px">
+   <button class="btn" id="wBtn">오답 복습 시작 (${Math.min(list.length,N())}문제)</button>
+   <section class="panel">${list.map(x=>`<div class="note-row"><div>${esHTML(x)} <span style="color:var(--muted);font-size:14px">[${esc(x.pr)}]</span> = ${esc(x.ko)}
+     <div style="font-family:var(--hand);font-size:16px;color:var(--muted);line-height:1.25">${esc(memoOf(x))}</div></div><span class="x">×${S.wr[x.k]}</span></div>`).join('')}</section></div>`
+   :`<section class="panel empty">아직 모른 표현이 없어요.<br>모른다고 한 표현은 여기 모여서 따로 복습할 수 있어요.</section>`;
+  if(list.length)$('#wBtn').onclick=()=>startRound('wrong')}
+
+/* ---------- 키보드 ---------- */
+document.addEventListener('keydown',e=>{if(!R||e.repeat||e.target.matches?.('textarea,input'))return;
+  if(R.phase==='ask'){if(e.key==='ArrowLeft'||e.key==='1'){e.preventDefault();reveal(false)}else if(e.key==='ArrowRight'||e.key==='2'){e.preventDefault();reveal(true)}else if(e.key==='3'){e.preventDefault();reveal(true,true)}}
+  else if(R.phase==='reveal'){if(e.key==='Enter'||e.key===' '){e.preventDefault();commit(R.knew,R.sure)}else if((e.key==='x'||e.key==='X')&&R.knew){commit(false)}else if(e.key==='3'&&R.knew){commit(true,true)}}
+  else if(R.phase==='stamp'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();advance()}});
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+const mb=$('#muteBtn'),ab=$('#autoBtn');
+const paint=()=>{const set=(b,on)=>{b.setAttribute('aria-checked',String(on));b.querySelector('.st').textContent=on?'ON':'OFF';b.title=on?'켜져 있어요 · 누르면 꺼져요':'꺼져 있어요 · 누르면 켜져요'};
+  set(mb,!S.mute);set(ab,S.auto);ab.hidden=!canSpeak};
+mb.onclick=()=>{S.mute=!S.mute;save();paint();if(!S.mute)tone(660,.1,'triangle')};
+ab.onclick=()=>{S.auto=!S.auto;save();paint()};paint();
+home();
+</script>
+
+</html>
