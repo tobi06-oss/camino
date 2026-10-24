@@ -248,6 +248,41 @@ button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);ou
 .vcard .es{font-size:18px;color:var(--accent)}
 .vcard .ko{font-size:12px;color:var(--muted);line-height:1.2}
 .tabs button{font-size:14px}
+.gate{display:flex;flex-direction:column;gap:6px;margin-top:10px;padding:12px;border-radius:14px;background:var(--paper)}
+.gate .btn small{display:block;font-size:12px;opacity:.85}
+.rmwrap summary{cursor:pointer;color:var(--accent);font-size:14px;margin-top:10px}
+.rm{display:grid;grid-template-columns:30px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.rm-n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--line);color:var(--muted);font-size:14px}
+.rm.done .rm-n{background:var(--good);color:var(--card)}
+.rm.cur .rm-n{background:var(--accent);color:var(--on-accent)}
+.rm.lock{opacity:.6}
+.rm-t{font-size:15px}
+.rm-g{font-size:14px;color:var(--accent)}
+.rm-d{font-size:13px;color:var(--muted);line-height:1.5}
+.rm-p{font-size:13px;margin-top:2px}
+.citys{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.citystamp{width:74px;height:74px;border-radius:50%;border:3px double var(--stamp);color:var(--stamp);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;text-align:center;font-size:12px;transform:rotate(-8deg)}
+.citystamp:nth-child(even){transform:rotate(7deg)}
+.citystamp svg{width:18px;height:18px}
+.citystamp .cn{font-size:13px}
+.citystamp .sd{font-family:var(--mono);font-size:8px;border-top:1px solid currentColor;margin-top:2px;padding-top:1px}
+.citystamp.off{border-color:var(--line);color:var(--muted);opacity:.7;border-style:dashed}
+.citystamp.in{animation:stampin .45s cubic-bezier(.2,1.6,.4,1)}
+.compo{border:2px solid var(--arrow);gap:10px;display:flex;flex-direction:column}
+.chip.locked,.mode.locked{opacity:.5}
+.mode.locked .ic{background:var(--line);color:var(--muted)}
+.openall{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin-top:6px;cursor:pointer}
+.openall input{margin-top:3px}
+.mcq{display:grid;grid-template-columns:1fr;gap:8px}
+.mc{display:flex;align-items:center;gap:10px;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:13px 14px;font-size:17px;min-height:54px}
+.mc.es span:last-child{font-size:19px}
+.mc .k{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:0 5px;flex:none}
+.mc:hover:not(:disabled){border-color:var(--accent)}
+.mc.right{border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.mc.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.fbline{padding:10px 14px;border-radius:12px;font-size:15px;margin-bottom:8px}
+.fbline.good{background:var(--good-soft);color:var(--good)}
+.fbline.bad{background:var(--bad-soft);color:var(--bad)}
 .surebtn{width:100%;padding:11px 12px;border-radius:14px;font-size:15px;border:1.5px dashed var(--accent);color:var(--accent);background:var(--card)}
 .surebtn small{font-family:var(--mono);font-size:11px;opacity:.7;margin-left:4px}
 .surebtn:hover{background:var(--accent-soft)}
@@ -801,7 +836,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const dots=n=>`<span class="lvdots" aria-label="숙련도 ${n}/5">${[1,2,3,4,5].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</span>`;
 const mult=c=>c>=10?3:c>=5?2:c>=3?1.5:1;
 const isSure=x=>!!(S.sure&&S.sure[x.k]);
-const inLevel=x=>S.level==='전체'||x.lvl===S.level;
+const inLevel=x=>x.st<=stageNow()&&(!S.stSel||S.stSel==='전체'||String(x.st)===S.stSel);
 const topics=()=>Array.isArray(S.topics)?S.topics:[];
 const inKind=x=>!S.kind||S.kind==='전체'||x.kind===S.kind;
 const inFilter=x=>inLevel(x)&&inKind(x)&&(!topics().length||topics().includes(x.ct));
@@ -1027,8 +1062,9 @@ function finish(){
     <div class="row"><button class="btn ghost" id="homeBtn">홈으로</button><button class="btn" id="againBtn">한 판 더</button></div></section>`;
   const kind=R.kind;R=null;
   $('#homeBtn').onclick=goHome;$('#againBtn').onclick=()=>startRound((kind==='wrong'&&!buildWrong().length)||(kind==='review'&&!buildReview().length)?'smart':kind)}
-function levelChips(cur,attr){return ['전체','초급','중급','고급'].map(f=>`<button class="chip lvchip" ${attr}="${f}" aria-pressed="${cur===f}">${f}<span class="num">${f==='전체'?TOTAL:W.filter(x=>x.lvl===f).length}</span></button>`).join('')}
-const catsOf=l=>CATS.filter(c=>l==='전체'||lvlOf(c)===l);
+function levelChips(cur,attr){cur=cur||'전체';return ['전체','1','2','3','4','5'].map(f=>{const lock=f!=='전체'&&+f>stageNow();const cnt=f==='전체'?W.filter(x=>x.st<=stageNow()).length:W.filter(x=>x.st===+f).length;
+  return `<button class="chip lvchip${lock?' locked':''}" ${attr}="${f}" aria-pressed="${cur===f}" ${lock?'disabled title="'+lockMsg(+f)+'"':''}>${f==='전체'?'열린 단계 전체':f+' '+townName(+f)}<span class="num">${lock?'잠김':cnt}</span></button>`}).join('')}
+const catsOf=l=>CATS.filter(c=>(STG_OF[c]||5)<=stageNow()&&(!l||l==='전체'||String(STG_OF[c])===l));
 
 /* ---------- 화면 ---------- */
 function selloHTML(x,anim){const d=(S.stampAt[x.k]||day()).slice(2).replace(/-/g,'.');let h=0;for(const ch of x.k)h=h*31+ch.charCodeAt(0);const r=(Math.abs(h)%24)-12;
@@ -1043,18 +1079,15 @@ function trackHTML(km){const pct=km/KM*100;
     <svg class="me" style="left:${pct}%" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 C7 2 4 6 4 10 L12 20 L20 10 C20 6 17 2 12 2Z" fill="var(--arrow)" stroke="var(--card)" stroke-width="1.5"/></svg></div>`}
 
 function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x.k]||0)>0).length,st=stamps();
-  S.topics=topics().filter(t=>catsOf(S.level).includes(t));
-  const filters=['전체',...catsOf(S.level)];
+  if(S.stSel&&S.stSel!=='전체'&&+S.stSel>stageNow())S.stSel='전체';
+  S.topics=topics().filter(t=>catsOf(S.stSel).includes(t));
+  const filters=['전체',...catsOf(S.stSel)];
   const dueN=W.filter(live).filter(isDue).length;
   const pool=W.filter(inFilter),pSt=pool.filter(x=>lv(x.k)>=5).length,sureN=W.filter(isSure).length,left=W.filter(live).length;
   const streak=(S.lastDay===day()||S.lastDay===yday())?S.streak:0;
   $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:14px">
-  <section class="panel route">
-    <div class="route-row"><div><div class="label">지금 위치</div><div class="route-name">${km>=KM?'산티아고 도착!':tw.at+' 근처'}</div></div>
-      <div class="num" style="color:var(--muted);text-align:right">${km} / ${KM}km</div></div>
-    ${trackHTML(km)}
-    <div style="font-size:13px;color:var(--muted);margin-top:8px">${tw.next?`표현 하나에 세요(도장)를 받을 때마다 약 ${(KM/TOTAL).toFixed(1)}km씩 나아가요. ${tw.next[1]}까지 ${tw.next[0]-km}km`:`${TOTAL}개 표현을 모두 익혔어요. ¡Buen Camino!`}</div>
-    <div class="stats">
+  ${stagePanelHTML()}
+  <section class="panel"><div class="stats">
       <div class="stat"><b class="num">${st}<small style="font-size:13px;color:var(--muted)">/${TOTAL}</small></b><span>받은 세요</span></div>
       <div class="stat"><b class="num">${Math.min(S.todayN,999)}<small style="font-size:13px;color:var(--muted)">/${GOAL}</small></b><span>오늘 안 개수${S.todayN>=GOAL?' · 달성':''}</span></div>
       <div class="stat"><b class="num">${streak}</b><span>연속 학습일</span></div>
@@ -1062,7 +1095,7 @@ function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x
   </section>
   <section style="display:flex;flex-direction:column;gap:8px">
     <div class="label">단계</div>
-    <div class="chips">${levelChips(S.level,'data-l')}</div>
+    <div class="chips">${levelChips(S.stSel,'data-l')}</div>
     <div class="label" style="margin-top:4px">종류</div>
     <div class="chips">${[['전체','전체'],['단어','단어'],['문장','문장·표현']].map(([v,t])=>`<button class="chip" data-kind="${v}" aria-pressed="${(S.kind||'전체')===v}">${t}<span class="num">${W.filter(x=>inLevel(x)&&(v==='전체'||x.kind===v)).length}</span></button>`).join('')}</div>
     <div class="label" style="margin-top:4px">주제 <span style="letter-spacing:0">· 여러 개 골라서 묶을 수 있어요</span></div>
@@ -1087,6 +1120,7 @@ function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x
     <div>맞힐 때마다 점이 하나씩 차요. 마지막 5번째 점은 한국어를 보고 스페인어를 떠올려 맞혀야 채워지고, 그때 크레덴시알에 세요가 찍혀요.</div>
     <div>명사는 <span class="art m">el</span>(남성) · <span class="art f">la</span>(여성)를 색으로 구분해 두었어요. 단어와 함께 통째로 외우면 좋아요.</div>
     <div id="voiceInfo" style="line-height:1.6">${voiceInfoHTML()}</div>
+    <label class="openall"><input type="checkbox" id="openAll" ${S.openAll?'checked':''}> 단계 잠금 풀기 (모든 단계·기능을 미리 열어 두기. 진도와 관문 시험은 그대로 기록돼요)</label>
   </section>
   <button class="btn ghost" id="moveBtn" style="font-size:15px">기록 옮기기 · 기록 코드 복사 / 가져오기</button>
   <div class="foot">기록은 이 브라우저에만 저장돼요 · <button class="linkbtn" id="resetBtn">기록 초기화</button></div>
@@ -1097,7 +1131,10 @@ function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x
     <div class="row"><button class="btn ghost" id="copyRec">기록 코드 복사</button><button class="btn" id="loadRec">가져오기</button></div>
     <div id="moveMsg" style="font-size:14px;min-height:1.2em"></div>
   </section></div>`;
-  document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.level=b.dataset.l;S.topics=[];save();home()});
+  document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.stSel=b.dataset.l;S.topics=[];save();home()});
+  const gb=$('#gateBtn');if(gb)gb.onclick=startTest;
+  document.querySelectorAll('.mode[data-m]').forEach(b=>{const need=MODE_ST[b.dataset.m]||1;if(need>stageNow()){b.disabled=true;b.classList.add('locked');b.querySelector('p').textContent=lockMsg(need)}});
+  const oa=$('#openAll');if(oa)oa.onchange=()=>{S.openAll=oa.checked;save();home()};
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{const f=b.dataset.f,t=topics();S.topics=f==='전체'?[]:t.includes(f)?t.filter(x=>x!==f):[...t,f];save();home()});
   document.querySelectorAll('[data-kind]').forEach(b=>b.onclick=()=>{S.kind=b.dataset.kind;save();home()});
   document.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{S.round=+b.dataset.n;save();home()});
@@ -1112,19 +1149,22 @@ function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x
       const b=$('#loadRec');if(!b.dataset.c){b.dataset.c=1;b.textContent='지금 기록을 덮어써요. 한 번 더 누르기';return}
       S=Object.assign(blank(),d);S.mute=false;S.auto=true;touchDay();save();home();toast('기록을 가져왔어요.')}
     catch(e){msg.textContent='기록 코드가 올바르지 않아요. "CAMINO1:"로 시작하는 코드를 통째로 붙여넣어 주세요.'}};
-  $('#resetBtn').onclick=()=>{const b=$('#resetBtn');if(b.dataset.c){const m=S.mute,a=S.auto,me=S.memo,lvSel=S.level;S=blank();S.mute=m;S.auto=a;S.memo=me;S.level=lvSel;touchDay();save();home()}else{b.dataset.c=1;b.textContent='정말 지울까요? 한 번 더 누르면 초기화 (고친 암기법은 남아요)'}}}
+  $('#resetBtn').onclick=()=>{const b=$('#resetBtn');if(b.dataset.c){const m=S.mute,a=S.auto,me=S.memo;S=blank();S.mute=m;S.auto=a;S.memo=me;S.stage=1;S.stageInit=1;S.cityAt={1:day()};touchDay();save();home()}else{b.dataset.c=1;b.textContent='정말 지울까요? 한 번 더 누르면 초기화 (고친 암기법은 남아요)'}}}
 
 function passport(){const st=stamps();
   $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:12px">
    <div class="pp-head"><div><div class="label">CREDENCIAL DEL PEREGRINO · 순례자 여권</div><div style="font-size:22px">세요 <span class="num">${st}</span> / ${TOTAL}</div></div>
    <div class="bar" style="width:140px"><i style="width:${st/TOTAL*100}%;background:var(--stamp)"></i></div></div>
+   <div class="label">도시 도장 · 관문 시험을 통과하면 찍혀요</div>
+   <div class="citys">${[1,2,3,4,5,6].map(n=>cityStamp(n,n<=(S.stage||1))).join('')}</div>
    ${CATS.map(ct=>{const ws=W.filter(x=>x.ct===ct);return `<h2 class="cont-h">${lvlOf(ct)} · ${ct} <span class="num" style="font-size:13px">${ws.filter(x=>lv(x.k)>=5).length}/${ws.length}</span></h2>
     <div class="grid">${ws.map(x=>lv(x.k)>=5?`<div class="slot" style="border-style:solid" title="${esc(x.es)} · ${esc(x.ko)}${isSure(x)?' · 확실히 앎':''}">${selloHTML(x)}</div>`
       :`<div class="slot"><span class="n">${esc(x.ko)}</span>${dots(lv(x.k))}</div>`).join('')}</div>`}).join('')}</div>`}
 
 let cardFilter='전체',cardLevel='전체';
 function cards(){const fs=['전체',...catsOf(cardLevel),'확실히 앎'];
-  const list=W.filter(x=>cardFilter==='확실히 앎'?isSure(x):(cardLevel==='전체'||x.lvl===cardLevel)&&(cardFilter==='전체'||x.ct===cardFilter));
+  if(cardLevel!=='전체'&&+cardLevel>stageNow())cardLevel='전체';
+  const list=W.filter(x=>cardFilter==='확실히 앎'?isSure(x):x.st<=stageNow()&&(cardLevel==='전체'||String(x.st)===cardLevel)&&(cardFilter==='전체'||x.ct===cardFilter));
   $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:12px">
    <div class="chips">${levelChips(cardLevel,'data-cl')}</div>
    <div class="chips">${fs.map(f=>`<button class="chip" data-f="${f}" aria-pressed="${cardFilter===f}">${f}${f==='확실히 앎'?`<span class="num">${W.filter(isSure).length}</span>`:''}</button>`).join('')}</div>
@@ -1227,10 +1267,11 @@ function VS(){S.vb=S.vb||{lv:{},due:{},wr:{}};S.vb.lv=S.vb.lv||{};S.vb.due=S.vb.
 const vk=(inf,t)=>inf+'|'+t;
 const vlv=k=>VS().lv[k]||0;
 const vIsDue=k=>vlv(k)>=1&&(VS().due[k]||'')<=day();
-const vTenses=()=>(Array.isArray(S.vt)&&S.vt.length)?S.vt:['pres'];
+const tOpen=t=>TST[t]<=stageNow();
+const vTenses=()=>{const a=(Array.isArray(S.vt)?S.vt:[]).filter(tOpen);return a.length?a:['pres']};
 const vGroups=()=>Array.isArray(S.vg)?S.vg:[];
 const vVerbs=()=>VERBS.filter(v=>!vGroups().length||vGroups().includes(v.g));
-const vCombos=()=>{const r=[];vVerbs().forEach(v=>vTenses().forEach(t=>r.push(vk(v.inf,t))));return r};
+const vCombos=()=>{const r=[];vVerbs().forEach(v=>vTenses().forEach(t=>{if(comboStage(v.inf,t)<=stageNow())r.push(vk(v.inf,t))}));return r};
 
 /* 문제 만들기 */
 function pickPerson(inf,t){const irr=[0,1,2,3,4,5].filter(i=>isIrr(inf,t,i));return (irr.length&&Math.random()<.6)?irr[Math.random()*irr.length|0]:Math.random()*6|0}
@@ -1323,7 +1364,8 @@ function verbs(){VS();if(vOpen)return verbDetail(vOpen);
   </section>
   <section style="display:flex;flex-direction:column;gap:8px">
     <div class="label">시제 · 여러 개 고를 수 있어요</div>
-    <div class="chips">${TNS.map(t=>`<button class="chip" data-vt="${t.id}" aria-pressed="${ts.includes(t.id)}">${t.n}</button>`).join('')}</div>
+    <div class="chips">${TNS.map(t=>tOpen(t.id)?`<button class="chip" data-vt="${t.id}" aria-pressed="${ts.includes(t.id)}">${t.n}</button>`:`<button class="chip locked" disabled title="${lockMsg(TST[t.id])}">${t.n}<span class="num">${TST[t.id]}단계</span></button>`).join('')}</div>
+    <div style="font-size:13px;color:var(--muted)">지금 단계에서 공부할 수 있는 동사·시제 조합 <span class="num">${cs.length}</span>개. 나머지는 단계를 올라가면 열려요.</div>
     <div class="label" style="margin-top:4px">동사 그룹</div>
     <div class="chips"><button class="chip" data-vg="전체" aria-pressed="${!vGroups().length}">전체<span class="num">${VERBS.length}</span></button>${VGROUPS.map(([g])=>`<button class="chip" data-vg="${g}" aria-pressed="${vGroups().includes(g)}">${g}<span class="num">${VERBS.filter(v=>v.g===g).length}</span></button>`).join('')}</div>
     <div class="label" style="margin-top:4px">한 판 문제 수</div>
@@ -1361,6 +1403,141 @@ document.addEventListener('keydown',e=>{if(!V||e.repeat||e.target.matches?.('tex
   if(V.phase==='ask'){if(e.key==='ArrowLeft'||e.key==='1'){e.preventDefault();vReveal(false)}else if(e.key==='ArrowRight'||e.key==='2'){e.preventDefault();vReveal(true)}}
   else if(V.phase==='reveal'){if(e.key==='Enter'||e.key===' '){e.preventDefault();vCommit(V.knew)}else if((e.key==='x'||e.key==='X')&&V.knew)vCommit(false)}});
 window.addEventListener('popstate',()=>{if(V)quitV()});
+
+/* ================= 순례길 5단계 ================= */
+const STAGES=[
+ {n:1,cefr:'A1 첫걸음',goal:'인사하고 나를 소개하기',cats:['인사','숫자','사람·가족','질문'],verbs:'현재형 · ser, estar, tener, 규칙 -ar 동사',modes:'스마트 학습 · 카드 · 오늘의 복습 · 동사 드릴'},
+ {n:2,cefr:'A1 여행 생존',goal:'주문하고, 길 묻고, 값 물어보기',cats:['음식·카페','장소·여행','형용사','시간','동사'],verbs:'현재형 · 규칙 -er/-ir, e→ie, o→ue, ir',modes:'듣기 모드 · 말하기 연습'},
+ {n:3,cefr:'A2 일상 대화',goal:'일상과 기분을 말하고 어제 일 이야기하기',cats:['회화 표현','동사 더','감정·상태','생활'],verbs:'현재형 나머지(yo 불규칙, e→i) · 단순과거',modes:'헷갈리는 짝 특훈'},
+ {n:4,cefr:'A2+ 과거와 미래',goal:'옛날 이야기, 앞으로의 계획, 여행 중 문제 해결',cats:['연결어','과거·미래','여행 상황'],verbs:'불완료과거 · 미래',modes:'모든 동사 시제(접속법 제외)'},
+ {n:5,cefr:'B1',goal:'의견을 말하고 바람·가정 표현하기',cats:['접속법','조건·가정','관용 표현','의견·토론','격식·업무'],verbs:'접속법 현재',modes:'모든 기능'},
+];
+const STG_OF={};STAGES.forEach(s=>s.cats.forEach(c=>STG_OF[c]=s.n));
+W.forEach(x=>{x.st=STG_OF[x.ct]||5});
+const MODE_ST={smart:1,review:1,wrong:1,speak:2,listen:2,pairs:3};
+const V1=['ser','estar','tener','hablar','trabajar','estudiar','comprar','tomar','viajar','esperar','necesitar','buscar','llegar'];
+const V2=['comer','beber','aprender','vender','vivir','escribir','abrir','recibir','pensar','querer','empezar','cerrar','entender','preferir','poder','dormir','volver','encontrar','ir'];
+const TST={pres:1,pret:3,imp:4,fut:4,subj:5};
+function comboStage(inf,t){if(t==='pres')return V1.includes(inf)?1:V2.includes(inf)?2:3;return TST[t]}
+const PASS_PROG=.7,TEST_N=20,TEST_PASS=16;
+const stageNow=()=>S.openAll?5:Math.max(1,Math.min(5,S.stage||1));
+const finished=()=>(S.stage||1)>=6;
+const townName=n=>TOWNS[Math.min(n,6)-1][1];
+const lockMsg=n=>`${n}단계 ${townName(n)}에 도착하면 열려요`;
+function stageParts(n){const items=W.filter(x=>x.st===n);const combos=[];VERBS.forEach(v=>TNS.forEach(t=>{if(comboStage(v.inf,t.id)===n)combos.push(vk(v.inf,t.id))}));return {items,combos}}
+function stageProg(n){const {items,combos}=stageParts(n);const done=items.filter(x=>lv(x.k)>=3||isSure(x)).length+combos.filter(k=>vlv(k)>=3).length;const total=items.length+combos.length;
+  return {done,total,pct:total?done/total:1,need:Math.ceil(total*PASS_PROG)}}
+function kmStage(){const s=S.stage||1;if(s>=6)return KM;const a=TOWNS[s-1][0],b=TOWNS[s][0];const p=Math.min(1,stageProg(s).pct/PASS_PROG);return Math.round(a+(b-a)*p*.92)}
+/* 처음 한 번: 지금까지의 진도로 이미 채운 단계는 시험 없이 열어 줌 */
+(function migrateStage(){if(S.stageInit)return;S.stage=1;S.cityAt=S.cityAt||{};S.cityAt[1]=S.cityAt[1]||day();
+  while(S.stage<=5&&stageProg(S.stage).pct>=PASS_PROG){S.stage++;S.cityAt[S.stage]=day()}
+  S.stageInit=1;save()})();
+
+function cityStamp(n,on,anim){const nm=townName(n);const d=(S.cityAt&&S.cityAt[n]||'').slice(2).replace(/-/g,'.');
+  return `<div class="citystamp${on?'':' off'}${anim?' in':''}" title="${nm}">${SHELL}<span class="cn">${nm}</span><span class="sd">${on?d:'잠김'}</span></div>`}
+function roadmapHTML(){const cur=S.stage||1;
+  return STAGES.map(s=>{const st=s.n<cur?'done':s.n===cur?'cur':'lock';const pr=stageProg(s.n);
+    return `<div class="rm ${st}"><div class="rm-n">${st==='done'?'✓':s.n}</div><div class="rm-b">
+      <div class="rm-t">${s.n}단계 · ${townName(s.n)} → ${townName(s.n+1)} <span class="tag">${s.cefr}</span></div>
+      <div class="rm-g">${esc(s.goal)}</div>
+      <div class="rm-d">표현: ${s.cats.join(', ')}<br>동사: ${esc(s.verbs)}<br>새 기능: ${esc(s.modes)}</div>
+      ${st==='cur'?`<div class="rm-p">익힌 것 <span class="num">${pr.done}/${pr.total}</span></div>`:''}
+    </div></div>`}).join('')}
+function stagePanelHTML(){const cur=S.stage||1;
+  if(cur>=6)return `<section class="panel route compo"><div class="label">COMPOSTELA · 완주 증명서</div>
+    <div class="route-name">산티아고 데 콤포스텔라 도착!</div>
+    <div style="font-size:15px;line-height:1.6">생장에서 출발해 799km, 5개 구간의 관문 시험을 모두 통과했어요.<br>${(S.cityAt&&S.cityAt[6])||day()} 완주</div>
+    <div class="citys">${[1,2,3,4,5,6].map(n=>cityStamp(n,true)).join('')}</div>
+    <div style="font-size:13px;color:var(--muted)">이제 모든 기능이 열려 있어요. 오늘의 복습으로 잊지 않게만 챙겨 주세요. ¡Buen Camino!</div></section>`;
+  const s=STAGES[cur-1],pr=stageProg(cur),ready=pr.pct>=PASS_PROG,pct=Math.min(100,Math.round(pr.done/Math.max(1,pr.need)*100));
+  return `<section class="panel route">
+    <div class="route-row"><div><div class="label">${cur}단계 · ${s.cefr}</div><div class="route-name">${townName(cur)} → ${townName(cur+1)}</div></div>
+      <div class="num" style="color:var(--muted);text-align:right">${kmStage()} / ${KM}km</div></div>
+    ${trackHTML(kmStage())}
+    <div style="margin-top:10px;font-size:15px">이번 구간 목표: <b style="font-weight:400;color:var(--accent)">${esc(s.goal)}</b></div>
+    <div class="gate">
+      <div class="route-row"><span style="font-size:14px">익힌 것 (점 3개 이상)</span><span class="num" style="font-size:14px">${pr.done} / ${pr.need}</span></div>
+      <div class="bar"><i style="width:${pct}%;${ready?'background:var(--good)':''}"></i></div>
+      ${ready?`<button class="btn" id="gateBtn">관문 시험 보기 · ${townName(cur+1)}행 <small>${TEST_N}문제 · ${TEST_PASS}개 이상 통과</small></button>`
+        :`<div style="font-size:13px;color:var(--muted)">이번 구간 표현과 동사 ${pr.total}개 중 ${pr.need}개를 익히면 관문 시험이 열려요. 시험을 통과하면 ${townName(cur+1)}에 도착하고 다음 단계가 열려요.</div>`}
+    </div>
+    <details class="rmwrap"><summary>전체 여정 보기</summary><div class="citys" style="margin:10px 0">${[1,2,3,4,5,6].map(n=>cityStamp(n,n<=cur)).join('')}</div>${roadmapHTML()}</details>
+  </section>`}
+
+/* ---------- 관문 시험 (객관식) ---------- */
+let TT=null;
+const uniq=a=>[...new Set(a)];
+function pickDistract(correct,pool,n){const out=[];for(const c of shuffle(pool.slice())){if(c&&c!==correct&&!out.includes(c))out.push(c);if(out.length>=n)break}return out}
+function wordQ(x,type){
+  const same=W.filter(y=>y.k!==x.k&&y.ct===x.ct&&y.kind===x.kind),stage=W.filter(y=>y.k!==x.k&&y.st===x.st&&y.kind===x.kind),any=W.filter(y=>y.k!==x.k&&y.st<=x.st);
+  const pick=(f,corr)=>{let d=pickDistract(corr,same.filter(y=>!x.g||y.g===x.g||type!=='ko2es').map(f),3);
+    if(d.length<3)d=d.concat(pickDistract(corr,stage.map(f).filter(v=>!d.includes(v)),3-d.length));
+    if(d.length<3)d=d.concat(pickDistract(corr,any.map(f).filter(v=>!d.includes(v)),3-d.length));return d};
+  if(type==='ko2es'){const f=y=>(y.g?art(y)+' ':'')+y.es,c=f(x);return {type,x,prompt:x.ko,ask:'스페인어로 알맞은 것은?',ans:c,opts:shuffle([c,...pick(f,c)])}}
+  const f=y=>y.ko,c=x.ko;return {type,x,prompt:(x.g?art(x)+' ':'')+x.es,ask:type==='listen'?'잘 듣고 뜻을 고르세요':'이 말의 뜻은?',ans:c,opts:shuffle([c,...pick(f,c)])}}
+function verbQ(k){const [inf,t]=k.split('|'),c=CONJ[inf],v=VBY[inf];
+  const unlockedT=TNS.filter(T=>comboStage(inf,T.id)<=Math.max(stageNow(),TST[t]||1)).map(T=>T.id);
+  if(Math.random()<.35){ // 형태 → 시제·인칭
+    const cells=[];unlockedT.forEach(T=>c[T].forEach((f,i)=>cells.push({T,i,f})));
+    const cand=cells.filter(z=>z.T===t&&cells.filter(w=>w.f===z.f).length===1);
+    if(cand.length){const z=cand[Math.random()*cand.length|0],lab=w=>`${TBY[w.T].n} · ${PERS[w.i][0]}`;
+      const others=shuffle(cells.filter(w=>w.f!==z.f&&cells.filter(q=>q.f===w.f).length===1)).map(lab);
+      const d=pickDistract(lab(z),uniq(others),3);
+      return {type:'vrev',k,prompt:z.f,sub:`${v.inf} (${v.ko})`,ask:'어떤 시제·인칭일까?',ans:lab(z),opts:shuffle([lab(z),...d])}}}
+  const p=pickPerson(inf,t),ans=c[t][p];
+  let pool=c[t].filter(f=>f!==ans);unlockedT.forEach(T=>{if(T!==t)pool.push(c[T][p])});pool=uniq(pool);
+  let d=pickDistract(ans,pool,3);if(d.length<3)d=d.concat(pickDistract(ans,PLAIN[inf][t].filter(f=>f!==ans&&!d.includes(f)),3-d.length));
+  return {type:'vform',k,prompt:v.inf,sub:`${TBY[t].n} · ${PERS[p][0]} (${PERS[p][1]})`,ask:'알맞은 형태는?',ans,opts:shuffle([ans,...d])}}
+function buildTest(n){const {items,combos}=stageParts(n);const voice=canSpeak&&(!voicesReady||esVoice);
+  const nv=combos.length?Math.min(8,Math.round(TEST_N*.35)):0,nw=TEST_N-nv;
+  const ws=shuffle(items.slice()).slice(0,nw);
+  const q=ws.map((x,i)=>wordQ(x,voice&&i%5===4?'listen':(i%2?'ko2es':'es2ko')));
+  shuffle(combos.slice()).slice(0,nv).forEach(k=>q.push(verbQ(k)));
+  return shuffle(q).filter(o=>o.opts.length>=2)}
+function startTest(){const n=S.stage||1;if(n>5)return;TT={n,q:buildTest(n),i:0,right:0,wrong:[],done:false};
+  $('#tabs').hidden=true;try{history.pushState({camino:'test'},'')}catch(e){}tAsk()}
+function tAsk(){const it=TT.q[TT.i];TT.done=false;
+  const big=it.type==='listen'?`<button class="listenbtn" data-sayt="${esc(it.x.es)}" aria-label="다시 듣기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg><span>다시 듣기</span></button>`
+    :`<div class="big${it.type==='ko2es'?'':' es'}">${esc(it.prompt)}</div>${it.sub?`<div class="vchips"><span class="vchip strong">${esc(it.sub)}</span></div>`:''}`;
+  $('#view').innerHTML=`<section style="display:flex;flex-direction:column;gap:12px">
+    <div class="qhead"><button class="quit" id="quitBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>시험 그만</button>
+      <div class="bar"><i style="width:${TT.i/TT.q.length*100}%"></i></div><span class="num" style="font-size:14px;color:var(--muted)">${TT.i+1}/${TT.q.length}</span></div>
+    <div class="panel prompt"><div class="label">관문 시험 · ${townName(TT.n+1)}행</div><div class="ask">${it.ask}</div>${big}</div>
+    <div class="mcq">${it.opts.map((o,i)=>`<button class="mc${it.type==='ko2es'||it.type==='vform'?' es':''}" data-i="${i}"><span class="k">${i+1}</span><span>${esc(o)}</span></button>`).join('')}</div>
+    <div id="tfb"></div></section>`;
+  $('#quitBtn').onclick=quitTest;document.querySelectorAll('.mc').forEach(b=>b.onclick=()=>tPick(+b.dataset.i));
+  if(it.type==='listen')sayNow(it.x.es)}
+function tPick(i){if(!TT||TT.done)return;TT.done=true;const it=TT.q[TT.i],ok=it.opts[i]===it.ans;
+  document.querySelectorAll('.mc').forEach((b,j)=>{b.disabled=true;if(it.opts[j]===it.ans)b.classList.add('right');else if(j===i)b.classList.add('wrong')});
+  if(ok){TT.right++;sfx.ok(TT.right)}else{sfx.no();TT.wrong.push(it)}
+  const sol=it.x?`${(it.x.g?art(it.x)+' ':'')+it.x.es} = ${it.x.ko}`:it.type==='vrev'?`${it.prompt} = ${it.ans}`:`${it.prompt} · ${it.sub} → ${it.ans}`;
+  $('#tfb').innerHTML=`<div class="fbline ${ok?'good':'bad'}">${ok?'정답':'오답'} · ${esc(sol)}</div><button class="btn" id="tNext">${TT.i+1<TT.q.length?'다음':'결과 보기'} <small>Enter</small></button>`;
+  $('#tNext').onclick=tNext;$('#tNext').focus({preventScroll:true});if(ok)TT.auto=setTimeout(tNext,900)}
+function tNext(){if(!TT)return;clearTimeout(TT.auto);TT.i++;if(TT.i>=TT.q.length)tFinish();else{tAsk();window.scrollTo(0,0)}}
+function quitTest(){clearTimeout(TT&&TT.auto);TT=null;setTab('home')}
+function tFinish(){const t=TT,pass=t.right>=Math.round(TEST_PASS*t.q.length/TEST_N);TT=null;
+  // 틀린 건 오늘 복습에 바로 넣기
+  t.wrong.forEach(it=>{if(it.x){S.wr[it.x.k]=(S.wr[it.x.k]||0)+1;S.lv[it.x.k]=Math.min(lv(it.x.k),2);S.due=S.due||{};S.due[it.x.k]=day()}
+    else{const st=VS();st.wr[it.k]=(st.wr[it.k]||0)+1;st.lv[it.k]=Math.min(vlv(it.k),2);st.due[it.k]=day()}});
+  let html;
+  if(pass){S.stage=t.n+1;S.cityAt=S.cityAt||{};S.cityAt[t.n+1]=day();sfx.stamp();
+    const nx=STAGES[t.n];
+    html=`<section class="panel result"><div class="label">관문 시험 통과</div>
+      <div style="display:flex;justify-content:center">${cityStamp(t.n+1,true,true)}</div>
+      <div class="route-name">${townName(t.n+1)} 도착!</div><div class="score num" style="font-size:40px">${t.right} / ${t.q.length}</div>
+      ${nx?`<div class="panel" style="text-align:left;display:flex;flex-direction:column;gap:6px;background:var(--paper);border:0"><div class="label">새로 열린 것 · ${nx.n}단계 ${nx.cefr}</div>
+        <div>목표: <b style="font-weight:400;color:var(--accent)">${esc(nx.goal)}</b></div><div style="font-size:14px">표현: ${nx.cats.join(', ')}<br>동사: ${esc(nx.verbs)}<br>새 기능: ${esc(nx.modes)}</div></div>`
+        :`<div style="font-size:16px">799km 완주! 홈 화면에 완주 증명서(콤포스텔라)가 생겼어요.</div>`}
+      <button class="btn" id="homeBtn">홈으로</button></section>`}
+  else html=`<section class="panel result"><div class="label">관문 시험 결과</div>
+      <div class="score num" style="font-size:44px">${t.right} / ${t.q.length}</div><div style="color:var(--muted)">${Math.round(TEST_PASS*t.q.length/TEST_N)}개 이상이면 통과예요. 조금만 더!</div>
+      <div class="misslist"><div class="label">틀린 문제 · 오늘의 복습에 넣어 뒀어요</div>${t.wrong.map(it=>`<div class="miss">${it.x?`${esHTML(it.x)} = ${esc(it.x.ko)}<div class="t">${esc(memoOf(it.x))}</div>`:it.type==='vrev'?`${esc(it.prompt)} = ${esc(it.ans)}`:`${esc(it.prompt)} · ${esc(it.sub)} → <b style="font-weight:400;color:var(--accent)">${esc(it.ans)}</b>`}</div>`).join('')}</div>
+      <div class="row"><button class="btn ghost" id="homeBtn">홈으로</button><button class="btn" id="revBtn">틀린 것 복습하기</button></div></section>`;
+  save();$('#view').innerHTML=html;$('#homeBtn').onclick=()=>setTab('home');
+  const rb=$('#revBtn');if(rb)rb.onclick=()=>{const hasW=t.wrong.some(it=>it.x);const hasV=t.wrong.some(it=>!it.x);if(hasW&&buildReview().length)startRound('review');else if(hasV)startV('review');else setTab('home')}}
+document.addEventListener('keydown',e=>{if(!TT||e.repeat)return;
+  if(!TT.done&&/^[1-4]$/.test(e.key)){e.preventDefault();tPick(+e.key-1)}else if(TT.done&&(e.key==='Enter'||e.key===' ')){e.preventDefault();tNext()}});
+window.addEventListener('popstate',()=>{if(TT)quitTest()});
 
 /* ---------- 키보드 ---------- */
 document.addEventListener('keydown',e=>{if(!R||e.repeat||e.target.matches?.('textarea,input'))return;
