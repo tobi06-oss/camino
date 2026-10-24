@@ -67,7 +67,7 @@ button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);ou
 .top{flex-wrap:wrap;row-gap:8px}
 .top>div:last-child{flex:none}
 @media (max-width:420px){.tgl .st{display:none}.tgl{padding:0 7px}.brand small{display:none}}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px}
 .tabs button{padding:9px 4px;border-radius:10px;font-size:15px;color:var(--muted)}
 .tabs button[aria-selected="true"]{background:var(--accent);color:var(--on-accent)}
 
@@ -225,6 +225,29 @@ button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);ou
 .say.native{text-decoration:none;display:inline-block;border-color:var(--arrow);color:var(--arrow)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));max-width:min(480px,calc(100% - 32px));background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:12px;font-size:14px;z-index:20;box-shadow:0 6px 20px rgba(0,0,0,.25)}
 #voiceSel{font-family:inherit;font-size:13px;padding:3px 6px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-width:100%}
+.ctab{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.ctab th,.ctab td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+.ctab th{font-weight:400;color:var(--muted);font-size:13px;white-space:nowrap;width:1%}
+.ctab td{font-size:18px}
+.ctab td.irr{color:var(--bad)}
+.ctab td.sp{width:1%;text-align:right}
+.ctab tr.hi{background:var(--accent-soft)}
+.ctab tr.hi th{color:var(--accent)}
+.ctab.end td{font-size:16px;font-family:var(--mono)}
+.ctab thead th{color:var(--ink);font-size:14px}
+.tabwrap{overflow-x:auto}
+.say.mini{font-size:12px;padding:2px 9px}
+.irrkey{color:var(--bad);margin-left:6px}
+.okkey{color:var(--good);margin-left:6px}
+.vchips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.vchip{padding:5px 12px;border-radius:99px;background:var(--paper);font-size:15px}
+.vchip.strong{background:var(--accent);color:var(--on-accent);font-size:18px}
+.vchip small{font-size:13px;opacity:.85}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px;text-align:left}
+.vcard .es{font-size:18px;color:var(--accent)}
+.vcard .ko{font-size:12px;color:var(--muted);line-height:1.2}
+.tabs button{font-size:14px}
 .surebtn{width:100%;padding:11px 12px;border-radius:14px;font-size:15px;border:1.5px dashed var(--accent);color:var(--accent);background:var(--card)}
 .surebtn small{font-family:var(--mono);font-size:11px;opacity:.7;margin-left:4px}
 .surebtn:hover{background:var(--accent-soft)}
@@ -251,9 +274,10 @@ button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);ou
   </header>
   <nav class="tabs" id="tabs" role="tablist">
     <button role="tab" data-tab="home" aria-selected="true">홈</button>
-    <button role="tab" data-tab="passport" aria-selected="false">크레덴시알</button>
+    <button role="tab" data-tab="passport" aria-selected="false">여권</button>
     <button role="tab" data-tab="cards" aria-selected="false">카드</button>
-    <button role="tab" data-tab="notes" aria-selected="false">오답노트</button>
+    <button role="tab" data-tab="verbs" aria-selected="false">동사</button>
+    <button role="tab" data-tab="notes" aria-selected="false">오답</button>
   </nav>
   <main id="view"></main>
 </div>
@@ -1011,7 +1035,7 @@ function selloHTML(x,anim){const d=(S.stampAt[x.k]||day()).slice(2).replace(/-/g
   return `<div class="sello${anim?' in':''}" style="transform:rotate(${r}deg)">${SHELL}<span class="sc">${esc(x.es.replace(/[¿?¡!]/g,''))}</span><span class="sd">${d}</span></div>`}
 function goHome(){R=null;setTab('home')}
 function setTab(t){$('#tabs').hidden=false;document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
-  ({home,passport,cards,notes})[t]();window.scrollTo(0,0)}
+  if(t!=='verbs')vOpen=null;({home,passport,cards,notes,verbs})[t]();window.scrollTo(0,0)}
 
 function trackHTML(km){const pct=km/KM*100;
   return `<div class="track" aria-label="순례길 ${km}km 진행"><div class="ln"></div><div class="done" style="width:${pct}%"></div>
@@ -1124,6 +1148,219 @@ function notes(){const list=W.filter(x=>(S.wr[x.k]||0)>0).sort((a,b)=>S.wr[b.k]-
      <div style="font-family:var(--hand);font-size:16px;color:var(--muted);line-height:1.25">${esc(memoOf(x))}</div></div><span class="x">×${S.wr[x.k]}</span></div>`).join('')}</section></div>`
    :`<section class="panel empty">아직 모른 표현이 없어요.<br>모른다고 한 표현은 여기 모여서 따로 복습할 수 있어요.</section>`;
   if(list.length)$('#wBtn').onclick=()=>startRound('wrong')}
+
+/* ================= 동사변형 ================= */
+const PERS=[['yo','나'],['tú','너'],['él / ella / usted','그·그녀·당신'],['nosotros','우리'],['vosotros','너희 (스페인)'],['ellos / ustedes','그들·당신들']];
+const TNS=[
+ {id:'pres',n:'현재',ko:'~한다',tip:'지금 하는 일, 습관. 규칙 어미 -ar: o·as·a·amos·áis·an / -er: o·es·e·emos·éis·en / -ir: o·es·e·imos·ís·en.'},
+ {id:'pret',n:'단순과거',ko:'~했다',tip:'한 번 하고 끝난 일(어제, 작년에). -ar: é·aste·ó·amos·asteis·aron / -er·-ir: í·iste·ió·imos·isteis·ieron.'},
+ {id:'imp',n:'불완료과거',ko:'~하곤 했다',tip:'옛날 습관이나 배경 묘사. 불규칙은 ser(era)·ir(iba)·ver(veía) 딱 3개!'},
+ {id:'fut',n:'미래',ko:'~할 것이다',tip:'동사원형 그대로 + é·ás·á·emos·éis·án. 어미는 모든 동사가 같고, 몇몇 동사만 앞부분(tendr-, har-…)이 바뀌어요.'},
+ {id:'subj',n:'접속법 현재',ko:'~하기를',tip:'yo 현재형에서 o를 떼고 반대 모음: -ar → e, -er·-ir → a. (hablo → hable, tengo → tenga)'},
+];
+const TBY=Object.fromEntries(TNS.map(t=>[t.id,t]));
+const VEND={pres:{ar:['o','as','a','amos','áis','an'],er:['o','es','e','emos','éis','en'],ir:['o','es','e','imos','ís','en']},
+  pret:{ar:['é','aste','ó','amos','asteis','aron'],er:['í','iste','ió','imos','isteis','ieron'],ir:['í','iste','ió','imos','isteis','ieron']},
+  imp:{ar:['aba','abas','aba','ábamos','abais','aban'],er:['ía','ías','ía','íamos','íais','ían'],ir:['ía','ías','ía','íamos','íais','ían']},
+  fut:['é','ás','á','emos','éis','án'],
+  subj:{ar:['e','es','e','emos','éis','en'],er:['a','as','a','amos','áis','an'],ir:['a','as','a','amos','áis','an']}};
+const VGROUPS=[
+ ['규칙','어미만 바꾸면 끝. buscar(busqué)·llegar(llegué)처럼 c·g가 e 앞에서 qu·gu로 바뀌는 철자만 주의.'],
+ ['e→ie','장화(boot) 모양: yo·tú·él·ellos 칸만 e→ie, nosotros·vosotros는 그대로. 현재형과 접속법에서만 바뀌어요.'],
+ ['o→ue','장화 모양: yo·tú·él·ellos 칸만 o→ue. -ir 동사(dormir)는 과거 3인칭도 o→u (durmió).'],
+ ['e→i','-ir 동사만 있는 그룹. 현재 장화 칸 + 과거 3인칭(pidió, pidieron)도 e→i.'],
+ ['yo 불규칙','yo만 특이(tengo, hago, salgo, conozco). 접속법은 이 yo형에서 만들어서 그대로 따라가요(tenga, haga).'],
+ ['완전 불규칙','가장 자주 쓰는 동사라 불규칙. 표를 소리 내서 통째로 3번 읽는 게 제일 빨라요.'],
+];
+const VG=Object.fromEntries(VGROUPS);
+const VERBS=[
+ {inf:'hablar',ko:'말하다',g:'규칙'},{inf:'trabajar',ko:'일하다',g:'규칙'},{inf:'estudiar',ko:'공부하다',g:'규칙'},
+ {inf:'comprar',ko:'사다',g:'규칙'},{inf:'tomar',ko:'마시다, 타다',g:'규칙'},{inf:'viajar',ko:'여행하다',g:'규칙'},
+ {inf:'esperar',ko:'기다리다',g:'규칙'},{inf:'necesitar',ko:'필요하다',g:'규칙'},{inf:'buscar',ko:'찾다',g:'규칙'},
+ {inf:'llegar',ko:'도착하다',g:'규칙'},{inf:'comer',ko:'먹다',g:'규칙'},{inf:'beber',ko:'마시다',g:'규칙'},
+ {inf:'aprender',ko:'배우다',g:'규칙'},{inf:'vender',ko:'팔다',g:'규칙'},{inf:'vivir',ko:'살다',g:'규칙'},
+ {inf:'escribir',ko:'쓰다',g:'규칙'},{inf:'abrir',ko:'열다',g:'규칙'},{inf:'recibir',ko:'받다',g:'규칙'},
+ {inf:'pensar',ko:'생각하다',g:'e→ie',sc:'e>ie'},{inf:'querer',ko:'원하다',g:'e→ie',sc:'e>ie',o:{pret:['quise','quisiste','quiso','quisimos','quisisteis','quisieron'],fut:'querr'}},
+ {inf:'empezar',ko:'시작하다',g:'e→ie',sc:'e>ie'},{inf:'cerrar',ko:'닫다',g:'e→ie',sc:'e>ie'},
+ {inf:'entender',ko:'이해하다',g:'e→ie',sc:'e>ie'},{inf:'preferir',ko:'선호하다',g:'e→ie',sc:'e>ie'},
+ {inf:'poder',ko:'할 수 있다',g:'o→ue',sc:'o>ue',o:{pret:['pude','pudiste','pudo','pudimos','pudisteis','pudieron'],fut:'podr'}},
+ {inf:'dormir',ko:'자다',g:'o→ue',sc:'o>ue'},{inf:'volver',ko:'돌아오다',g:'o→ue',sc:'o>ue'},{inf:'encontrar',ko:'찾아내다',g:'o→ue',sc:'o>ue'},
+ {inf:'pedir',ko:'주문하다, 부탁하다',g:'e→i',sc:'e>i'},{inf:'repetir',ko:'반복하다',g:'e→i',sc:'e>i'},{inf:'servir',ko:'제공하다',g:'e→i',sc:'e>i'},
+ {inf:'hacer',ko:'하다, 만들다',g:'yo 불규칙',o:{pres:{0:'hago'},pret:['hice','hiciste','hizo','hicimos','hicisteis','hicieron'],fut:'har'}},
+ {inf:'tener',ko:'가지다',g:'yo 불규칙',sc:'e>ie',o:{pres:{0:'tengo'},pret:['tuve','tuviste','tuvo','tuvimos','tuvisteis','tuvieron'],fut:'tendr'}},
+ {inf:'venir',ko:'오다',g:'yo 불규칙',sc:'e>ie',o:{pres:{0:'vengo'},pret:['vine','viniste','vino','vinimos','vinisteis','vinieron'],fut:'vendr'}},
+ {inf:'poner',ko:'놓다, 두다',g:'yo 불규칙',o:{pres:{0:'pongo'},pret:['puse','pusiste','puso','pusimos','pusisteis','pusieron'],fut:'pondr'}},
+ {inf:'salir',ko:'나가다',g:'yo 불규칙',o:{pres:{0:'salgo'},fut:'saldr'}},
+ {inf:'decir',ko:'말하다, 전하다',g:'yo 불규칙',sc:'e>i',o:{pres:{0:'digo'},pret:['dije','dijiste','dijo','dijimos','dijisteis','dijeron'],fut:'dir'}},
+ {inf:'traer',ko:'가져오다',g:'yo 불규칙',o:{pres:{0:'traigo'},pret:['traje','trajiste','trajo','trajimos','trajisteis','trajeron']}},
+ {inf:'conocer',ko:'(사람·장소를) 알다',g:'yo 불규칙',o:{pres:{0:'conozco'}}},
+ {inf:'ser',ko:'~이다 (본질)',g:'완전 불규칙',o:{pres:['soy','eres','es','somos','sois','son'],pret:['fui','fuiste','fue','fuimos','fuisteis','fueron'],imp:['era','eras','era','éramos','erais','eran'],subj:['sea','seas','sea','seamos','seáis','sean']}},
+ {inf:'estar',ko:'~이다 (상태·위치)',g:'완전 불규칙',o:{pres:['estoy','estás','está','estamos','estáis','están'],pret:['estuve','estuviste','estuvo','estuvimos','estuvisteis','estuvieron'],subj:['esté','estés','esté','estemos','estéis','estén']}},
+ {inf:'ir',ko:'가다',g:'완전 불규칙',o:{pres:['voy','vas','va','vamos','vais','van'],pret:['fui','fuiste','fue','fuimos','fuisteis','fueron'],imp:['iba','ibas','iba','íbamos','ibais','iban'],subj:['vaya','vayas','vaya','vayamos','vayáis','vayan']}},
+ {inf:'dar',ko:'주다',g:'완전 불규칙',o:{pres:['doy','das','da','damos','dais','dan'],pret:['di','diste','dio','dimos','disteis','dieron'],subj:['dé','des','dé','demos','deis','den']}},
+ {inf:'ver',ko:'보다',g:'완전 불규칙',o:{pres:['veo','ves','ve','vemos','veis','ven'],pret:['vi','viste','vio','vimos','visteis','vieron'],imp:['veía','veías','veía','veíamos','veíais','veían'],subj:['vea','veas','vea','veamos','veáis','vean']}},
+ {inf:'saber',ko:'(지식·방법을) 알다',g:'완전 불규칙',o:{pres:{0:'sé'},pret:['supe','supiste','supo','supimos','supisteis','supieron'],fut:'sabr',subj:['sepa','sepas','sepa','sepamos','sepáis','sepan']}},
+];
+const VBY=Object.fromEntries(VERBS.map(v=>[v.inf,v]));
+function vchg(stem,c){const [f,t]=c.split('>');const i=stem.lastIndexOf(f);return i<0?stem:stem.slice(0,i)+t+stem.slice(i+f.length)}
+const vsp=s=>s.replace(/c$/,'qu').replace(/g$/,'gu').replace(/z$/,'c');
+function vover(base,o){if(!o)return base;if(Array.isArray(o))return o.slice();const r=base.slice();Object.keys(o).forEach(i=>r[+i]=o[i]);return r}
+function conj(v,plain){
+  const t=v.inf.slice(-2),st=v.inf.slice(0,-2),sc=plain?null:v.sc,o=plain?{}:(v.o||{});const out={};
+  const weak=sc?sc.split('>')[0]+'>'+(sc[0]==='e'?'i':'u'):null;
+  out.pres=vover(VEND.pres[t].map((e,i)=>(sc&&[0,1,2,5].includes(i)?vchg(st,sc):st)+e),o.pres);
+  out.pret=vover(VEND.pret[t].map((e,i)=>{let s=st;if(t==='ir'&&weak&&(i===2||i===5))s=vchg(st,weak);if(t==='ar'&&i===0&&!plain)s=vsp(s);return s+e}),o.pret);
+  out.imp=vover(VEND.imp[t].map(e=>st+e),o.imp);
+  out.fut=VEND.fut.map(e=>(o.fut||v.inf)+e);
+  if(o.subj)out.subj=o.subj.slice();
+  else{const yo=out.pres[0];const base=yo.endsWith('o')?yo.slice(0,-1):st;
+    out.subj=VEND.subj[t].map((e,i)=>{let s=base;
+      if((i===3||i===4)&&sc){if(t==='ir')s=(base===vchg(st,sc)||base===vchg(st,weak))?vchg(st,weak):base;else s=(base===vchg(st,sc))?st:base}
+      if(t==='ar'&&!plain)s=vsp(s);return s+e})}
+  return out}
+const CONJ=Object.fromEntries(VERBS.map(v=>[v.inf,conj(v)]));
+const PLAIN=Object.fromEntries(VERBS.map(v=>[v.inf,conj(v,true)]));
+const isIrr=(inf,t,i)=>CONJ[inf][t][i]!==PLAIN[inf][t][i];
+
+/* 저장 */
+function VS(){S.vb=S.vb||{lv:{},due:{},wr:{}};S.vb.lv=S.vb.lv||{};S.vb.due=S.vb.due||{};S.vb.wr=S.vb.wr||{};return S.vb}
+const vk=(inf,t)=>inf+'|'+t;
+const vlv=k=>VS().lv[k]||0;
+const vIsDue=k=>vlv(k)>=1&&(VS().due[k]||'')<=day();
+const vTenses=()=>(Array.isArray(S.vt)&&S.vt.length)?S.vt:['pres'];
+const vGroups=()=>Array.isArray(S.vg)?S.vg:[];
+const vVerbs=()=>VERBS.filter(v=>!vGroups().length||vGroups().includes(v.g));
+const vCombos=()=>{const r=[];vVerbs().forEach(v=>vTenses().forEach(t=>r.push(vk(v.inf,t))));return r};
+
+/* 문제 만들기 */
+function pickPerson(inf,t){const irr=[0,1,2,3,4,5].filter(i=>isIrr(inf,t,i));return (irr.length&&Math.random()<.6)?irr[Math.random()*irr.length|0]:Math.random()*6|0}
+function vOrder(){const cs=vCombos();
+  const due=cs.filter(vIsDue).sort((a,b)=>(VS().due[a]||'').localeCompare(VS().due[b]||'')||vlv(a)-vlv(b));
+  const fresh=cs.filter(k=>vlv(k)===0);
+  const rest=shuffle(cs.filter(k=>vlv(k)>=1&&!vIsDue(k))).sort((a,b)=>vlv(a)-vlv(b));
+  const n=N(),nNew=Math.min(Math.ceil(n/3),fresh.length);
+  const out=[...due.slice(0,n-nNew),...fresh.slice(0,nNew)];
+  out.push(...rest.slice(0,Math.max(0,n-out.length)));out.push(...fresh.slice(nNew,nNew+Math.max(0,n-out.length)));
+  return out}
+function buildVDrill(){const ks=vOrder();if(!ks.length)return[];const n=N(),q=[];let i=0;
+  while(q.length<n){const k=ks[i%ks.length];const [inf,t]=k.split('|');const m=vlv(k)>=3&&Math.random()<.3?'rev':'cell';q.push({k,inf,t,p:pickPerson(inf,t),m});i++;if(i>n*3)break}
+  return shuffle(q)}
+function buildVTable(){return vOrder().slice(0,Math.min(10,N())).map(k=>{const [inf,t]=k.split('|');return {k,inf,t,m:'table'}})}
+function buildVReview(){return vCombos().filter(vIsDue).slice(0,N()).map(k=>{const [inf,t]=k.split('|');return {k,inf,t,p:pickPerson(inf,t),m:'cell'}})}
+
+/* 라운드 */
+let V=null;
+function startV(kind){const q=({table:buildVTable,review:buildVReview}[kind]||buildVDrill)();if(!q.length)return;
+  V={kind,q,i:0,score:0,combo:0,best:0,right:0,asked:0,ups:new Set(),miss:[],requeued:new Set(),phase:'ask',knew:false};
+  $('#tabs').hidden=true;try{history.pushState({camino:'verb'},'')}catch(e){}vAsk()}
+function vHead(){return `<div class="qhead"><button class="quit" id="quitBtn" aria-label="그만하고 결과 보기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>그만하기</button>
+  <div class="bar"><i style="width:${V.i/V.q.length*100}%"></i></div><span class="num" style="font-size:14px;color:var(--muted)">${V.i+1}/${V.q.length}</span>
+  <span class="combo num">${V.combo>=2?V.combo+'콤보':'×'+mult(V.combo)}</span></div>`}
+function vTableHTML(inf,t,hi){const c=CONJ[inf][t];
+  return `<table class="ctab"><tbody>${PERS.map((p,i)=>`<tr class="${i===hi?'hi':''}"><th>${p[0]}</th><td class="${isIrr(inf,t,i)?'irr':''}">${esc(c[i])}</td><td class="sp">${canSpeak?`<button class="say mini" data-sayt="${esc(c[i])}" aria-label="${esc(c[i])} 듣기">듣기</button>`:''}</td></tr>`).join('')}</tbody></table>`}
+function vAsk(){const it=V.q[V.i],v=VBY[it.inf],T=TBY[it.t];V.phase='ask';V.knew=false;
+  let body;
+  if(it.m==='rev')body=`<div class="ask">어떤 동사의 어떤 시제·인칭일까?</div><div class="big es">${esc(CONJ[it.inf][it.t][it.p])}</div>`;
+  else if(it.m==='table')body=`<div class="ask">6개 인칭을 소리 내서 차례로 말해 보세요</div><div class="big es">${esc(v.inf)}</div><div style="color:var(--muted)">${esc(v.ko)}</div><div class="vchip">${T.n} · ${T.ko}</div>`;
+  else body=`<div class="ask">이 인칭에 맞게 바꾸면?</div><div class="big es">${esc(v.inf)}</div><div style="color:var(--muted)">${esc(v.ko)}</div>
+    <div class="vchips"><span class="vchip">${T.n}</span><span class="vchip strong">${PERS[it.p][0]} <small>(${PERS[it.p][1]})</small></span></div>`;
+  $('#view').innerHTML=`<section style="display:flex;flex-direction:column;gap:12px">${vHead()}
+    <div class="panel prompt">${it.again?'<span class="again">한 번 더!</span>':''}${body}
+      <div class="meta"><span class="tag">${v.g}</span>${dots(vlv(it.k))}</div>
+      <div class="think">머릿속으로 떠올려 보세요</div></div>
+    <div class="judge"><button class="jb no" id="noBtn">모른다<small>← 또는 1</small></button>
+    <button class="jb yes" id="yesBtn">안다<small style="color:inherit;opacity:.8">→ 또는 2</small></button></div></section>`;
+  $('#quitBtn').onclick=quitV;$('#noBtn').onclick=()=>vReveal(false);$('#yesBtn').onclick=()=>vReveal(true);
+  if(it.m==='rev'&&S.auto)sayNow(CONJ[it.inf][it.t][it.p])}
+function vReveal(knew){if(!V||V.phase!=='ask')return;V.phase='reveal';V.knew=knew;sfx.flip();
+  const it=V.q[V.i],v=VBY[it.inf],T=TBY[it.t],form=it.m==='table'?null:CONJ[it.inf][it.t][it.p];
+  const top=it.m==='table'?`<div class="who">${esc(v.inf)} · ${T.n}</div><div class="ans">${esc(CONJ[it.inf][it.t].slice(0,3).join(', '))}…</div>`
+    :it.m==='rev'?`<div class="who">${esc(form)} 은(는)</div><div class="ans">${esc(v.inf)} <span style="font-size:.6em;color:var(--ink)">(${esc(v.ko)})</span></div><div class="pr">${T.n} · ${PERS[it.p][0]} (${PERS[it.p][1]})</div>`
+    :`<div class="who">${esc(v.inf)} · ${T.n} · ${PERS[it.p][0]}</div><div class="ans">${esc(form)}</div>`;
+  const irrN=[0,1,2,3,4,5].filter(i=>isIrr(it.inf,it.t,i)).length;
+  $('#view').innerHTML=`<section style="display:flex;flex-direction:column;gap:12px">${vHead()}
+    <div class="sheet"><div class="sheet-top"><div style="min-width:0;flex:1">${top}${form?`<div class="aud">${sayT(form)}</div>`:''}</div>
+      <span class="verdict ${knew?'good':'bad'}">${knew?'안다고 함':'모른다고 함'}</span></div>
+    <div class="sheet-body">
+      <div class="sec"><b>${esc(v.inf)} · ${T.n} 전체 ${irrN?`<span class="irrkey">빨간 칸 = 규칙과 다른 칸 ${irrN}개</span>`:'<span class="okkey">규칙대로예요</span>'}</b>${vTableHTML(it.inf,it.t,it.m==='table'?-1:it.p)}</div>
+      <div class="sec memo"><b>${esc(v.g)} 포인트</b><p>${esc(VG[v.g])}</p></div>
+      <div class="sec"><b>${T.n} 규칙</b><p style="font-size:14px">${esc(T.tip)}</p></div>
+    </div></div>
+    <div class="row">${knew?`<button class="btn warn" id="oopsBtn">앗, 틀렸어요 <small>X</small></button><button class="btn" id="nextBtn">맞았어요 · 다음 <small>Enter</small></button>`
+      :`<button class="btn" id="nextBtn">외웠어요 · 다음 <small>Enter</small></button>`}</div></section>`;
+  $('#quitBtn').onclick=quitV;$('#nextBtn').onclick=()=>vCommit(V.knew);const o=$('#oopsBtn');if(o)o.onclick=()=>vCommit(false);
+  $('#nextBtn').focus({preventScroll:true});
+  if(form&&S.auto&&it.m!=='rev')sayNow(form)}
+function vCommit(ok){if(!V||V.phase!=='reveal')return;V.phase='done';const it=V.q[V.i],st=VS();touchDay();markPlayed();V.asked++;
+  if(ok){V.combo++;V.best=Math.max(V.best,V.combo);V.right++;S.todayN++;const gain=Math.round((it.m==='table'?20:10)*mult(V.combo));V.score+=gain;S.xp+=gain;sfx.ok(V.combo);
+    if(!V.ups.has(it.k)&&!it.again){st.lv[it.k]=Math.min(5,vlv(it.k)+(it.m==='table'?2:1));V.ups.add(it.k)}
+    st.due[it.k]=addDays(IV[vlv(it.k)]||1)}
+  else{V.combo=0;sfx.no();st.wr[it.k]=(st.wr[it.k]||0)+1;st.lv[it.k]=Math.max(0,vlv(it.k)-2);st.due[it.k]=addDays(1);
+    const mk=it.k+'|'+(it.p??'t');if(!V.miss.includes(mk))V.miss.push(mk);
+    if(!V.requeued.has(mk)){V.requeued.add(mk);V.q.push(Object.assign({},it,{again:true,m:it.m==='rev'?'cell':it.m}))}}
+  save();V.i++;if(V.i>=V.q.length)vFinish();else vAsk();window.scrollTo(0,0)}
+function quitV(){try{speechSynthesis.cancel()}catch(e){}if(V&&V.asked)vFinish();else{V=null;setTab('verbs')}}
+function vFinish(){const acc=V.asked?Math.round(V.right/V.asked*100):0;const names={drill:'변형 드릴',table:'표 통째로 외우기',review:'오늘의 동사 복습'};
+  $('#view').innerHTML=`<section class="panel result"><div class="label">${names[V.kind]} 결과</div>
+    <div class="score num">${V.score}</div><div style="color:var(--muted)">점</div>
+    <div class="stats"><div class="stat"><b class="num">${acc}%</b><span>안다 비율</span></div><div class="stat"><b class="num">${V.best}</b><span>최고 콤보</span></div><div class="stat"><b class="num">${V.ups.size}</b><span>숙련도 상승</span></div></div>
+    ${V.miss.length?`<div class="misslist"><div class="label">다시 볼 변형</div>${V.miss.map(m=>{const [inf,t,p]=m.split('|');const T=TBY[t];
+      return `<div class="miss">${esc(inf)} · ${T.n}${p==='t'?'':' · '+PERS[+p][0]+' → <b style="font-weight:400;color:var(--accent)">'+esc(CONJ[inf][t][+p])+'</b>'}<div class="t">${esc(VG[VBY[inf].g])}</div></div>`}).join('')}</div>`
+      :`<div class="empty" style="padding:6px">전부 알았어요. ¡Perfecto!</div>`}
+    <div class="row"><button class="btn ghost" id="homeBtn">동사 탭으로</button><button class="btn" id="againBtn">한 판 더</button></div></section>`;
+  const kind=V.kind;V=null;$('#homeBtn').onclick=()=>setTab('verbs');$('#againBtn').onclick=()=>startV(kind==='review'&&!buildVReview().length?'drill':kind)}
+
+/* 동사 탭 화면 */
+let vOpen=null;
+function verbs(){VS();if(vOpen)return verbDetail(vOpen);
+  const ts=vTenses(),T=TBY[ts[0]],cs=vCombos(),dueN=cs.filter(vIsDue).length,learned=cs.filter(k=>vlv(k)>=3).length;
+  const ex=T.id==='fut'?null:VEND[T.id];
+  $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:14px">
+  <section class="panel" style="display:flex;flex-direction:column;gap:10px">
+    <div class="route-row"><div><div class="label">동사변형</div><div class="route-name">${VERBS.length}개 동사 × ${TNS.length}개 시제</div></div>
+      <div class="num" style="color:var(--muted);text-align:right">익힌 조합<br>${learned} / ${cs.length}</div></div>
+    <div style="font-size:14px;color:var(--muted)">규칙 어미를 먼저 몸에 붙이고, 불규칙은 규칙과 <b style="font-weight:400;color:var(--bad)">다른 칸만</b> 따로 외우는 방식이에요. 맞힐수록 복습 간격이 1일 → 3일 → 1주 → 2주로 늘어나요.</div>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:8px">
+    <div class="label">시제 · 여러 개 고를 수 있어요</div>
+    <div class="chips">${TNS.map(t=>`<button class="chip" data-vt="${t.id}" aria-pressed="${ts.includes(t.id)}">${t.n}</button>`).join('')}</div>
+    <div class="label" style="margin-top:4px">동사 그룹</div>
+    <div class="chips"><button class="chip" data-vg="전체" aria-pressed="${!vGroups().length}">전체<span class="num">${VERBS.length}</span></button>${VGROUPS.map(([g])=>`<button class="chip" data-vg="${g}" aria-pressed="${vGroups().includes(g)}">${g}<span class="num">${VERBS.filter(v=>v.g===g).length}</span></button>`).join('')}</div>
+    <div class="label" style="margin-top:4px">한 판 문제 수</div>
+    <div class="chips">${[10,20,30].map(n=>`<button class="chip" data-vn="${n}" aria-pressed="${N()===n}">${n}문제</button>`).join('')}</div>
+  </section>
+  <section class="modes">
+    <button class="mode hero" data-vm="drill"><span class="ic">드릴</span><div><h3>변형 드릴 <span class="tag">${N()}문제</span></h3><p>동사 + 인칭을 보고 형태 떠올리기. 불규칙한 칸이 더 자주 나와요</p></div><span class="side"></span></button>
+    <button class="mode" data-vm="review" ${dueN?'':'disabled'}><span class="ic">복습</span><div><h3>오늘의 동사 복습 <span class="tag">${dueN}개</span></h3><p>${dueN?'잊어버리기 직전인 동사·시제만':'오늘 복습할 동사를 다 끝냈어요'}</p></div><span class="side"></span></button>
+    <button class="mode" data-vm="table"><span class="ic">표</span><div><h3>표 통째로 외우기</h3><p>동사 하나의 6개 인칭을 소리 내서 한 번에. 맞히면 2칸 상승</p></div><span class="side"></span></button>
+  </section>
+  <section class="panel" style="display:flex;flex-direction:column;gap:8px">
+    <div class="label">${T.n} 규칙 어미 (${T.ko})</div>
+    ${ex?`<div class="tabwrap"><table class="ctab end"><thead><tr><th></th><th>-ar</th><th>-er</th><th>-ir</th></tr></thead><tbody>${PERS.map((p,i)=>`<tr><th>${p[0].split(' / ')[0]}</th><td>-${ex.ar[i]}</td><td>-${ex.er[i]}</td><td>-${ex.ir[i]}</td></tr>`).join('')}</tbody></table></div>`
+      :`<div class="tabwrap"><table class="ctab end"><thead><tr><th></th><th>모든 동사</th></tr></thead><tbody>${PERS.map((p,i)=>`<tr><th>${p[0].split(' / ')[0]}</th><td>원형 + ${VEND.fut[i]}</td></tr>`).join('')}</tbody></table></div>`}
+    <div style="font-size:14px;color:var(--muted)">${esc(T.tip)}</div>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:8px">
+    <div class="label">동사 표 보기 · 눌러서 전체 시제 확인</div>
+    ${VGROUPS.map(([g,tip])=>`<div class="cont-h">${g}</div><div class="vgrid">${VERBS.filter(v=>v.g===g).map(v=>`<button class="vcard" data-vopen="${v.inf}"><span class="es">${v.inf}</span><span class="ko">${esc(v.ko)}</span>${dots(Math.round(TNS.reduce((a,t)=>a+vlv(vk(v.inf,t.id)),0)/TNS.length))}</button>`).join('')}</div>`).join('')}
+  </section></div>`;
+  document.querySelectorAll('[data-vt]').forEach(b=>b.onclick=()=>{const t=b.dataset.vt,cur=vTenses().slice();const i=cur.indexOf(t);if(i>=0){if(cur.length>1)cur.splice(i,1)}else cur.push(t);S.vt=cur;save();verbs()});
+  document.querySelectorAll('[data-vg]').forEach(b=>b.onclick=()=>{const g=b.dataset.vg,c=vGroups();S.vg=g==='전체'?[]:c.includes(g)?c.filter(x=>x!==g):[...c,g];save();verbs()});
+  document.querySelectorAll('[data-vn]').forEach(b=>b.onclick=()=>{S.round=+b.dataset.vn;save();verbs()});
+  document.querySelectorAll('[data-vm]').forEach(b=>b.onclick=()=>startV(b.dataset.vm));
+  document.querySelectorAll('[data-vopen]').forEach(b=>b.onclick=()=>{vOpen=b.dataset.vopen;verbs();window.scrollTo(0,0)})}
+function verbDetail(inf){const v=VBY[inf];
+  $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:12px">
+    <div><button class="quit" id="vBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>동사 목록</button></div>
+    <section class="panel" style="display:flex;flex-direction:column;gap:6px"><div class="route-name es" style="font-size:30px;color:var(--accent)">${v.inf}</div><div>${esc(v.ko)} <span class="tag">${v.g}</span></div>
+      <div class="sec memo" style="margin-top:6px"><b>${esc(v.g)} 포인트</b><p>${esc(VG[v.g])}</p></div></section>
+    ${TNS.map(t=>`<section class="panel" style="display:flex;flex-direction:column;gap:6px"><div class="route-row"><div class="label">${t.n} · ${t.ko}</div>${dots(vlv(vk(inf,t.id)))}</div>${vTableHTML(inf,t.id,-1)}</section>`).join('')}
+    <div style="font-size:13px;color:var(--muted);text-align:center">빨간 칸은 규칙 어미대로 만들었을 때와 다른 칸이에요.</div></div>`;
+  $('#vBack').onclick=()=>{vOpen=null;verbs();window.scrollTo(0,0)}}
+document.addEventListener('keydown',e=>{if(!V||e.repeat||e.target.matches?.('textarea,input,select'))return;
+  if(V.phase==='ask'){if(e.key==='ArrowLeft'||e.key==='1'){e.preventDefault();vReveal(false)}else if(e.key==='ArrowRight'||e.key==='2'){e.preventDefault();vReveal(true)}}
+  else if(V.phase==='reveal'){if(e.key==='Enter'||e.key===' '){e.preventDefault();vCommit(V.knew)}else if((e.key==='x'||e.key==='X')&&V.knew)vCommit(false)}});
+window.addEventListener('popstate',()=>{if(V)quitV()});
 
 /* ---------- 키보드 ---------- */
 document.addEventListener('keydown',e=>{if(!R||e.repeat||e.target.matches?.('textarea,input'))return;
