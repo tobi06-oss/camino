@@ -317,6 +317,57 @@ button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);ou
 .relc .es{font-size:16px;color:var(--accent)}
 .relc .ko{font-size:12px;color:var(--muted)}
 .relc.me{border:2px solid var(--accent);background:var(--accent-soft)}
+.drawbanner{width:100%;padding:12px 14px;border-radius:14px;background:var(--arrow-soft);color:var(--ink);border:1.5px solid var(--arrow);font-size:15px;text-align:left}
+.drawbanner b{font-weight:400;color:var(--arrow)}
+.goalhint{font-size:13px;color:var(--muted);padding:2px 4px}
+.drawbox{display:flex;flex-direction:column;gap:8px}
+.rdot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:0}
+.pcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.pcthumb{position:relative;padding:0;border:0;background:none;text-align:left;border-radius:12px}
+.pcf{position:relative;aspect-ratio:3/2;max-width:100%;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--rc),color-mix(in srgb,var(--rc) 55%,#000));background-size:cover;background-position:center;box-shadow:0 2px 6px rgba(0,0,0,.18);border:4px solid #fff;color:#fff}
+.pcf.big{border-width:6px}
+.pcf.loaded{background-color:#ccc}
+.pcf-name{position:absolute;left:0;right:0;bottom:0;padding:16px 8px 6px;background:linear-gradient(transparent,rgba(0,0,0,.65));display:flex;flex-direction:column;line-height:1.15}
+.pcf-name .es{font-family:var(--hand);font-size:18px;font-weight:700}
+.pcf.big .pcf-name .es{font-size:26px}
+.pcf-name .ko{font-size:11px;opacity:.9}
+.pcf-stamp{position:absolute;top:6px;right:6px;font-family:var(--mono);font-size:8px;letter-spacing:.1em;border:1.5px solid rgba(255,255,255,.85);padding:2px 4px;border-radius:3px;background:rgba(0,0,0,.18)}
+.pcf-rare{position:absolute;top:6px;left:6px;font-size:10px;padding:1px 7px;border-radius:99px;background:#E2BE55;color:#3A2A00}
+.pcf-rare.sp{background:#fff;color:#1F4E9A}
+.pcf.off{filter:saturate(.25);opacity:.55;display:flex;align-items:center;justify-content:center;border-style:dashed}
+.pcf.off .say{position:absolute;top:8px;left:8px;background:#fff}
+.pcf-lock{position:absolute;top:8px;left:8px;font-size:10px;background:#fff;color:#333;border-radius:99px;padding:1px 7px}
+.newdot{position:absolute;top:-6px;right:-4px;font-family:var(--mono);font-size:10px;background:var(--bad);color:#fff;border-radius:99px;padding:1px 6px}
+.pcmodal{position:fixed;inset:0;z-index:30;background:rgba(10,15,25,.6);display:flex;align-items:center;justify-content:center;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));overflow-y:auto}
+.pcm-in{width:min(520px,100%);display:flex;flex-direction:column;gap:10px;margin:auto}
+.pcm-new{align-self:center;background:var(--arrow);color:#fff;padding:4px 14px;border-radius:99px;font-size:15px;animation:stampin .45s cubic-bezier(.2,1.6,.4,1)}
+.pcard{background:var(--card);border-radius:14px;overflow:hidden;animation:rise .35s ease-out}
+.pcard .pcf{border-radius:0;border-width:0}
+.pcb{padding:14px 16px;display:flex;flex-direction:column;gap:12px;background:repeating-linear-gradient(transparent 0 27px,color-mix(in srgb,var(--line) 60%,transparent) 27px 28px)}
+.pcb b{display:block;font-weight:400;font-size:12px;color:var(--muted);letter-spacing:.05em}
+.pcb-story{font-size:15px;line-height:1.55}
+.pcb-ph .es{font-size:19px;color:var(--accent)}
+.pcb-ph .ko,.pcb-msg .ko{font-size:13px;color:var(--muted)}
+.pcb-msg .hand{font-family:var(--hand);font-size:22px;line-height:1.3;color:var(--ink);margin:2px 0 4px}
+.credit{font-size:11px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.credit a{color:var(--muted)}
+.ibmap{position:relative;width:100%;max-width:100%;aspect-ratio:6/5.2;margin-top:10px;border-radius:14px;background:color-mix(in srgb,var(--accent-soft) 70%,var(--card));overflow:hidden}
+.sea,.sea2{position:absolute;font-size:11px;color:var(--accent);opacity:.6;letter-spacing:.2em}
+.sea{left:3%;top:90%}
+.sea2{right:4%;top:78%}
+.rtile{position:absolute;width:15%;height:18.4%;border-radius:12px;border:2px solid var(--rc);background:color-mix(in srgb,var(--rc) calc(var(--f)*100%),var(--card));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:2px;color:var(--ink);text-align:center;line-height:1.1}
+.rtile .rn{font-size:11px;word-break:keep-all}
+.rtile .rc{font-size:10px;opacity:.8}
+.rtile.full{color:#fff;box-shadow:0 0 0 3px color-mix(in srgb,var(--rc) 35%,transparent)}
+.rtile .rb{font-size:9px;background:#fff;color:var(--rc);border-radius:99px;padding:0 5px}
+.route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.rpin{position:absolute;transform:translate(-50%,-50%);pointer-events:none;display:flex;flex-direction:column;align-items:center}
+.rpin i{width:9px;height:9px;border-radius:50%;background:var(--card);border:2px solid var(--arrow)}
+.rpin.on i{background:var(--arrow)}
+.rpin.me i{width:13px;height:13px;box-shadow:0 0 0 4px color-mix(in srgb,var(--arrow) 35%,transparent)}
+.rpin span{position:absolute;left:9px;top:-7px;font-size:9px;color:var(--ink);background:var(--card);border:1px solid var(--arrow);border-radius:4px;padding:0 3px;white-space:nowrap;display:none}
+.rpin.me span{display:block}
+@media (max-width:400px){.rtile .rn{font-size:10px}.pcgrid{grid-template-columns:1fr 1fr}}
 .surebtn{width:100%;padding:11px 12px;border-radius:14px;font-size:15px;border:1.5px dashed var(--accent);color:var(--accent);background:var(--card)}
 .surebtn small{font-family:var(--mono);font-size:11px;opacity:.7;margin-left:4px}
 .surebtn:hover{background:var(--accent-soft)}
@@ -343,7 +394,7 @@ button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);ou
   </header>
   <nav class="tabs" id="tabs" role="tablist">
     <button role="tab" data-tab="home" aria-selected="true">홈</button>
-    <button role="tab" data-tab="passport" aria-selected="false">여권</button>
+    <button role="tab" data-tab="passport" aria-selected="false">도감</button>
     <button role="tab" data-tab="cards" aria-selected="false">카드</button>
     <button role="tab" data-tab="verbs" aria-selected="false">동사</button>
     <button role="tab" data-tab="notes" aria-selected="false">오답</button>
@@ -1121,6 +1172,7 @@ function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x
   const pool=W.filter(inFilter),pSt=pool.filter(x=>lv(x.k)>=5).length,sureN=W.filter(isSure).length,left=W.filter(live).length;
   const streak=(S.lastDay===day()||S.lastDay===yday())?S.streak:0;
   $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:14px">
+  ${PS().draws?`<button class="drawbanner" id="goBook"><b>엽서 뽑기 ${PS().draws}회</b> 남았어요 · 도감에서 뽑기</button>`:`<div class="goalhint">오늘 ${Math.min(S.todayN,GOAL)}/${GOAL}개 · 하루 목표를 채우면 스페인·포르투갈 엽서 뽑기 1회!</div>`}
   ${stagePanelHTML()}
   <section class="panel"><div class="stats">
       <div class="stat"><b class="num">${st}<small style="font-size:13px;color:var(--muted)">/${TOTAL}</small></b><span>받은 세요</span></div>
@@ -1171,6 +1223,7 @@ function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x
   </section></div>`;
   document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.stSel=b.dataset.l;S.topics=[];save();home()});
   const gb=$('#gateBtn');if(gb)gb.onclick=startTest;
+  const gk=$('#goBook');if(gk)gk.onclick=()=>{bookTab='pc';setTab('passport')};
   document.querySelectorAll('.mode[data-m]').forEach(b=>{const need=MODE_ST[b.dataset.m]||1;if(need>stageNow()){b.disabled=true;b.classList.add('locked');b.querySelector('p').textContent=lockMsg(need)}});
   const oa=$('#openAll');if(oa)oa.onchange=()=>{S.openAll=oa.checked;save();home()};
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{const f=b.dataset.f,t=topics();S.topics=f==='전체'?[]:t.includes(f)?t.filter(x=>x!==f):[...t,f];save();home()});
@@ -1189,8 +1242,9 @@ function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x
     catch(e){msg.textContent='기록 코드가 올바르지 않아요. "CAMINO1:"로 시작하는 코드를 통째로 붙여넣어 주세요.'}};
   $('#resetBtn').onclick=()=>{const b=$('#resetBtn');if(b.dataset.c){const m=S.mute,a=S.auto,me=S.memo;S=blank();S.mute=m;S.auto=a;S.memo=me;S.stage=1;S.stageInit=1;S.cityAt={1:day()};touchDay();save();home()}else{b.dataset.c=1;b.textContent='정말 지울까요? 한 번 더 누르면 초기화 (고친 암기법은 남아요)'}}}
 
-function passport(){const st=stamps();
-  $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:12px">
+function passport(){book()}
+function passportInto(el){const st=stamps();
+  el.innerHTML=`<div style="display:flex;flex-direction:column;gap:12px">
    <div class="pp-head"><div><div class="label">CREDENCIAL DEL PEREGRINO · 순례자 여권</div><div style="font-size:22px">세요 <span class="num">${st}</span> / ${TOTAL}</div></div>
    <div class="bar" style="width:140px"><i style="width:${st/TOTAL*100}%;background:var(--stamp)"></i></div></div>
    <div class="label">도시 도장 · 관문 시험을 통과하면 찍혀요</div>
@@ -1781,7 +1835,8 @@ function dReveal(knew){if(!D||D.phase!=='ask')return;D.phase='rev';D.knew=knew;c
   if(S.auto)sayNow(l[1]);$('#dGo').onclick=()=>dCommit(D.knew);const o=$('#dOops');if(o)o.onclick=()=>dCommit(false)}
 function dCommit(ok){if(!D||D.phase!=='rev')return;D.phase='x';D.mine++;if(ok){D.ok++;sfx.ok(D.ok);S.xp+=10;S.todayN++}else{sfx.no();D.log.push(D.d.lines[D.i])}touchDay();markPlayed();save();D.i++;dStep()}
 function quitD(){try{speechSynthesis.cancel()}catch(e){}D=null;dialogList();$('#tabs').hidden=true}
-function dFinish(){const pct=D.mine?Math.round(D.ok/D.mine*100):0;S.dl=S.dl||{};const r=S.dl[D.d.id]||{best:0};S.dl[D.d.id]={best:Math.max(r.best||0,pct),at:day()};save();
+function dFinish(){const pct=D.mine?Math.round(D.ok/D.mine*100):0;S.dl=S.dl||{};const r=S.dl[D.d.id]||{best:0};S.dl[D.d.id]={best:Math.max(r.best||0,pct),at:day()};
+  if(pct>=80&&!PS().dlg[D.d.id]){PS().dlg[D.d.id]=1;PS().draws++;pcQueue.push('대화 완료! 엽서 뽑기 1회를 받았어요.')}save();
   $('#view').innerHTML=`<section class="panel result"><div class="label">${esc(D.d.t)} 완료</div><div class="score num">${pct}%</div><div style="color:var(--muted)">내 대사 ${D.mine}줄 중 ${D.ok}줄을 말했어요</div>
     ${D.log.length?`<div class="misslist"><div class="label">다시 연습할 대사</div>${D.log.map(l=>`<div class="miss">${esc(l[1])}<div class="t">${esc(l[2])}</div></div>`).join('')}</div>`:'<div class="empty" style="padding:6px">완벽한 대화였어요!</div>'}
     <div class="row"><button class="btn ghost" id="dList">대화 목록</button><button class="btn" id="dAgain">다시 하기</button></div></section>`;
@@ -1895,6 +1950,166 @@ function relatedHTML(esText){const k=gNorm(esText),gs=uniq(G_OF[k]||[]);if(!gs.l
     return `<div class="relg"><div class="relh"><span class="reltag ${type==='반대말'?'opp':type==='헷갈림'?'conf':''}">${type}</span> ${esc(name)}</div>
       <div class="relw">${list.map(([es,ko])=>{const x=ES_IDX[gNorm(es)];const shown=x&&x.g?art(x)+' '+es:es;const me=gNorm(es)===k;
         return `<button class="relc${me?' me':''}" data-sayt="${esc(es)}"><span class="es">${esc(shown)}</span><span class="ko">${esc(ko)}</span></button>`}).join('')}</div></div>`}).join('')}</div>`}
+
+/* ================= 엽서 도감 · 지도 ================= */
+const REGIONS=[
+ {id:'gal',n:'갈리시아',c:'ES',x:1,y:0,col:'#3E7CB1'},{id:'nor',n:'북부 해안',c:'ES',x:2,y:0,col:'#2F8F83'},
+ {id:'cyl',n:'카스티야',c:'ES',x:2,y:1,col:'#B0793A'},{id:'cat',n:'카탈루냐',c:'ES',x:4,y:1,col:'#C4513B'},
+ {id:'mad',n:'마드리드·중부',c:'ES',x:3,y:2,col:'#8C5BA8'},{id:'val',n:'발렌시아',c:'ES',x:4,y:2,col:'#E08A1E'},
+ {id:'bal',n:'발레아레스',c:'ES',x:5,y:3,col:'#1F9BC0'},{id:'and',n:'안달루시아',c:'ES',x:2,y:3,col:'#C9A227'},
+ {id:'pno',n:'포르투·북부',c:'PT',x:1,y:1,col:'#2E7D4F'},{id:'pce',n:'포르투갈 중부',c:'PT',x:1,y:2,col:'#6A8F3A'},
+ {id:'lis',n:'리스본·신트라',c:'PT',x:0,y:3,col:'#D0574A'},{id:'alg',n:'알가르브',c:'PT',x:1,y:4,col:'#D99A2B'},
+];
+const RBY=Object.fromEntries(REGIONS.map(r=>[r.id,r]));
+/* id, 지역, 위키백과 문서, 현지 이름, 도시, 한글 이름, 이야기, [현지 한마디, 뜻], [엽서 메시지, 뜻], 종류(n 일반 / r 희귀 / s 특별) */
+const PC=[
+ ['santiago','gal','Santiago_de_Compostela_Cathedral','Catedral de Santiago','Santiago de Compostela','산티아고 대성당','순례길의 종착점. 이곳에 도착한 순례자는 완주 증명서 콤포스텔라를 받아요. 거대한 향로 보타푸메이로가 성당 안을 날아다니는 의식이 유명해요.',['¡Por fin he llegado!','드디어 도착했어요!'],['¡Lo conseguí! Ochocientos kilómetros a pie. Estoy muy feliz.','해냈어! 걸어서 800km. 정말 행복해.'],'s'],
+ ['lugo','gal','Roman_walls_of_Lugo','Muralla de Lugo','Lugo','루고 로마 성벽','2km 넘게 도시를 감싼 로마 시대 성벽. 성벽 위를 한 바퀴 걸을 수 있어요. 순례길 마지막 구간 사리아와 같은 루고 지방이에요.',['¿Se puede subir a la muralla?','성벽 위로 올라갈 수 있어요?'],['Hoy caminé por la muralla romana. ¡Qué vista tan bonita!','오늘 로마 성벽 위를 걸었어. 경치가 정말 예뻐!'],'s'],
+ ['hercules','gal','Tower_of_Hercules','Torre de Hércules','A Coruña','헤라클레스 탑','지금도 불을 밝히는 로마 시대 등대 중 가장 오래된 것. 유네스코 세계유산이에요.',['¿A qué hora abre la torre?','탑은 몇 시에 열어요?'],['Hace mucho viento aquí, pero el mar es precioso.','여긴 바람이 많이 불지만 바다가 정말 예뻐.'],'n'],
+ ['cies','gal','Cíes_Islands','Islas Cíes','Vigo','시에스 제도','하얀 모래와 맑은 물로 "스페인의 카리브"라고 불리는 섬. 하루 방문객 수를 제한해서 미리 예약해야 해요.',['Un billete de ida y vuelta, por favor.','왕복표 한 장 주세요.'],['El agua está muy fría, ¡pero la playa es perfecta!','물이 엄청 차갑지만 해변은 완벽해!'],'n'],
+ ['pamplona','nor','Pamplona_Cathedral','Catedral de Pamplona','Pamplona','팜플로나 대성당','순례길 첫 대도시 팜플로나. 7월 산 페르민 축제(소몰이)로 유명하고, 헤밍웨이가 사랑한 도시예요.',['¿Dónde está el albergue?','순례자 숙소가 어디예요?'],['Primera ciudad grande del Camino. Me duelen los pies, pero sigo.','순례길 첫 대도시야. 발이 아프지만 계속 걸을 거야.'],'s'],
+ ['bilbao','nor','Guggenheim_Museum_Bilbao','Museo Guggenheim','Bilbao','빌바오 구겐하임 미술관','티타늄 판으로 덮인 물결 모양 건물. 이 미술관 하나로 쇠락하던 공업 도시가 관광 도시로 바뀌었어요.',['¿Cuánto cuesta la entrada?','입장료가 얼마예요?'],['El edificio brilla con el sol. ¡Parece un barco de plata!','건물이 햇빛에 반짝여. 은빛 배 같아!'],'n'],
+ ['gaztelugatxe','nor','San_Juan_de_Gaztelugatxe','San Juan de Gaztelugatxe','Bermeo','산 후안 데 가스텔루가체','바다 위 작은 섬 꼭대기의 예배당. 241개 계단을 올라가 종을 세 번 치면 소원이 이뤄진다고 해요.',['¿Cuántos escalones hay?','계단이 몇 개예요?'],['Subí todos los escalones y toqué la campana tres veces.','계단을 다 올라가서 종을 세 번 쳤어.'],'n'],
+ ['picos','nor','Picos_de_Europa','Picos de Europa','Asturias','피코스 데 에우로파','바다에서 가까운 높은 석회암 산맥. 옛날 선원들이 대서양에서 처음 보는 유럽 땅이라 "유럽의 봉우리"라는 이름이 붙었어요.',['¿Este camino va al lago?','이 길이 호수로 가요?'],['Hoy hicimos senderismo en la montaña. ¡Qué aire tan limpio!','오늘 산에서 트레킹했어. 공기가 정말 맑아!'],'n'],
+ ['burgos','cyl','Burgos_Cathedral','Catedral de Burgos','Burgos','부르고스 대성당','순례길 중간의 고딕 걸작. 하늘로 뾰족하게 솟은 첨탑이 인상적이고, 영웅 엘 시드가 이곳에 잠들어 있어요.',['¿Hay descuento para peregrinos?','순례자 할인 있어요?'],['La catedral es enorme. Estuve dentro dos horas.','대성당이 엄청 커. 안에 두 시간이나 있었어.'],'s'],
+ ['leon','cyl','León_Cathedral','Catedral de León','León','레온 대성당','"빛의 집"이라 불리는 성당. 벽 대부분이 스테인드글라스라 해 질 녘 안이 무지갯빛으로 물들어요.',['¡Qué bonito!','정말 예뻐요!'],['La luz entra por las ventanas de colores. Es mágico.','색색의 창으로 빛이 들어와. 마법 같아.'],'s'],
+ ['segovia','cyl','Aqueduct_of_Segovia','Acueducto de Segovia','Segovia','세고비아 수도교','2000년 전 로마인이 접착제 없이 돌만 쌓아 만든 수로. 세고비아의 명물 요리는 새끼 돼지 통구이 코치니요예요.',['Una mesa para dos, por favor.','두 명 테이블 주세요.'],['El acueducto no tiene cemento. ¡Increíble!','수도교에 시멘트가 하나도 없어. 믿기지 않아!'],'n'],
+ ['salamanca','cyl','Plaza_Mayor,_Salamanca','Plaza Mayor de Salamanca','Salamanca','살라망카 마요르 광장','스페인에서 가장 아름다운 광장으로 꼽혀요. 유럽에서 가장 오래된 대학 도시 중 하나라 스페인어 어학연수생도 많아요.',['¿Dónde puedo estudiar español?','어디서 스페인어를 공부할 수 있어요?'],['Por la noche la plaza es dorada. Hay muchos estudiantes.','밤에 광장이 황금빛이야. 학생들이 정말 많아.'],'n'],
+ ['sagrada','cat','Sagrada_Família','Sagrada Família','Barcelona','사그라다 파밀리아','가우디가 평생을 바친 성당. 1882년에 짓기 시작해 지금도 공사 중이에요. 안으로 들어가면 숲속처럼 기둥이 나무처럼 갈라져요.',['¿Se pueden hacer fotos?','사진 찍어도 돼요?'],['Dentro parece un bosque de luz. ¡Tienes que venir!','안은 빛의 숲 같아. 너도 꼭 와야 해!'],'r'],
+ ['guell','cat','Park_Güell','Park Güell','Barcelona','구엘 공원','가우디가 설계한 동화 같은 공원. 타일 조각으로 만든 도마뱀과 구불구불한 벤치에서 바르셀로나 시내가 내려다보여요.',['¿Dónde está la entrada?','입구가 어디예요?'],['Me senté en el banco de colores y miré el mar.','알록달록한 벤치에 앉아서 바다를 봤어.'],'n'],
+ ['batllo','cat','Casa_Batlló','Casa Batlló','Barcelona','카사 바트요','뼈 모양 기둥과 용 비늘 같은 지붕 때문에 "뼈의 집"이라 불려요. 가우디의 상상력이 가장 잘 보이는 집이에요.',['¿Tienen audioguía en coreano?','한국어 오디오 가이드 있어요?'],['Las ventanas parecen huesos y el techo, un dragón.','창문은 뼈 같고 지붕은 용 같아.'],'n'],
+ ['montserrat','cat','Santa_Maria_de_Montserrat_Abbey','Montserrat','Montserrat','몬세라트 수도원','톱니처럼 솟은 바위산 중턱의 수도원. 검은 성모상과 소년 합창단으로 유명해요.',['¿A qué hora sale el tren de montaña?','산악 열차는 몇 시에 출발해요?'],['Las montañas tienen formas muy raras. El coro canta muy bien.','산 모양이 정말 신기해. 합창단 노래도 너무 좋아.'],'n'],
+ ['madrid','mad','Plaza_Mayor,_Madrid','Plaza Mayor','Madrid','마드리드 마요르 광장','400년 된 마드리드의 중앙 광장. 근처 바에서 오징어튀김 샌드위치(보카디요 데 칼라마레스)를 먹는 게 필수 코스예요.',['Un bocadillo de calamares, por favor.','오징어튀김 샌드위치 하나 주세요.'],['Madrid nunca duerme. Cenamos a las diez de la noche.','마드리드는 잠들지 않아. 밤 10시에 저녁 먹었어.'],'n'],
+ ['palacio','mad','Royal_Palace_of_Madrid','Palacio Real','Madrid','마드리드 왕궁','방이 3000개가 넘는, 서유럽에서 가장 큰 왕궁. 지금은 국가 행사 때만 쓰고 평소엔 관람할 수 있어요.',['¿Está abierto hoy?','오늘 열어요?'],['El palacio es gigante. ¡Tiene más de tres mil habitaciones!','왕궁이 어마어마해. 방이 3000개가 넘어!'],'n'],
+ ['toledo','mad','Toledo_Cathedral','Catedral de Toledo','Toledo','톨레도 대성당','옛 수도 톨레도의 대성당. 이슬람·유대·기독교 문화가 함께 남은 언덕 위 도시 전체가 박물관 같아요.',['¿Cómo llego a la catedral?','대성당에 어떻게 가요?'],['Las calles son muy estrechas y hay muchas cuestas.','길이 정말 좁고 언덕이 많아.'],'n'],
+ ['sanmiguel','mad','Mercado_de_San_Miguel','Mercado de San Miguel','Madrid','산 미겔 시장','유리와 철로 지은 100년 넘은 시장. 타파스 한 접시씩 사서 서서 먹으며 돌아다니는 재미가 있어요.',['Quiero probar esto.','이거 먹어 보고 싶어요.'],['Probé jamón, aceitunas y queso. ¡Todo riquísimo!','하몽, 올리브, 치즈를 먹어 봤어. 전부 너무 맛있어!'],'n'],
+ ['artes','val','City_of_Arts_and_Sciences','Ciudad de las Artes y las Ciencias','Valencia','예술과학도시','옛 강바닥 위에 지은 미래 도시 같은 건물들. 유럽 최대 규모 수족관도 여기 있어요.',['Dos entradas, por favor.','입장권 두 장 주세요.'],['Parece una película del futuro. ¡Y el acuario es enorme!','미래 영화 같아. 수족관도 엄청 커!'],'n'],
+ ['lonja','val','Llotja_de_la_Seda','La Lonja de la Seda','Valencia','실크 거래소','15세기 비단 상인들의 거래소. 꽈배기처럼 꼬인 기둥이 야자수처럼 천장까지 뻗어 있어요.',['¿Dónde se come la mejor paella?','파에야는 어디가 제일 맛있어요?'],['Valencia es la ciudad de la paella. ¡Comí dos platos!','발렌시아는 파에야의 도시야. 두 접시 먹었어!'],'n'],
+ ['valcat','val','Valencia_Cathedral','Catedral de Valencia','Valencia','발렌시아 대성당','예수가 최후의 만찬에서 썼다고 전해지는 성배를 모신 성당. 종탑 미겔레테에 오르면 도시가 한눈에 보여요.',['¿Se puede subir a la torre?','탑에 올라가도 돼요?'],['Subí a la torre. Se ve toda la ciudad y el mar.','탑에 올라갔어. 도시랑 바다가 다 보여.'],'n'],
+ ['palma','bal','Palma_Cathedral','Catedral de Mallorca','Palma','팔마 대성당','지중해 바로 옆에 선 "바다의 성당". 가우디도 이 성당 내부 개조에 참여했어요.',['¿Hay una playa cerca?','근처에 해변 있어요?'],['La catedral está al lado del mar. El agua es azul turquesa.','대성당이 바다 바로 옆이야. 물이 청록색이야.'],'n'],
+ ['bellver','bal','Bellver_Castle','Castillo de Bellver','Palma','벨베르 성','유럽에서 드문 둥근 모양의 성. 언덕 위에서 팔마 항구와 지중해가 내려다보여요.',['¿Cuánto tarda el autobús?','버스로 얼마나 걸려요?'],['Un castillo redondo. ¡Nunca vi uno así!','동그란 성이야. 이런 건 처음 봐!'],'n'],
+ ['alhambra','and','Alhambra','La Alhambra','Granada','알함브라 궁전','이슬람 왕국의 마지막 궁전. 섬세한 아라베스크 장식과 물이 흐르는 정원이 아름다워요. 입장권은 몇 달 전에 매진되기도 해요.',['Tengo una reserva para la Alhambra.','알함브라 예약했어요.'],['Es el lugar más bonito del viaje. Quiero volver.','이번 여행에서 제일 아름다운 곳이야. 다시 오고 싶어.'],'r'],
+ ['sevilla','and','Plaza_de_España_(Seville)','Plaza de España','Sevilla','세비야 스페인 광장','반원형 건물 아래 스페인 각 지방을 타일 그림으로 꾸민 벤치가 줄지어 있어요. 플라멩코 공연도 자주 열려요.',['¿Dónde hay un espectáculo de flamenco?','플라멩코 공연은 어디서 해요?'],['Hace mucho calor, ¡cuarenta grados! Pero la plaza es preciosa.','엄청 더워, 40도야! 그래도 광장이 정말 예뻐.'],'n'],
+ ['cordoba','and','Mosque–Cathedral_of_Córdoba','Mezquita de Córdoba','Córdoba','코르도바 메스키타','이슬람 사원 안에 성당이 들어선 독특한 건물. 빨강·하양 줄무늬 아치 수백 개가 숲처럼 이어져요.',['¿Puedo entrar con esta mochila?','이 배낭 메고 들어가도 돼요?'],['Hay cientos de arcos rojos y blancos. ¡Me perdí dentro!','빨갛고 하얀 아치가 수백 개야. 안에서 길을 잃었어!'],'n'],
+ ['ronda','and','Puente_Nuevo','Puente Nuevo','Ronda','론다 누에보 다리','깊이 120m 협곡 위에 놓인 다리. 협곡 양쪽 절벽 위에 하얀 마을이 걸려 있어요.',['¿Dónde está el mirador?','전망대가 어디예요?'],['El puente está sobre un barranco muy profundo. ¡Qué miedo!','다리가 엄청 깊은 협곡 위에 있어. 무서워!'],'n'],
+ ['sevcat','and','Seville_Cathedral','Catedral de Sevilla','Sevilla','세비야 대성당','세계에서 가장 큰 고딕 성당. 콜럼버스의 관이 있고, 종탑 히랄다에는 계단 대신 경사로가 있어요.',['¿Dónde está la tumba de Colón?','콜럼버스 무덤은 어디예요?'],['Subí a la Giralda por rampas, no por escaleras.','히랄다 탑을 계단 말고 경사로로 올라갔어.'],'n'],
+ ['douro','pno','Dom_Luís_I_Bridge','Ponte Dom Luís I','Porto','동 루이스 1세 다리','에펠의 제자가 설계한 2층 철교. 위층은 지하철, 아래층은 차가 다니고, 강가 리베이라 지구 야경이 유명해요.',['Um vinho do Porto, por favor.','포트와인 한 잔 주세요. (포르투갈어)'],['Atravesé el puente a pie. Abajo, el río Duero.','다리를 걸어서 건넜어. 아래로 도우루 강이 흘러.'],'n'],
+ ['lello','pno','Livraria_Lello','Livraria Lello','Porto','렐루 서점','세계에서 가장 아름다운 서점으로 꼽혀요. 붉은 곡선 계단이 유명하고, 입장권을 사면 책값에서 빼 줘요.',['Obrigado! (남) / Obrigada! (여)','고마워요! (포르투갈어)'],['La escalera roja es como de un cuento.','빨간 계단이 동화 속 같아.'],'r'],
+ ['saobento','pno','São_Bento_railway_station','Estação de São Bento','Porto','상 벤투 역','2만 장의 푸른 타일(아줄레주)로 포르투갈 역사를 그린 기차역 대합실이에요.',['Onde fica a estação? ','역이 어디예요? (포르투갈어)'],['La estación de tren parece un museo. Todo es azul.','기차역이 박물관 같아. 온통 파란색이야.'],'n'],
+ ['bomjesus','pno','Bom_Jesus_do_Monte','Bom Jesus do Monte','Braga','봉 제수스 두 몬트','지그재그로 이어진 하얀 바로크 계단 위의 성당. 옆에는 물의 무게로 움직이는 오래된 케이블카가 있어요.',['Bom dia!','안녕하세요 (아침)! (포르투갈어)'],['Subí 600 escalones. Bajé en el funicular.','계단 600개를 올라갔어. 내려올 땐 케이블카 탔어.'],'n'],
+ ['joanina','pce','Biblioteca_Joanina','Biblioteca Joanina','Coimbra','조아니나 도서관','코임브라 대학의 금빛 바로크 도서관. 밤에 박쥐가 책을 갉아먹는 벌레를 잡아 준다고 해요.',['Fala espanhol?','스페인어 할 줄 아세요? (포르투갈어)'],['En la biblioteca viven murciélagos. ¡Protegen los libros!','도서관에 박쥐가 살아. 책을 지켜 준대!'],'n'],
+ ['obidos','pce','Óbidos_Castle','Castelo de Óbidos','Óbidos','오비두스 성','성벽에 둘러싸인 하얀 마을. 왕이 왕비에게 결혼 선물로 준 마을이라 "왕비의 마을"이라 불려요. 체리주 진자를 초콜릿 잔에 마셔요.',['Uma ginjinha, por favor.','진자 한 잔 주세요. (포르투갈어)'],['Bebí licor de cereza en un vaso de chocolate.','초콜릿 잔에 체리주를 마셨어.'],'n'],
+ ['batalha','pce','Batalha_Monastery','Mosteiro da Batalha','Batalha','바탈랴 수도원','전투 승리를 기념해 지은 수도원. 지붕 없이 하늘로 열린 "미완성 예배당"이 신비로워요.',['Com licença.','실례합니다. (포르투갈어)'],['La capilla no tiene techo. Se ve el cielo azul.','예배당에 지붕이 없어. 파란 하늘이 보여.'],'n'],
+ ['belem','lis','Belém_Tower','Torre de Belém','Lisboa','벨렝 탑','대항해 시대 배들이 떠나던 강가의 요새. 바로 근처 가게의 원조 에그타르트(파스테이스 드 벨렝)가 유명해요.',['Um pastel de nata, por favor.','에그타르트 하나 주세요. (포르투갈어)'],['Comí tres pasteles de nata. ¡Todavía calientes!','에그타르트 세 개 먹었어. 아직 따끈해!'],'n'],
+ ['jeronimos','lis','Jerónimos_Monastery','Mosteiro dos Jerónimos','Lisboa','제로니무스 수도원','바스쿠 다 가마의 항해를 기념해 지은 수도원. 밧줄과 조개 모양 조각이 바다의 나라답게 새겨져 있어요.',['Quanto custa?','얼마예요? (포르투갈어)'],['Las columnas tienen cuerdas y conchas de piedra.','기둥에 돌로 된 밧줄이랑 조개가 새겨져 있어.'],'n'],
+ ['pena','lis','Pena_Palace','Palácio da Pena','Sintra','페나 궁전','안개 낀 산꼭대기의 노랑·빨강 동화 궁전. 신트라 숲 전체가 유네스코 세계유산이에요.',['Que lindo!','정말 예뻐요! (포르투갈어)'],['Parece un castillo de cuento: amarillo, rojo y azul.','동화 속 성 같아. 노랑, 빨강, 파랑이야.'],'r'],
+ ['comercio','lis','Praça_do_Comércio','Praça do Comércio','Lisboa','코메르시우 광장','강을 향해 활짝 열린 리스본의 큰 광장. 노란 건물 사이로 노란 트램 28번이 언덕을 오르내려요.',['Um bilhete para o elétrico 28.','28번 트램 표 한 장이요. (포르투갈어)'],['Tomé el tranvía amarillo. ¡Sube y baja muchas cuestas!','노란 트램 탔어. 언덕을 엄청 오르락내리락해!'],'n'],
+ ['roca','lis','Cabo_da_Roca','Cabo da Roca','Sintra','호카곶','유럽 대륙의 가장 서쪽 끝. "여기서 땅이 끝나고 바다가 시작된다"는 시 구절이 새겨져 있어요.',['Boa tarde!','안녕하세요 (오후)! (포르투갈어)'],['Estoy en el fin de Europa. Delante, solo el océano.','유럽의 끝에 있어. 앞에는 바다뿐이야.'],'n'],
+ ['piedade','alg','Ponta_da_Piedade','Ponta da Piedade','Lagos','폰타 다 피에다드','황금빛 절벽과 바위 아치가 이어진 해안. 작은 보트를 타고 동굴 사이를 지나갈 수 있어요.',['Onde é a praia?','해변이 어디예요? (포르투갈어)'],['Fuimos en barca entre las rocas doradas.','황금빛 바위 사이로 보트를 타고 갔어.'],'n'],
+ ['marinha','alg','Praia_da_Marinha','Praia da Marinha','Lagoa','마리냐 해변','세계에서 가장 아름다운 해변 순위에 자주 오르는 곳. 근처 베나길 동굴은 천장에 구멍이 뚫린 바다 동굴이에요.',['Saúde!','건배! (포르투갈어)'],['La playa más bonita que he visto en mi vida.','살면서 본 해변 중에 제일 예뻐.'],'n'],
+ ['vicente','alg','Cape_St._Vincent','Cabo de São Vicente','Sagres','상 비센트 곶','유럽 남서쪽 끝, 옛날엔 "세상의 끝"이라 믿었던 곳. 해 질 녘 노을을 보러 사람들이 모여요.',['Tchau! Até logo!','안녕! 또 봐요! (포르투갈어)'],['Vimos la puesta de sol en el fin del mundo.','세상의 끝에서 노을을 봤어.'],'n'],
+].map(r=>({id:r[0],reg:r[1],w:r[2],es:r[3],city:r[4],ko:r[5],story:r[6],ph:r[7],msg:r[8],tier:r[9],pt:RBY[r[1]].c==='PT'}));
+const PCBY=Object.fromEntries(PC.map(c=>[c.id,c]));
+const STAGE_PC={2:'pamplona',3:'burgos',4:'leon',5:'lugo',6:'santiago'};
+const RARE=PC.filter(c=>c.tier==='r').map(c=>c.id);
+const NORMAL=PC.filter(c=>c.tier==='n').map(c=>c.id);
+const ROUTE=[['생장',50,3],['팜플로나',50,13],['부르고스',50,30],['레온',41.6,40],['사리아',33.3,24],['산티아고',25,20]];
+
+/* 기록 */
+function PS(){S.pc=S.pc||{own:{},draws:0,stamps:0,seen:{},day:'',streakDay:'',stage:{},dlg:{}};const p=S.pc;['own','seen','stage','dlg'].forEach(k=>p[k]=p[k]||{});p.draws=p.draws||0;p.stamps=p.stamps||0;return p}
+const owned=id=>!!PS().own[id];
+const ownN=()=>PC.filter(c=>owned(c.id)).length;
+function pcGive(id,why){const p=PS();if(p.own[id]){p.stamps++;return {id,dup:true,why}}p.own[id]=day();p.seen[id]=0;return {id,dup:false,why}}
+let pcQueue=[];
+function pcCheck(){if(typeof PC==='undefined')return;const p=PS(),t=day();
+  if(S.todayN>=GOAL&&p.day!==t){p.day=t;p.draws++;pcQueue.push('하루 목표 달성! 엽서 뽑기 1회를 받았어요.')}
+  const stk=(S.lastDay===t)?S.streak:0;
+  if(stk>0&&stk%7===0&&p.streakDay!==t){p.streakDay=t;const left=RARE.filter(id=>!owned(id));const r=pcGive(left.length?left[Math.random()*left.length|0]:NORMAL[Math.random()*NORMAL.length|0],'streak');pcQueue.push(`연속 ${stk}일! 희귀 엽서 「${PCBY[r.id].ko}」${r.dup?' (중복이라 우표 +1)':''}`)}
+  for(let n=2;n<=Math.min(6,S.stage||1);n++){if(!p.stage[n]){p.stage[n]=1;const r=pcGive(STAGE_PC[n],'stage');pcQueue.push(`${townName(n)} 도착 기념 엽서 「${PCBY[r.id].ko}」를 받았어요.`)}}}
+const __save=save;save=function(){try{pcCheck()}catch(e){}__save();if(pcQueue.length){const m=pcQueue.splice(0).join(' ');setTimeout(()=>toast(m),50)}};
+
+/* 사진 불러오기: 위키백과 대표 사진 + 위키미디어 공용 출처 정보 */
+const IMGKEY='camino-pcimg-v1';let IMGC={};try{IMGC=JSON.parse(localStorage.getItem(IMGKEY)||'{}')}catch(e){}
+const imgPending={};
+function stripTags(h){const d=document.createElement('div');d.innerHTML=h||'';return (d.textContent||'').trim().replace(/\s+/g,' ')}
+async function pcImg(c){if(IMGC[c.id]&&IMGC[c.id].src)return IMGC[c.id];if(imgPending[c.id])return imgPending[c.id];
+  imgPending[c.id]=(async()=>{try{const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(c.w));if(!r.ok)throw 0;const j=await r.json();
+    const orig=j.originalimage&&j.originalimage.source,th=j.thumbnail&&j.thumbnail.source;if(!orig&&!th)throw 0;
+    const file=decodeURIComponent((orig||th).split('/').pop().replace(/^\d+px-/,''));
+    const big=th?th.replace(/\/\d+px-/,'/960px-'):orig;const info={src:big,alt:th||orig,file,page:j.content_urls&&j.content_urls.desktop&&j.content_urls.desktop.page,artist:'',lic:''};
+    try{const m=await fetch('https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=extmetadata&titles='+encodeURIComponent('File:'+file));const mj=await m.json();
+      const pg=Object.values(mj.query.pages)[0];const em=pg.imageinfo&&pg.imageinfo[0].extmetadata||{};info.artist=stripTags(em.Artist&&em.Artist.value).slice(0,80);info.lic=(em.LicenseShortName&&em.LicenseShortName.value)||''}catch(e){}
+    IMGC[c.id]=info;try{localStorage.setItem(IMGKEY,JSON.stringify(IMGC))}catch(e){}return info}catch(e){return null}})();
+  return imgPending[c.id]}
+function hydrate(root){(root||document).querySelectorAll('[data-pcimg]').forEach(async el=>{const c=PCBY[el.dataset.pcimg];const info=await pcImg(c);if(!info||!el.isConnected)return;
+  const img=new Image();img.alt=c.ko;img.loading='lazy';img.onload=()=>{el.style.backgroundImage=`url("${img.src}")`;el.classList.add('loaded')};
+  img.onerror=()=>{if(info.alt&&img.src!==info.alt)img.src=info.alt};img.src=info.src;
+  const cr=el.closest('.pcard')&&el.closest('.pcard').querySelector('.credit');if(cr)cr.innerHTML=creditHTML(c)})}
+function creditHTML(c){const i=IMGC[c.id];if(!i)return '사진: 위키미디어 공용';
+  const link=`https://commons.wikimedia.org/wiki/File:${encodeURIComponent(i.file)}`;
+  return `사진: ${esc(i.artist||'작가 미상')}${i.lic?' · '+esc(i.lic):''} · <a href="${link}" target="_blank" rel="noopener">위키미디어 공용</a>`}
+
+/* 엽서 그리기 */
+function pcFront(c,big){const r=RBY[c.reg];
+  return `<div class="pcf${big?' big':''}" data-pcimg="${c.id}" style="--rc:${r.col}">
+    <div class="pcf-name"><span class="es">${esc(c.es)}</span><span class="ko">${esc(c.ko)} · ${esc(c.city)}</span></div>
+    <div class="pcf-stamp">${r.c==='PT'?'PORTUGAL':'ESPAÑA'}</div>${c.tier==='r'?'<div class="pcf-rare">희귀</div>':c.tier==='s'?'<div class="pcf-rare sp">순례길</div>':''}</div>`}
+function pcBack(c){return `<div class="pcb">
+  <div class="pcb-story">${esc(c.story)}</div>
+  <div class="pcb-ph"><b>여기서 쓸 한마디</b><div class="es">${esc(c.ph[0])}</div><div class="ko">${esc(c.ph[1])}</div>${c.pt?'':sayT(c.ph[0].replace(/\(.+?\)/g,''))}</div>
+  <div class="pcb-msg"><b>엽서에 적힌 메시지</b><div class="hand">${esc(c.msg[0])}</div><button class="say mini" data-sayt="${esc(c.msg[0])}">듣기</button> <button class="say mini" data-tr="1">뜻 보기</button><div class="ko tr" hidden>${esc(c.msg[1])}</div></div>
+  <div class="credit">사진: 위키미디어 공용</div></div>`}
+function pcModal(id,isNew){const c=PCBY[id];PS().seen[id]=1;save();
+  let m=document.getElementById('pcModal');if(!m){m=document.createElement('div');m.id='pcModal';m.className='pcmodal';document.body.appendChild(m)}
+  m.innerHTML=`<div class="pcm-in" role="dialog" aria-label="${esc(c.ko)} 엽서">
+    ${isNew?`<div class="pcm-new">${isNew}</div>`:''}
+    <div class="pcard">${pcFront(c,true)}${pcBack(c)}</div>
+    <button class="btn" id="pcClose">닫기</button></div>`;
+  m.hidden=false;hydrate(m);m.querySelector('#pcClose').onclick=()=>{m.hidden=true;if(typeof onPcClose==='function'){const f=onPcClose;onPcClose=null;f()}};
+  m.onclick=e=>{if(e.target===m)m.querySelector('#pcClose').click();const t=e.target.closest('[data-tr]');if(t){const k=m.querySelector('.tr');k.hidden=!k.hidden}}}
+let onPcClose=null;
+function pcDraw(){const p=PS();if(p.draws<1)return;p.draws--;
+  const r=pcGive(NORMAL[Math.random()*NORMAL.length|0],'draw');save();sfx.stamp();
+  pcModal(r.id,r.dup?'이미 있는 엽서예요 · 우표 +1':'새 엽서!');onPcClose=()=>book()}
+function pcTrade(id){const p=PS(),cost=PCBY[id].tier==='r'?10:5;if(p.stamps<cost||owned(id))return;p.stamps-=cost;pcGive(id,'trade');save();pcModal(id,'우표로 교환했어요');onPcClose=()=>book()}
+
+/* 도감 탭 */
+let bookTab='pc',bookReg=null;
+function book(){const p=PS(),n=ownN();
+  $('#view').innerHTML=`<div style="display:flex;flex-direction:column;gap:12px">
+    <div class="chips"><button class="chip" data-bt="pc" aria-pressed="${bookTab==='pc'}">엽서 <span class="num">${n}/${PC.length}</span></button><button class="chip" data-bt="map" aria-pressed="${bookTab==='map'}">지도</button><button class="chip" data-bt="sello" aria-pressed="${bookTab==='sello'}">세요 도장</button></div>
+    <div id="bookBody"></div></div>`;
+  document.querySelectorAll('[data-bt]').forEach(b=>b.onclick=()=>{bookTab=b.dataset.bt;bookReg=null;book()});
+  if(bookTab==='sello'){passportInto($('#bookBody'));return}
+  const head=`<section class="panel drawbox">
+    <div class="route-row"><div><div class="label">엽서 뽑기</div><div style="font-size:20px">남은 뽑기 <span class="num">${p.draws}</span>회 · 우표 <span class="num">${p.stamps}</span>장</div></div>
+      <button class="btn" id="drawBtn" ${p.draws?'':'disabled'} style="flex:none">뽑기</button></div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.5">하루 목표 ${GOAL}개 달성 → 뽑기 1회 · 연속 7일마다 → 희귀 엽서 · 관문 시험 통과 → 도착 도시 엽서 · 상황 대화 80% 이상 → 뽑기 1회 · 중복 엽서 → 우표 1장 (우표 5장 = 원하는 엽서, 희귀는 10장)</div></section>`;
+  if(bookTab==='map'){$('#bookBody').innerHTML=head+mapHTML();bindBook();return}
+  const regs=bookReg?[RBY[bookReg]]:REGIONS;
+  $('#bookBody').innerHTML=head+regs.map(r=>{const cs=PC.filter(c=>c.reg===r.id),got=cs.filter(c=>owned(c.id)).length;
+    return `<h2 class="cont-h"><span class="rdot" style="background:${r.col}"></span>${r.n} <span class="num" style="font-size:13px">${got}/${cs.length}</span> <span class="tag">${r.c==='PT'?'포르투갈':'스페인'}</span></h2>
+    <div class="pcgrid">${cs.map(c=>owned(c.id)?`<button class="pcthumb" data-open="${c.id}">${pcFront(c)}${PS().seen[c.id]?'':'<span class="newdot">NEW</span>'}</button>`
+      :`<div class="pcthumb off"><div class="pcf off" style="--rc:${r.col}"><div class="pcf-name"><span class="es">?</span><span class="ko">${esc(c.ko)}</span></div>${c.tier==='s'?'<div class="pcf-lock">순례길 도착 시</div>':`<button class="say mini" data-trade="${c.id}" ${p.stamps>=(c.tier==='r'?10:5)?'':'disabled'}>우표 ${c.tier==='r'?10:5}장으로 교환</button>`}</div></div>`).join('')}</div>`}).join('')
+    +(bookReg?'<button class="btn ghost" id="allReg">모든 지역 보기</button>':'');
+  bindBook()}
+function bindBook(){const db=$('#drawBtn');if(db)db.onclick=pcDraw;
+  document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{pcModal(b.dataset.open);onPcClose=()=>book()});
+  document.querySelectorAll('[data-trade]').forEach(b=>b.onclick=e=>{e.stopPropagation();pcTrade(b.dataset.trade)});
+  document.querySelectorAll('[data-reg]').forEach(b=>b.onclick=()=>{bookTab='pc';bookReg=b.dataset.reg;book();window.scrollTo(0,0)});
+  const ar=$('#allReg');if(ar)ar.onclick=()=>{bookReg=null;book()};hydrate()}
+function mapHTML(){const cur=Math.min(6,S.stage||1);
+  const cell=(x,y)=>({l:x*16.66+.8,t:y*20+.8});
+  return `<section class="panel"><div class="label">이베리아 지도 · 엽서를 모으면 지역이 색칠돼요</div>
+    <div class="ibmap">
+      <div class="sea">대서양</div><div class="sea2">지중해</div>
+      ${REGIONS.map(r=>{const cs=PC.filter(c=>c.reg===r.id),got=cs.filter(c=>owned(c.id)).length,f=got/cs.length,pos=cell(r.x,r.y);
+        return `<button class="rtile${f>=1?' full':''}" data-reg="${r.id}" style="left:${pos.l}%;top:${pos.t}%;--rc:${r.col};--f:${f===0?0:.25+f*.75}"><span class="rn">${r.n}</span><span class="rc num">${got}/${cs.length}</span>${f>=1?'<span class="rb">완성</span>':''}</button>`}).join('')}
+      <svg class="route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${ROUTE.map(p=>p[1]+','+p[2]).join(' ')}" fill="none" stroke="var(--arrow)" stroke-width=".9" stroke-dasharray="2 1.4" vector-effect="non-scaling-stroke"/></svg>
+      ${ROUTE.map((p,i)=>`<div class="rpin${i<cur?' on':''}${i===cur-1?' me':''}" style="left:${p[1]}%;top:${p[2]}%"><i></i><span>${p[0]}</span></div>`).join('')}
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-top:8px">노란 점선은 순례길(생장 → 팜플로나 → 부르고스 → 레온 → 사리아 → 산티아고)이에요. 지금 위치는 「${ROUTE[cur-1][0]}」, 관문 시험을 통과한 도시는 핀이 채워져요. 지역을 누르면 그 지역 엽서를 볼 수 있어요.</div>
+    <div class="stats" style="margin-top:10px"><div class="stat"><b class="num">${ownN()}/${PC.length}</b><span>모은 엽서</span></div><div class="stat"><b class="num">${REGIONS.filter(r=>PC.filter(c=>c.reg===r.id).every(c=>owned(c.id))).length}/${REGIONS.length}</b><span>완성 지역</span></div><div class="stat"><b class="num">${PS().stamps}</b><span>우표</span></div></div></section>`}
 
 /* ---------- 키보드 ---------- */
 document.addEventListener('keydown',e=>{if(!R||e.repeat||e.target.matches?.('textarea,input'))return;
