@@ -1445,7 +1445,7 @@ const V1=['ser','estar','tener','hablar','trabajar','estudiar','comprar','tomar'
 const V2=['comer','beber','aprender','vender','vivir','escribir','abrir','recibir','pensar','querer','empezar','cerrar','entender','preferir','poder','dormir','volver','encontrar','ir'];
 const TST={pres:1,pret:3,imp:4,fut:4,subj:5};
 function comboStage(inf,t){if(t==='pres')return V1.includes(inf)?1:V2.includes(inf)?2:3;return TST[t]}
-const PASS_PROG=.7,TEST_N=20,TEST_PASS=16;
+const PASS_PROG=.7,TEST_N=30,TEST_PASS=24;
 const stageNow=()=>S.openAll?5:Math.max(1,Math.min(5,S.stage||1));
 const finished=()=>(S.stage||1)>=6;
 const townName=n=>TOWNS[Math.min(n,6)-1][1];
@@ -1515,7 +1515,7 @@ function verbQ(k){const [inf,t]=k.split('|'),c=CONJ[inf],v=VBY[inf];
   let d=pickDistract(ans,pool,3);if(d.length<3)d=d.concat(pickDistract(ans,PLAIN[inf][t].filter(f=>f!==ans&&!d.includes(f)),3-d.length));
   return {type:'vform',k,prompt:v.inf,sub:`${TBY[t].n} · ${PERS[p][0]} (${PERS[p][1]})`,ask:'알맞은 형태는?',ans,opts:shuffle([ans,...d])}}
 function buildTest(n){const {items,combos}=stageParts(n);const voice=canSpeak&&(!voicesReady||esVoice);
-  const nv=combos.length?Math.min(8,Math.round(TEST_N*.35)):0,nw=TEST_N-nv;
+  const nv=combos.length?Math.min(combos.length,Math.round(TEST_N*.35)):0,nw=TEST_N-nv;
   const ws=shuffle(items.slice()).slice(0,nw);
   const q=ws.map((x,i)=>wordQ(x,voice&&i%5===4?'listen':(i%2?'ko2es':'es2ko')));
   shuffle(combos.slice()).slice(0,nv).forEach(k=>q.push(verbQ(k)));
