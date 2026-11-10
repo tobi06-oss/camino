@@ -1171,6 +1171,7 @@ function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x
   </section></div>`;
   document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.stSel=b.dataset.l;S.topics=[];save();home()});
   const gb=$('#gateBtn');if(gb)gb.onclick=startTest;
+  const gv=$('#goVerbs');if(gv)gv.onclick=()=>setTab('verbs');
   document.querySelectorAll('.mode[data-m]').forEach(b=>{const need=MODE_ST[b.dataset.m]||1;if(need>stageNow()){b.disabled=true;b.classList.add('locked');b.querySelector('p').textContent=lockMsg(need)}});
   const oa=$('#openAll');if(oa)oa.onchange=()=>{S.openAll=oa.checked;save();home()};
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{const f=b.dataset.f,t=topics();S.topics=f==='전체'?[]:t.includes(f)?t.filter(x=>x!==f):[...t,f];save();home()});
@@ -1457,18 +1458,22 @@ const V1=['ser','estar','tener','hablar','trabajar','estudiar','comprar','tomar'
 const V2=['comer','beber','aprender','vender','vivir','escribir','abrir','recibir','pensar','querer','empezar','cerrar','entender','preferir','poder','dormir','volver','encontrar','ir'];
 const TST={pres:1,pret:3,imp:4,fut:4,subj:5};
 function comboStage(inf,t){if(t==='pres')return V1.includes(inf)?1:V2.includes(inf)?2:3;return TST[t]}
-const PASS_PROG=.7,TEST_N=30,TEST_PASS=24;
+const PASS_PROG=.7,VERB_PROG=.5,TEST_N=30,TEST_PASS=24;
 const stageNow=()=>S.openAll?5:Math.max(1,Math.min(5,S.stage||1));
 const finished=()=>(S.stage||1)>=6;
 const townName=n=>TOWNS[Math.min(n,6)-1][1];
 const lockMsg=n=>`${n}단계 ${townName(n)}에 도착하면 열려요`;
 function stageParts(n){const items=W.filter(x=>x.st===n);const combos=[];VERBS.forEach(v=>TNS.forEach(t=>{if(comboStage(v.inf,t.id)===n)combos.push(vk(v.inf,t.id))}));return {items,combos}}
-function stageProg(n){const {items,combos}=stageParts(n);const done=items.filter(x=>lv(x.k)>=3||isSure(x)).length+combos.filter(k=>vlv(k)>=3).length;const total=items.length+combos.length;
-  return {done,total,pct:total?done/total:1,need:Math.ceil(total*PASS_PROG)}}
-function kmStage(){const s=S.stage||1;if(s>=6)return KM;const a=TOWNS[s-1][0],b=TOWNS[s][0];const p=Math.min(1,stageProg(s).pct/PASS_PROG);return Math.round(a+(b-a)*p*.92)}
+/* 표현과 동사를 따로 계산: 표현 70%, 동사 50%를 둘 다 채워야 관문 시험이 열림 */
+function stageProg(n){const {items,combos}=stageParts(n);
+  const wd=items.filter(x=>lv(x.k)>=3||isSure(x)).length,wt=items.length,wn=Math.ceil(wt*PASS_PROG);
+  const vd=combos.filter(k=>vlv(k)>=3).length,vt=combos.length,vn=Math.ceil(vt*VERB_PROG);
+  const done=Math.min(wd,wn)+Math.min(vd,vn),need=wn+vn,ready=wd>=wn&&vd>=vn;
+  return {wd,wt,wn,vd,vt,vn,done,need,total:wt+vt,ready,pct:need?done/need:1}}
+function kmStage(){const s=S.stage||1;if(s>=6)return KM;const a=TOWNS[s-1][0],b=TOWNS[s][0];const p=Math.min(1,stageProg(s).pct);return Math.round(a+(b-a)*p*.92)}
 /* 처음 한 번: 지금까지의 진도로 이미 채운 단계는 시험 없이 열어 줌 */
 (function migrateStage(){if(S.stageInit)return;S.stage=1;S.cityAt=S.cityAt||{};S.cityAt[1]=S.cityAt[1]||day();
-  while(S.stage<=5&&stageProg(S.stage).pct>=PASS_PROG){S.stage++;S.cityAt[S.stage]=day()}
+  while(S.stage<=5&&stageProg(S.stage).ready){S.stage++;S.cityAt[S.stage]=day()}
   S.stageInit=1;save()})();
 
 function cityStamp(n,on,anim){const nm=townName(n);const d=(S.cityAt&&S.cityAt[n]||'').slice(2).replace(/-/g,'.');
@@ -1479,7 +1484,7 @@ function roadmapHTML(){const cur=S.stage||1;
       <div class="rm-t">${s.n}단계 · ${townName(s.n)} → ${townName(s.n+1)} <span class="tag">${s.cefr}</span></div>
       <div class="rm-g">${esc(s.goal)}</div>
       <div class="rm-d">표현: ${s.cats.join(', ')}<br>동사: ${esc(s.verbs)}<br>새 기능: ${esc(s.modes)}</div>
-      ${st==='cur'?`<div class="rm-p">익힌 것 <span class="num">${pr.done}/${pr.total}</span></div>`:''}
+      ${st==='cur'?`<div class="rm-p">익힌 표현 <span class="num">${pr.wd}/${pr.wn}</span> · 익힌 동사 <span class="num">${pr.vd}/${pr.vn}</span></div>`:''}
     </div></div>`}).join('')}
 function stagePanelHTML(){const cur=S.stage||1;
   if(cur>=6)return `<section class="panel route compo"><div class="label">COMPOSTELA · 완주 증명서</div>
@@ -1487,17 +1492,21 @@ function stagePanelHTML(){const cur=S.stage||1;
     <div style="font-size:15px;line-height:1.6">생장에서 출발해 799km, 5개 구간의 관문 시험을 모두 통과했어요.<br>${(S.cityAt&&S.cityAt[6])||day()} 완주</div>
     <div class="citys">${[1,2,3,4,5,6].map(n=>cityStamp(n,true)).join('')}</div>
     <div style="font-size:13px;color:var(--muted)">이제 모든 기능이 열려 있어요. 오늘의 복습으로 잊지 않게만 챙겨 주세요. ¡Buen Camino!</div></section>`;
-  const s=STAGES[cur-1],pr=stageProg(cur),ready=pr.pct>=PASS_PROG,pct=Math.min(100,Math.round(pr.done/Math.max(1,pr.need)*100));
+  const s=STAGES[cur-1],pr=stageProg(cur),ready=pr.ready,wp=Math.min(100,Math.round(pr.wd/Math.max(1,pr.wn)*100)),vp=Math.min(100,Math.round(pr.vd/Math.max(1,pr.vn)*100));
   return `<section class="panel route">
     <div class="route-row"><div><div class="label">${cur}단계 · ${s.cefr}</div><div class="route-name">${townName(cur)} → ${townName(cur+1)}</div></div>
       <div class="num" style="color:var(--muted);text-align:right">${kmStage()} / ${KM}km</div></div>
     ${trackHTML(kmStage())}
     <div style="margin-top:10px;font-size:15px">이번 구간 목표: <b style="font-weight:400;color:var(--accent)">${esc(s.goal)}</b></div>
     <div class="gate">
-      <div class="route-row"><span style="font-size:14px">익힌 것 (점 3개 이상)</span><span class="num" style="font-size:14px">${pr.done} / ${pr.need}</span></div>
-      <div class="bar"><i style="width:${pct}%;${ready?'background:var(--good)':''}"></i></div>
+      <div class="label">관문 시험 열기 조건 · 점 3개 이상이면 "익힘"</div>
+      <div class="route-row"><span style="font-size:14px">표현 ${pr.wd>=pr.wn?'✓':''}</span><span class="num" style="font-size:14px">${Math.min(pr.wd,pr.wn)} / ${pr.wn}</span></div>
+      <div class="bar"><i style="width:${wp}%;${pr.wd>=pr.wn?'background:var(--good)':''}"></i></div>
+      <div class="route-row"><span style="font-size:14px">동사 (동사 탭) ${pr.vd>=pr.vn?'✓':''}</span><span class="num" style="font-size:14px">${Math.min(pr.vd,pr.vn)} / ${pr.vn}</span></div>
+      <div class="bar"><i style="width:${vp}%;${pr.vd>=pr.vn?'background:var(--good)':''}"></i></div>
       ${ready?`<button class="btn" id="gateBtn">관문 시험 보기 · ${townName(cur+1)}행 <small>${TEST_N}문제 · ${TEST_PASS}개 이상 통과</small></button>`
-        :`<div style="font-size:13px;color:var(--muted)">이번 구간 표현과 동사 ${pr.total}개 중 ${pr.need}개를 익히면 관문 시험이 열려요. 시험을 통과하면 ${townName(cur+1)}에 도착하고 다음 단계가 열려요.</div>`}
+        :`<div style="font-size:13px;color:var(--muted);line-height:1.5">이번 구간 표현 ${pr.wt}개 중 ${pr.wn}개(70%), 동사 조합 ${pr.vt}개 중 ${pr.vn}개(50%)를 익히면 관문 시험이 열려요.${pr.wd<pr.wn?` 표현 ${pr.wn-pr.wd}개`:''}${pr.wd<pr.wn&&pr.vd<pr.vn?',':''}${pr.vd<pr.vn?` 동사 ${pr.vn-pr.vd}개`:''} 남았어요.</div>
+        ${pr.vd<pr.vn?'<button class="btn ghost" id="goVerbs">동사 탭에서 동사 익히기</button>':''}`}
     </div>
     <details class="rmwrap"><summary>전체 여정 보기</summary><div class="citys" style="margin:10px 0">${[1,2,3,4,5,6].map(n=>cityStamp(n,n<=cur)).join('')}</div>${roadmapHTML()}</details>
   </section>`}
