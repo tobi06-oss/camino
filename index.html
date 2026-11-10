@@ -1074,7 +1074,7 @@ function commit(ok,sure){
   if(gotStamp){sfx.stamp();
     $('#view').innerHTML=`<section style="display:flex;flex-direction:column;gap:12px">${head()}
       <div class="panel newstamp" style="padding:28px 16px">${selloHTML(x,true)}<div style="font-size:20px">${esc(x.es)} 세요(도장) 획득!</div>
-      <div style="font-size:14px;color:var(--muted)">산티아고까지 ${KM-kmNow()}km 남았어요</div></div>
+      <div style="font-size:14px;color:var(--muted);line-height:1.5">완전히 익혔다는 도장이에요. 잊지 않도록 한 달 뒤 복습으로 다시 나와요.<br>(다시 안 나오게 하는 건 "확실히 알아요"뿐이에요.)</div></div>
       <button class="btn" id="nextBtn">다음 <small>Enter</small></button></section>`;
     R.phase='stamp';$('#quitBtn').onclick=quit;$('#nextBtn').onclick=advance;$('#nextBtn').focus({preventScroll:true});return}
   advance()}
@@ -1155,7 +1155,7 @@ function home(){touchDay();const km=kmNow(),tw=townOf(km),wn=W.filter(x=>(S.wr[x
     <div>단어를 보고 머릿속으로 떠올린 뒤 <b style="font-weight:400;color:var(--good)">안다</b> / <b style="font-weight:400;color:var(--bad)">모른다</b>를 누르세요. 답지에서 발음과 쓰임새, 암기법을 보고, 안다고 했는데 틀렸으면 "앗, 틀렸어요"를 눌러요. 암기법은 "수정"으로 내 방식대로 바꿀 수 있어요.</div>
     <div>이미 확실히 아는 표현은 "확실히 알아요"를 누르면 바로 세요를 받고 다시 나오지 않아요. 카드 탭에서 언제든 되돌릴 수 있어요.</div>
     <div>맞히면 점이 1개일 땐 1일 뒤, 2개는 3일, 3개는 1주, 4개는 2주, 도장 받은 뒤엔 한 달 뒤에 다시 나와요. 잊어버리기 직전에 다시 보면 가장 오래 기억돼요. 모르면 다음 날 다시 나와요.</div>
-    <div>맞힐 때마다 점이 하나씩 차요. 마지막 5번째 점은 한국어를 보고 스페인어를 떠올려 맞혀야 채워지고, 그때 크레덴시알에 세요가 찍혀요.</div>
+    <div>맞힐 때마다 점이 하나씩 차요. 마지막 5번째 점은 한국어를 보고 스페인어를 떠올려 맞혀야 채워지고, 그때 크레덴시알에 세요(도장)가 찍혀요. 도장을 받아도 한 달 뒤 복습으로 다시 나오니 안심하고 받으세요. 학습에서 아예 빼는 건 "확실히 알아요" 버튼뿐이에요.</div>
     <div>명사는 <span class="art m">el</span>(남성) · <span class="art f">la</span>(여성)를 색으로 구분해 두었어요. 단어와 함께 통째로 외우면 좋아요.</div>
     <div id="voiceInfo" style="line-height:1.6">${voiceInfoHTML()}</div>
     <label class="openall"><input type="checkbox" id="openAll" ${S.openAll?'checked':''}> 단계 잠금 풀기 (모든 단계·기능을 미리 열어 두기. 진도와 관문 시험은 그대로 기록돼요)</label>
